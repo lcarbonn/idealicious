@@ -1,0 +1,31 @@
+{
+  "name": "idealicious",
+  "version": "1.0.0",
+  "description": "Ideation tool",
+  "author": "lcarbonn",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
+    "core-js": "^3.19.3",
+    "nuxt": "^2.15.8",
+    "vue": "^2.6.14",
+    "vue-server-renderer": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^4.46.0",
+    "nuxt-vue-material": "^1.2.0",
+    "vue-material": "^1.0.0-beta-15",
+    "vuelidate": "^0.7.6"
+  },
+  "devDependencies": {
+    "@types/vuelidate": "^0.7.13",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.7",
+    "sass-loader": "^10.1.1"
+  }
+}
