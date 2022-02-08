@@ -19,6 +19,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/css/custom-theme.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -36,6 +37,15 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    ['nuxt-vue-material', {
+      theme: 'default',
+      components: ['MdDrawer', 'MdRadio', 'MdMenu', 'MdContent', 'MdList', 'MdButton',
+        'MdToolbar', 'MdIcon', 'MdApp', 'MdCard', 'MdField',
+        'MdCheckbox', 'MdSnackbar', 'MdSwitch', 'MdTooltip',
+        "MdDivider", "MdDialog", "MdDialogConfirm"
+      ]
+    }],
+
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
