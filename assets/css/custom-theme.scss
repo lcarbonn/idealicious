@@ -3,7 +3,7 @@
 @include md-register-theme("default", (
   primary: #EA148D, // The primary color of your brand
   accent: #ffff00, // The accent color of your brand
-  theme: dark // This can be dark or light
+  theme: light // This can be dark or light
 ));
 
 @import "~vue-material/dist/theme/all"; // Apply the theme  
