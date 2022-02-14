@@ -25,12 +25,15 @@ export default {
     size:"",
     ideas: []
   }),
+  
   methods: {
     addNewIdea() {
-        this.ideas.push({message: this.newIdea}),
-        this.lastIdea = this.newIdea,
-        this.newIdea = ""
-        this.size=this.ideas.length
+      if(this.newIdea!="") {
+          this.ideas.push({message: this.newIdea}),
+          this.lastIdea = this.newIdea,
+          this.newIdea = ""
+          this.size=this.ideas.length
+        }
         //this.$store.dispatch("idea/saveIdea", this.newIdea)
     },
     endGame() {
