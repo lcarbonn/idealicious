@@ -24,6 +24,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/firebase.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,7 +43,7 @@ export default {
       components: ['MdDrawer', 'MdRadio', 'MdMenu', 'MdContent', 'MdList', 'MdButton',
         'MdToolbar', 'MdIcon', 'MdApp', 'MdCard', 'MdField',
         'MdCheckbox', 'MdSnackbar', 'MdSwitch', 'MdTooltip',
-        "MdDivider", "MdDialog", "MdDialogConfirm"
+        "MdDivider", "MdDialog", "MdDialogConfirm", "MdAvatar"
       ]
     }],
 
