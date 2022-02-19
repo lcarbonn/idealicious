@@ -3,7 +3,7 @@
   <div>
     <div>
       <md-field v-if="lastIdea">
-        <md-input disable v-model="lastIdea">{{ lastIdea }}</md-input>
+        <md-input disable v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
       </md-field>
       <md-field>
         <label v-if="!lastIdea">Please, write the first idea here...</label>
@@ -26,8 +26,11 @@
 export default {
   name: "PlayerGameComp",
 
+  props: {
+    lastIdea: Object,
+  },
+
   data: () => ({
-    lastIdea: "",
     newIdea: "",
     size: 0,
   }),
@@ -35,10 +38,9 @@ export default {
   methods: {
     addNewIdea() {
       if (this.newIdea != "") {
-        this.lastIdea = this.newIdea
-        this.newIdea = ""
         this.size++
         this.$emit("addIdea", this.newIdea)
+        this.newIdea=""
       }
     },
   },

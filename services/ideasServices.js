@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, where, limit, onSnapshot  } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 
@@ -18,4 +18,19 @@ export const addIdea = async (idea) => {
     idea.id = ref.id
     console.log("added Idea id=" + idea.id)
     return idea
+};
+
+export const getLastIdea = async (callback, deckId) => {
+    const ideasRef = collection(db, "ideas")
+    const q = query(ideasRef, where("deckId", "==", deckId), limit(1));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const docSnap = querySnapshot.docs[0]
+        let idea = null
+        if (docSnap) {
+            idea = docSnap.data()
+            idea.id = docSnap.id
+        }
+        console.debug("getLastIdea deckId:"+deckId+" idea:"+idea)
+        callback(idea)
+    });
 };

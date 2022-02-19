@@ -32,14 +32,16 @@ export default {
   methods: {
     joinGame(player) {
       if (player != null) {
-        let newPlayer = {
+        const newPlayer = {
           name: player,
           gameId: this.game.id,
+          playerId: null
         };
         this.$store.dispatch("players/addPlayer", newPlayer).then(() => {
-          newPlayer = this.$store.getters["players/player"];
-          console.debug("newPlayer:" + newPlayer.id);
-          this.$router.push("/player/" + newPlayer.id);
+          const storePlayer = this.$store.getters["players/player"];
+          console.debug("newPlayer:" + storePlayer.id);
+          console.debug("newPlayer number:" + storePlayer.number);
+          this.$router.push("/player/" + storePlayer.id);
         });
       }
     },

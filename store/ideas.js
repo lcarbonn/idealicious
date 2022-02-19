@@ -1,18 +1,25 @@
-import { addIdea, getIdea } from '~/services/ideasServices'
+import { addIdea, getIdea, getLastIdea } from '~/services/ideasServices'
 
 export const state = () => ({
-    idea: null
+    idea: null,
+    lastIdea: null
 });
 
 export const getters = {
     idea: state => {
         return state.idea
+    },
+    lastIdea: state => {
+        return state.lastIdea
     }
 };
 
 export const mutations = {
     setIdea(state, payload) {
         state.idea = payload
+    },
+    setLastIdea(state, payload) {
+        state.lastIdea = payload
     }
 };
 
@@ -20,11 +27,20 @@ export const actions = {
     getIdea({ commit, dispatch }, id) {
         const callback = idea => {
             if (idea) {
-                console.debug("getIdea:" + idea.id)
+                console.debug("getIdea id:" + idea.id)
                 commit("setIdea", idea);
             }
         }
         getIdea(callback, id);
+    },
+    getLastIdea({ commit, dispatch }, deckId) {
+        const callback = idea => {
+            if (idea) {
+                console.debug("getLastIdea id:" + idea.id)
+                commit("setLastIdea", idea);
+            }
+        }
+        getLastIdea(callback, deckId);
     },
 
     async addIdea({ commit, dispatch }, idea) {

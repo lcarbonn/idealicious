@@ -9,17 +9,24 @@
       <span class="md-title" v-if="game">- Game : {{game.title}}</span>
     </md-app-toolbar>
     <md-app-content>
-      <PlayerGame @addIdea="addIdea" />
+      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea"/>
     </md-app-content>
   </md-app>
 </template>
 
 <script>
+export const getNextDeck = (deckId, maxId) => {
+  let nextDeck = deckId+1;
+  if(nextDeck==maxId) nextDeck=0;
+  console.debug("nextDeck:"+nextDeck+", nbPlayers="+maxId)
+  return nextDeck
+}
+
 export default {
   name: "PlayerPage",
 
   data: () => ({
-    ideas: [],
+    // nbPlayers: 0
   }),
 
   mounted() {
@@ -31,26 +38,43 @@ export default {
     },
     player() {
       const player = this.$store.getters["players/player"];
-      if(player) this.$store.dispatch("games/getGame", player.gameId);
-      return player
+      if(player) {
+        this.$store.dispatch("players/getNbPlayers", player.gameId);
+        this.$store.dispatch("games/getGame", player.gameId);
+        let nextDeck = getNextDeck(player.playerId, this.nbPlayers);
+        this.$store.dispatch("ideas/getLastIdea", nextDeck);
+      }
+      return player;
     },
     game() {
       return this.$store.getters["games/game"];
+    },
+    lastIdea() {
+      const lastIdea = this.$store.getters["ideas/lastIdea"];
+      if(lastIdea) console.debug("lastIdea:"+lastIdea.message);
+      return lastIdea;
+    },
+    nbPlayers() {
+      return this.$store.getters["players/nbPlayers"];
     }
   },
 
   methods: {
     addIdea(idea) {
       if (idea != null) {
-        let newIdea = {
+        const newIdea = {
           message: idea,
           gameId: this.player.gameId,
           playerId: this.player.id,
+          deckId:this.player.playerId          
         };
+        if(this.lastIdea) {
+          newIdea.deckId = this.lastIdea.deckId
+        }
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
-          const lastIdea = this.$store.getters["ideas/lastIdea"];
           console.debug("newIdea:" + newIdea.id);
-          console.debug("lastIdea:" + lastIdea.id);
+          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
+          this.$store.dispatch("ideas/getLastIdea", nextDeck)
         });
       }
     },
