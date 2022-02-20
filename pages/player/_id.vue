@@ -9,12 +9,13 @@
       <span class="md-title" v-if="game">- Game : {{game.title}}</span>
     </md-app-toolbar>
     <md-app-content>
-      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea"/>
+      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :nbRound="nbRound"/>
     </md-app-content>
   </md-app>
 </template>
 
 <script>
+
 export const getNextDeck = (deckId, maxId) => {
   let nextDeck = deckId+1;
   if(nextDeck==maxId) nextDeck=0;
@@ -26,7 +27,7 @@ export default {
   name: "PlayerPage",
 
   data: () => ({
-    // nbPlayers: 0
+    nbRound: 0
   }),
 
   mounted() {
@@ -41,8 +42,8 @@ export default {
       if(player) {
         this.$store.dispatch("players/getNbPlayers", player.gameId);
         this.$store.dispatch("games/getGame", player.gameId);
-        let nextDeck = getNextDeck(player.playerId, this.nbPlayers);
-        this.$store.dispatch("ideas/getLastIdea", nextDeck);
+        // let nextDeck = getNextDeck(player.playerId, this.nbPlayers);
+        // this.$store.dispatch("ideas/getLastIdea", nextDeck);
       }
       return player;
     },
@@ -66,16 +67,18 @@ export default {
           message: idea,
           gameId: this.player.gameId,
           playerId: this.player.id,
-          deckId:this.player.playerId          
+          deckId:this.player.playerId,
+          timestamp:null
         };
         if(this.lastIdea) {
           newIdea.deckId = this.lastIdea.deckId
         }
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
-          console.debug("newIdea:" + newIdea.id);
+          console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
           let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
           this.$store.dispatch("ideas/getLastIdea", nextDeck)
         });
+        this.nbRound++;
       }
     },
   },
