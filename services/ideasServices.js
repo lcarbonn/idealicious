@@ -14,7 +14,6 @@ export const getIdea = async (callback, id) => {
 };
 
 export const addIdea = async (idea) => {
-    idea.timestamp = Timestamp.fromDate(new Date())
     const ref = await addDoc(collection(db, "ideas"), idea)
     idea.id = ref.id
     console.log("added Idea id=" + idea.id)

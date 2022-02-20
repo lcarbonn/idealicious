@@ -67,7 +67,6 @@ export default {
           gameId: this.player.gameId,
           playerId: this.player.id,
           deckId:this.player.playerId,
-          timestamp:null,
           round:this.round
         };
         if(this.lastIdea) {
