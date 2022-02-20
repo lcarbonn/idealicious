@@ -9,7 +9,7 @@
       <span class="md-title" v-if="game">- Game : {{game.title}}</span>
     </md-app-toolbar>
     <md-app-content>
-      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :nbRound="nbRound"/>
+      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round"/>
     </md-app-content>
   </md-app>
 </template>
@@ -27,7 +27,7 @@ export default {
   name: "PlayerPage",
 
   data: () => ({
-    nbRound: 0
+    round: 0
   }),
 
   mounted() {
@@ -42,8 +42,6 @@ export default {
       if(player) {
         this.$store.dispatch("players/getNbPlayers", player.gameId);
         this.$store.dispatch("games/getGame", player.gameId);
-        // let nextDeck = getNextDeck(player.playerId, this.nbPlayers);
-        // this.$store.dispatch("ideas/getLastIdea", nextDeck);
       }
       return player;
     },
@@ -63,12 +61,14 @@ export default {
   methods: {
     addIdea(idea) {
       if (idea != null) {
+        this.round++;
         const newIdea = {
           message: idea,
           gameId: this.player.gameId,
           playerId: this.player.id,
           deckId:this.player.playerId,
-          timestamp:null
+          timestamp:null,
+          round:this.round
         };
         if(this.lastIdea) {
           newIdea.deckId = this.lastIdea.deckId
@@ -76,9 +76,12 @@ export default {
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
           console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
           let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
-          this.$store.dispatch("ideas/getLastIdea", nextDeck)
+          const param = {
+            deckId : nextDeck,
+            round : this.round
+          }
+          this.$store.dispatch("ideas/getLastIdea", param)
         });
-        this.nbRound++;
       }
     },
   },

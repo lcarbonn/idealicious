@@ -33,14 +33,13 @@ export const actions = {
         }
         getIdea(callback, id);
     },
-    getLastIdea({ commit, dispatch }, deckId) {
+    getLastIdea({ commit, dispatch }, param) {
         const callback = idea => {
-            if (idea) {
-                console.debug("getLastIdea id:" + idea.id)
-                commit("setLastIdea", idea);
-            }
+            if (idea) console.debug("getLastIdea id:" + idea.id)
+            else console.debug("getLastIdea id:" + idea)
+            commit("setLastIdea", idea);
         }
-        getLastIdea(callback, deckId);
+        getLastIdea(callback, param);
     },
 
     async addIdea({ commit, dispatch }, idea) {

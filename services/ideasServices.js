@@ -21,9 +21,10 @@ export const addIdea = async (idea) => {
     return idea
 };
 
-export const getLastIdea = async (callback, deckId) => {
+export const getLastIdea = async (callback, param) => {
+    console.debug("getLastIdea deckId:" + param.deckId + ", round:" + param.round)
     const ideasRef = collection(db, "ideas")
-    const q = query(ideasRef, where("deckId", "==", deckId), orderBy("timestamp", "desc"));
+    const q = query(ideasRef, where("deckId", "==", param.deckId), where("round", "==", param.round));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const docSnap = querySnapshot.docs[0]
         let idea = null
@@ -31,7 +32,7 @@ export const getLastIdea = async (callback, deckId) => {
             idea = docSnap.data()
             idea.id = docSnap.id
         }
-        console.debug("getLastIdea deckId:"+deckId+" idea:"+idea)
+        console.debug("getLastIdea deckId:" + param.deckId + ", round:" + param.round+", idea:"+idea)
         callback(idea)
     });
 };

@@ -2,13 +2,13 @@
 <template>
   <div>
     <div>
-      <md-field v-if="nbRound!=0">
+      <md-field v-if="round!=0">
         <label v-if="lastIdea">Previous player's idea...</label>
         <label v-else>Waiting for previous player's idea...</label>
         <md-input v-if="lastIdea" disable v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
       </md-field>
       <md-field>
-        <label v-if="nbRound==0">Please, write the first idea here...</label>
+        <label v-if="round==0">Please, write the first idea here...</label>
         <label v-else>Please, write your idea here...</label>
         <md-input
           autofocus
@@ -19,7 +19,7 @@
       <md-button class="md-primary" @click="addNewIdea"
         >Send to next player</md-button
       >
-      <md-avatar class="md-primary">{{ nbRound }}</md-avatar>
+      <md-avatar class="md-primary">{{ round }}</md-avatar>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
 
   props: {
     lastIdea: Object,
-    nbRound:0
+    round:0
   },
 
   data: () => ({
