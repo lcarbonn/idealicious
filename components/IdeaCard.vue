@@ -2,7 +2,7 @@
 <template>
   <md-card v-if="idea">
     <md-card-content>
-      {{ idea.message }}
+      {{idea.message}}
     </md-card-content>
   </md-card>
 </template>
