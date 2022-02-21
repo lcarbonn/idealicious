@@ -3,6 +3,7 @@ import { db } from '@/plugins/firebase.js'
 
 
 export const getPlayer = async (callback, id) => {
+    console.log("getPlayer id=" + id)
     const docRef = doc(db, "players", id)
     const docSnap = await getDoc(docRef)
     let player = null

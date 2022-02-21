@@ -10,7 +10,6 @@
     <div>
       <md-button v-if="game" class="md-primary" :to="'/game/' + game.id">Join the game</md-button>
       <md-button class="md-primary" @click="endGame">End the game</md-button>
-      <md-button class="md-primary" @click="resetGame">Reset game</md-button>
     </div>
   </div>
 </template>
@@ -33,10 +32,7 @@ export default {
   methods: {
     endGame() {
       this.$emit("endGame");
-    },
-    resetGame() {
-      this.$emit("resetGame");
-    },
+    }
   },
 };
 </script>

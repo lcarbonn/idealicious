@@ -20,9 +20,10 @@ export default {
 
   mounted() {
     this.$store.dispatch("games/getGame", this.id);
+    this.$store.dispatch("ideas/getIdeas", this.id)
   },
 
-  computed: {
+computed: {
     id() {
       return this.$route.params.aid;
     },

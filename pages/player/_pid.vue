@@ -31,12 +31,12 @@ export default {
   }),
 
   mounted() {
-    this.$store.dispatch("players/getPlayer", this.pid);
+    this.$store.dispatch("players/getPlayer", this.id);
   },
   
   computed: {
     id() {
-      return this.$route.params.id;
+      return this.$route.params.pid;
     },
     player() {
       const player = this.$store.getters["players/player"];
@@ -65,7 +65,7 @@ export default {
         this.round++;
         const newIdea = {
           message: idea,
-          gameId: this.player.gameId,
+          gameId: this.game.id,
           playerId: this.player.id,
           deckId:this.player.playerId,
           round:this.round
@@ -77,6 +77,7 @@ export default {
           console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
           let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
           const param = {
+            gameId : this.game.id,
             deckId : nextDeck,
             round : this.round
           }

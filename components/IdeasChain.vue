@@ -2,13 +2,8 @@
 <template>
   <div>
     <div>
-      <IdeaCard v-for="idea in ideas" :key="idea.message" :idea="idea" />
+      <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
     </div>
-    <!-- <div>
-      <md-button class="md-primary" @click="back2Game"
-        >Back to the game</md-button
-      >
-    </div> -->
   </div>
 </template>
 
@@ -18,12 +13,7 @@ export default {
 
   props: {
     ideas: [],
-  },
+  }
 
-  methods: {
-    // back2Game() {
-    //   this.$emit("back2Game");
-    // },
-  },
 };
 </script>
