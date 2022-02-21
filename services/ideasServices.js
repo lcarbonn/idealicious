@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, getDocs, query, where, limit, onSnapshot, orderBy, Timestamp  } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, where, limit, onSnapshot } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 
@@ -33,5 +33,19 @@ export const getLastIdea = async (callback, param) => {
         }
         console.debug("getLastIdea deckId:" + param.deckId + ", round:" + param.round+", idea:"+idea)
         callback(idea)
+    });
+};
+
+export const getIdeas = async (callback, gameId) => {
+    console.debug("getIdeas: gameId :" + gameId)
+    const ideasRef = collection(db, "ideas")
+    const q = query(ideasRef, where("gameId", "==", gameId));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const ideas = [];
+        querySnapshot.forEach((doc) => {
+            ideas.push(doc.data());
+        });
+        console.debug("getIdeas:" + ideas.join(", "))
+        callback(ideas)
     });
 };

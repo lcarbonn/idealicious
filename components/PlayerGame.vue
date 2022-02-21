@@ -13,13 +13,12 @@
         <md-input :disabled="disable"
           autofocus
           v-model="newIdea"
-          @keydown.enter="addNewIdea"
-        ></md-input>
+          @keydown.enter="addNewIdea">
+        </md-input>
       </md-field>
-      <md-button :disabled="disable" class="md-primary" @click="addNewIdea"
-        >Send to next player</md-button
-      >
-
+      <md-button :disabled="disable" 
+        class="md-primary" 
+        @click="addNewIdea">Send to next player</md-button>
     </div>
     <div>
       <md-avatar class="md-primary">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>

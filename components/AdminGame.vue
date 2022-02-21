@@ -32,11 +32,9 @@ export default {
 
   methods: {
     endGame() {
-      console.log(this.ideas), this.$emit("endGame", this.ideas);
+      this.$emit("endGame");
     },
     resetGame() {
-      (this.ideas = []), (this.lastIdea = ""), (this.newIdea = "");
-      this.size = "";
       this.$emit("resetGame");
     },
   },

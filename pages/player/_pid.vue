@@ -31,8 +31,9 @@ export default {
   }),
 
   mounted() {
-    this.$store.dispatch("players/getPlayer", this.id);
+    this.$store.dispatch("players/getPlayer", this.pid);
   },
+  
   computed: {
     id() {
       return this.$route.params.id;

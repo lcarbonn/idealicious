@@ -20,9 +20,10 @@ export default {
   mounted() {
     this.$store.dispatch("games/getGame", this.id);
   },
+  
   computed: {
     id() {
-      return this.$route.params.id;
+      return this.$route.params.gid;
     },
     game() {
       return this.$store.getters["games/game"];

@@ -8,7 +8,8 @@
       <span class="md-title" v-if="game">Game theme : {{ game.title }}</span>
     </md-app-toolbar>
     <md-app-content>
-      <AdminGame :game="game" />
+      <AdminGame :game="game" @endGame="endGame"/>
+      <IdeasChain :ideas="ideas"/>
     </md-app-content>
   </md-app>
 </template>
@@ -23,14 +24,21 @@ export default {
 
   computed: {
     id() {
-      return this.$route.params.id;
+      return this.$route.params.aid;
     },
     game() {
-      const game = this.$store.getters["games/game"];
-      console.debug("admin game:" + game);
-      return game;
+      return this.$store.getters["games/game"];
     },
+    ideas() {
+      return this.$store.getters["ideas/ideas"];
+    },
+
   },
-  methods: {},
+  methods: {
+    endGame() {
+      console.debug("endGame: gameId:" + this.game.id);
+      this.$store.dispatch("ideas/getIdeas", this.game.id)
+    }
+  },
 };
 </script>

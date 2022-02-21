@@ -4,11 +4,11 @@
     <div>
       <IdeaCard v-for="idea in ideas" :key="idea.message" :idea="idea" />
     </div>
-    <div>
+    <!-- <div>
       <md-button class="md-primary" @click="back2Game"
         >Back to the game</md-button
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -21,9 +21,9 @@ export default {
   },
 
   methods: {
-    back2Game() {
-      this.$emit("back2Game");
-    },
+    // back2Game() {
+    //   this.$emit("back2Game");
+    // },
   },
 };
 </script>
