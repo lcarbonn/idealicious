@@ -19,6 +19,9 @@
       <md-button :disabled="disable" 
         class="md-primary" 
         @click="addNewIdea">Send to next player</md-button>
+      <md-button :disabled="disable" 
+        class="md-primary" 
+        @click="skipRound">Skip this round</md-button>
     </div>
     <div>
       <md-avatar class="md-primary">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
@@ -52,6 +55,11 @@ export default {
         this.$emit("addIdea", this.newIdea)
         this.newIdea=""
       }
+    },
+    skipRound() {
+      //TODO : change skip management
+        this.$emit("addIdea", "")
+        this.newIdea=""
     },
   },
 };

@@ -44,13 +44,15 @@ export const getIdeas = async (callback, gameId) => {
         const ideas = [];
         querySnapshot.forEach((docSnap) => {
             let idea = docSnap.data()
-            idea.id = docSnap.id
-            let deck = ideas[idea.deckId]
-            if (!deck) {
-                deck = []
-                ideas.push(deck)
+            if (idea.message != "") {
+                idea.id = docSnap.id
+                let deck = ideas[idea.deckId]
+                if (!deck) {
+                    deck = []
+                    ideas.push(deck)
+                }
+                deck.push(idea)
             }
-            deck.push(idea)
         });
         console.debug("getIdeas :" + ideas.join(", "))
         callback(ideas)
