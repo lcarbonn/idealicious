@@ -78,7 +78,7 @@ export default {
         }
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
           console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
-          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
+          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers-1)
           const param = {
             gameId : this.game.id,
             deckId : nextDeck,
