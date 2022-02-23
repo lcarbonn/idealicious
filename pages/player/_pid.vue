@@ -10,6 +10,7 @@
     </md-app-toolbar>
     <md-app-content>
       <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round" :started="started"/>
+      <BaseSnackbar/>
     </md-app-content>
   </md-app>
 </template>

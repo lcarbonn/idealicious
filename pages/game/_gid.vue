@@ -9,6 +9,7 @@
     </md-app-toolbar>
     <md-app-content>
       <JoinGame @joinGame="joinGame" />
+      <BaseSnackbar/>
     </md-app-content>
   </md-app>
 </template>
@@ -42,6 +43,7 @@ export default {
           const storePlayer = this.$store.getters["players/player"];
           console.debug("newPlayer:" + storePlayer.id);
           console.debug("newPlayer playerId:" + storePlayer.playerId);
+          this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey welcome " + player + " ;-)" });
           this.$router.push("/player/" + storePlayer.id);
         });
       }

@@ -56,8 +56,9 @@ export default {
     async copyToClipboard() {
       try {
         await navigator.clipboard.writeText(this.gamePath);
+        this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Copy to clipboard done" });
       } catch($e) {
-        alert('Cannot copy');
+        this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Copy to clipboard error" });
       }
     }    
   },
