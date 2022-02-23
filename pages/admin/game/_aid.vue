@@ -8,8 +8,8 @@
       <span class="md-title" v-if="game">Game theme : {{ game.title }}</span>
     </md-app-toolbar>
     <md-app-content>
-      <AdminGame :game="game" @endGame="endGame"/>
-      <IdeasChain :ideas="ideas"/>
+      <AdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame"/>
+      <AdminIdeasChain :ideas="ideas"/>
     </md-app-content>
   </md-app>
 </template>
@@ -18,9 +18,10 @@
 export default {
   name: "AdminGamePage",
 
-  mounted() {
+  created() {
     this.$store.dispatch("games/getGame", this.id);
-    this.$store.dispatch("ideas/getIdeas", this.id)
+    this.$store.dispatch("ideas/getIdeas", this.id);
+    this.$store.dispatch("players/getNbPlayers", this.id);
   },
 
 computed: {
@@ -33,11 +34,23 @@ computed: {
     ideas() {
       return this.$store.getters["ideas/ideas"];
     },
+    nbPlayers() {
+      return this.$store.getters["players/nbPlayers"];
+    }
 
   },
   methods: {
+    startGame() {
+      console.debug("startGame: gameId:" + this.game.id)
+      const game = JSON.parse(JSON.stringify(this.game))
+      game.started = true
+      this.$store.dispatch("games/startGame", game)
+    },
     endGame() {
-      console.debug("endGame: gameId:" + this.game.id);
+      console.debug("endGame: gameId:" + this.game.id)
+      const game = JSON.parse(JSON.stringify(this.game))
+      game.started = false
+      this.$store.dispatch("games/startGame", game)
       this.$store.dispatch("ideas/getIdeas", this.game.id)
     }
   },

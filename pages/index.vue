@@ -7,7 +7,7 @@
       </span>
     </md-app-toolbar>
     <md-app-content>
-      <AddGame @addGame="addGame" />
+      <AdminAddGame @addGame="addGame" />
     </md-app-content>
   </md-app>
 </template>

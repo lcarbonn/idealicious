@@ -9,7 +9,7 @@
         @keydown.enter="addNewGame"
       ></md-input>
     </md-field>
-    <md-button class="md-primary" @click="addNewGame">Start a game</md-button>
+    <md-button class="md-primary" @click="addNewGame">Create the game</md-button>
   </div>
 </template>
 

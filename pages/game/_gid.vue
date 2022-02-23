@@ -17,7 +17,7 @@
 export default {
   name: "GamePage",
 
-  mounted() {
+  created() {
     this.$store.dispatch("games/getGame", this.id);
   },
   
@@ -41,7 +41,7 @@ export default {
         this.$store.dispatch("players/addPlayer", newPlayer).then(() => {
           const storePlayer = this.$store.getters["players/player"];
           console.debug("newPlayer:" + storePlayer.id);
-          console.debug("newPlayer number:" + storePlayer.number);
+          console.debug("newPlayer playerId:" + storePlayer.playerId);
           this.$router.push("/player/" + storePlayer.id);
         });
       }

@@ -1,4 +1,4 @@
-import { addGame, getGame } from '~/services/gamesServices'
+import { addGame, getGame, startGame } from '~/services/gamesServices'
 
 export const state = () => ({
     game: null
@@ -35,5 +35,16 @@ export const actions = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    async startGame({ commit, dispatch }, game) {
+        try {
+            if(game)console.debug("start game:" + game.id +", started:"+game.started)
+            await startGame(game);
+            commit("setGame", game);
+        } catch (error) {
+            console.log(error)
+        }
     }
+
 };

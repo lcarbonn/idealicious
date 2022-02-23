@@ -4,7 +4,7 @@
     <div class="decks">
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
         <div>Deck {{ index+1 }}</div>
-        <IdeaCard v-for="idea in deck" :key="idea.id" :idea="idea" />
+        <AdminIdeaCard v-for="idea in deck" :key="idea.id" :idea="idea" />
       </div>
     </div>
   </div>

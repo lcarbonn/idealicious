@@ -5,11 +5,11 @@
       <span class="md-title">
         <n-link to="/" class="md-title n-link">Idealicious</n-link>
       </span>
-      <span class="md-title" v-if="player">Player : {{ player.name }}</span>
-      <span class="md-title" v-if="game">- Game : {{game.title}}</span>
+      <span class="md-title" v-if="game">Game : {{game.title}}</span>
+      <span class="md-title" v-if="player"> - Player : {{ player.name }}</span>
     </md-app-toolbar>
     <md-app-content>
-      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round"/>
+      <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round" :started="started"/>
     </md-app-content>
   </md-app>
 </template>
@@ -17,7 +17,8 @@
 <script>
 
 export const getNextDeck = (deckId, maxId) => {
-  let nextDeck = deckId+1;
+  let nextDeck = deckId-1;
+  if(nextDeck<0) nextDeck=maxId;
   if(nextDeck==maxId) nextDeck=0;
   console.debug("nextDeck:"+nextDeck+", nbPlayers="+maxId)
   return nextDeck
@@ -27,10 +28,12 @@ export default {
   name: "PlayerPage",
 
   data: () => ({
-    round: 0
+    round: 0,
+    once:false
   }),
 
-  mounted() {
+  created() {
+    console.debug("pid mounted");
     this.$store.dispatch("players/getPlayer", this.id);
   },
   
@@ -40,9 +43,10 @@ export default {
     },
     player() {
       const player = this.$store.getters["players/player"];
-      if(player) {
+      if(player && !this.once) {
         this.$store.dispatch("players/getNbPlayers", player.gameId);
         this.$store.dispatch("games/getGame", player.gameId);
+        this.once = true;
       }
       return player;
     },
@@ -56,6 +60,12 @@ export default {
     },
     nbPlayers() {
       return this.$store.getters["players/nbPlayers"];
+    },
+    started() {
+      console.debug("game start:"+this.game)
+      if(!this.game) return false
+      console.debug("game start:"+this.game.started)
+      return this.game.started
     }
   },
 

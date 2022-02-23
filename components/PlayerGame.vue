@@ -2,13 +2,15 @@
 <template>
   <div>
     <div>
-      <md-field v-if="round!=0">
+      <md-field v-if="started && round!=0">
         <label v-if="lastIdea">Previous player's idea...</label>
         <label v-else>Waiting for previous player's idea...</label>
         <md-input v-if="lastIdea" disable v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
       </md-field>
       <md-field>
-        <label v-if="round==0">Please, write your first idea here...</label>
+        <label v-if="!started && round==0">Please, wait for the game to start...</label>
+        <label v-else-if="started && round==0">Game started, write your first idea here...</label>
+        <label v-else-if="!started && round!=0">Game as ended</label>
         <label v-else>Then, write your new idea here...</label>
         <md-input :disabled="disable"
           autofocus
@@ -34,6 +36,7 @@ export default {
   name: "PlayerGameComp",
 
   props: {
+    started: false,
     lastIdea: Object,
     round:0
   },
@@ -44,6 +47,7 @@ export default {
 
   computed: {
     disable() {
+      if(!this.started) return true;
       if(this.round==0) return false;
       if(this.lastIdea==null) return true;
     }

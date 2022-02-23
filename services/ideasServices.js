@@ -3,6 +3,7 @@ import { db } from '@/plugins/firebase.js'
 
 
 export const getIdea = async (callback, id) => {
+    console.debug("start getIdea id=" + id)
     const docRef = doc(db, "ideas", id)
     const docSnap = await getDoc(docRef)
     let idea = null
@@ -10,18 +11,22 @@ export const getIdea = async (callback, id) => {
         idea = docSnap.data()
         idea.id = docSnap.id
     }
+    console.debug("end getIdea id=" + id)
     callback(idea)
 };
 
 export const addIdea = async (idea) => {
+    if(!idea) return null
+    console.debug("start addIdea id=" + idea.message)
     const ref = await addDoc(collection(db, "ideas"), idea)
     idea.id = ref.id
-    console.log("added Idea id=" + idea.id)
+    console.debug("end addIdea id=" + idea.id)
     return idea
 };
 
 export const getLastIdea = async (callback, param) => {
-    console.debug("getLastIdea deckId:" + param.deckId + ", round:" + param.round)
+    if(!param) return null
+    console.debug("start getLastIdea deckId:" + param.deckId + ", round:" + param.round)
     const ideasRef = collection(db, "ideas")
     const q = query(ideasRef, where("gameId", "==", param.gameId), where("deckId", "==", param.deckId), where("round", "==", param.round));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -31,13 +36,13 @@ export const getLastIdea = async (callback, param) => {
             idea = docSnap.data()
             idea.id = docSnap.id
         }
-        console.debug("getLastIdea deckId:" + param.deckId + ", round:" + param.round+", idea:"+idea)
+        console.debug("end getLastIdea deckId:" + param.deckId + ", round:" + param.round+", idea:"+idea)
         callback(idea)
     });
 };
 
 export const getIdeas = async (callback, gameId) => {
-    console.debug("getIdeas: gameId :" + gameId)
+    console.debug("start getIdeas: gameId :" + gameId)
     const ideasRef = collection(db, "ideas")
     const q = query(ideasRef, where("gameId", "==", gameId), orderBy("deckId"), orderBy("round"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -54,7 +59,7 @@ export const getIdeas = async (callback, gameId) => {
                 deck.push(idea)
             }
         });
-        console.debug("getIdeas :" + ideas.join(", "))
+        console.debug("end getIdeas: gameId :" + gameId +", " + ideas.length)
         callback(ideas)
     });
 };
