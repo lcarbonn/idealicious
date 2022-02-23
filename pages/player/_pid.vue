@@ -92,12 +92,11 @@ export default {
 };
 
 export const getNextDeck = (deckId, maxId) => {
-  console.debug("actualDeck:"+deckId+", nbPlayers="+maxId)
+  console.debug("actualDeck:"+deckId+", maxId="+maxId)
   let nextDeck = deckId-1;
   if(nextDeck<0) nextDeck=maxId;
-  console.debug("nextDeck:"+nextDeck+", nbPlayers="+maxId)
+  console.debug("nextDeck:"+nextDeck+", maxId="+maxId)
   return nextDeck
 }
-
 
 </script>
