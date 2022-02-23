@@ -2,17 +2,19 @@
 <template>
   <div>
     <div>
-      <span>Copy/Paste the link and share it to players</span>
+      <span>Copy the link and share it to players to join the game</span>
     </div>
-    <div>
+    <div class="halign">
       <NuxtLink v-if="game" :to="'/game/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
+      <md-button class="md-icon-button" @click="copyToClipboard">
+        <md-icon>content_copy</md-icon>
+        <md-tooltip md-direction="top">Copy to clipboard</md-tooltip>
+      </md-button>
     </div>
-    <br/>
     <div>
       <span>Players in the game : {{nbPlayers}}</span>
     </div>
     <div>
-      <md-button v-if="game" class="md-primary" :to="'/game/' + game.id" target="_blank">Join the game</md-button>
       <md-button :disabled="this.started" class="md-primary" @click="startGame">Start the game</md-button>
       <md-button :disabled="!this.started" class="md-primary" @click="endGame">End the game</md-button>
     </div>
@@ -50,7 +52,22 @@ export default {
     },
     endGame() {
       this.$emit("endGame")
-    }
+    },
+    async copyToClipboard() {
+      try {
+        await navigator.clipboard.writeText(this.gamePath);
+      } catch($e) {
+        alert('Cannot copy');
+      }
+    }    
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.halign {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+</style>
