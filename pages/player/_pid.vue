@@ -17,14 +17,6 @@
 
 <script>
 
-export const getNextDeck = (deckId, maxId) => {
-  let nextDeck = deckId-1;
-  if(nextDeck<0) nextDeck=maxId;
-  if(nextDeck==maxId) nextDeck=0;
-  console.debug("nextDeck:"+nextDeck+", nbPlayers="+maxId)
-  return nextDeck
-}
-
 export default {
   name: "PlayerPage",
 
@@ -98,4 +90,14 @@ export default {
     },
   },
 };
+
+export const getNextDeck = (deckId, maxId) => {
+  console.debug("actualDeck:"+deckId+", nbPlayers="+maxId)
+  let nextDeck = deckId-1;
+  if(nextDeck<0) nextDeck=maxId;
+  console.debug("nextDeck:"+nextDeck+", nbPlayers="+maxId)
+  return nextDeck
+}
+
+
 </script>
