@@ -8,7 +8,8 @@
       <span class="md-title" v-if="game">Game theme : {{ game.title }}</span>
     </md-app-toolbar>
     <md-app-content>
-      <JoinGame @joinGame="joinGame" />
+      <GameAdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame"/>
+      <GameIdeasChain :ideas="ideas"/>
       <BaseSnackbar/>
     </md-app-content>
   </md-app>
@@ -20,34 +21,41 @@ export default {
 
   created() {
     this.$store.dispatch("games/getGame", this.id);
+    this.$store.dispatch("ideas/getIdeas", this.id);
+    this.$store.dispatch("players/getNbPlayers", this.id);
   },
-  
-  computed: {
+
+computed: {
     id() {
       return this.$route.params.gid;
     },
     game() {
       return this.$store.getters["games/game"];
     },
-  },
-
-  methods: {
-    joinGame(player) {
-      if (player != null) {
-        const newPlayer = {
-          name: player,
-          gameId: this.game.id,
-          playerId: null
-        };
-        this.$store.dispatch("players/addPlayer", newPlayer).then(() => {
-          const storePlayer = this.$store.getters["players/player"];
-          console.debug("newPlayer:" + storePlayer.id);
-          console.debug("newPlayer playerId:" + storePlayer.playerId);
-          this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey welcome " + player + " ;-)" });
-          this.$router.push("/player/" + storePlayer.id);
-        });
-      }
+    ideas() {
+      return this.$store.getters["ideas/ideas"];
     },
+    nbPlayers() {
+      return this.$store.getters["players/nbPlayers"];
+    }
+
+  },
+  methods: {
+    startGame() {
+      console.debug("startGame: gameId:" + this.game.id)
+      const game = JSON.parse(JSON.stringify(this.game))
+      game.started = true
+      this.$store.dispatch("games/startGame", game)
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Steady, Ready, Go!  ---  Ideas will appear there" });
+    },
+    endGame() {
+      console.debug("endGame: gameId:" + this.game.id)
+      const game = JSON.parse(JSON.stringify(this.game))
+      game.started = false
+      this.$store.dispatch("games/startGame", game)
+      this.$store.dispatch("ideas/getIdeas", this.game.id)
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "That was fun !!!" });
+    }
   },
 };
 </script>

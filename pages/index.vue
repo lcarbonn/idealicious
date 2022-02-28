@@ -7,17 +7,16 @@
       </span>
     </md-app-toolbar>
     <md-app-content>
-      <AdminAddGame @addGame="addGame" />
+      <GameAddGame @addGame="addGame" />
       <BaseSnackbar/>
     </md-app-content>
   </md-app>
 </template>
 
 <script>
-import Snackbar from '~/components/base/Snackbar.vue';
 export default {
-  components: { Snackbar },
   name: "IndexPage",
+
   data: () => ({
     game: "",
   }),
@@ -26,7 +25,7 @@ export default {
     addGame(game) {
       if (game != null) {
         this.$store.dispatch("games/addGame", game).then(() => {
-          this.$router.push("/admin/game/" + game.id);
+          this.$router.push("/game/" + game.id);
           this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Game added" });
         });
       }
