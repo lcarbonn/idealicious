@@ -5,7 +5,7 @@
       <span class="md-title">
         <n-link to="/" class="md-title n-link">Idealicious</n-link>
       </span>
-      <span class="md-title" v-if="game">Game theme : {{ game.title }}</span>
+      <span class="md-title" v-if="game">Game : {{game.title}}</span>
     </md-app-toolbar>
     <md-app-content>
       <GameAdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame"/>

@@ -6,7 +6,7 @@
         <n-link to="/" class="md-title n-link">Idealicious</n-link>
       </span>
       <span class="md-title" v-if="game">Game : {{game.title}}</span>
-      <span class="md-title" v-if="player"> - Player : {{ player.name }}</span>
+      <span class="md-title" v-if="player"> - Player : {{player.name}}</span>
     </md-app-toolbar>
     <md-app-content>
       <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round" :started="started"/>
