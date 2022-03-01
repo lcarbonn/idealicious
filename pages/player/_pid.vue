@@ -11,6 +11,9 @@
     <md-app-content>
       <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round" :started="started"/>
       <BaseSnackbar/>
+      <div class="md-layout md-alignment-bottom-center md-body-1">
+        <span>Copyright © 2022 - Agilized in Toulouse, France</span>
+      </div>
     </md-app-content>
   </md-app>
 </template>
