@@ -35,7 +35,7 @@ export default {
           console.debug("newPlayer:" + storePlayer.id);
           console.debug("newPlayer playerId:" + storePlayer.playerId);
           this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey welcome " + player + " ;-)" });
-          this.$router.push("/player/" + storePlayer.id);
+          this.$router.push("/game/"+this.game.id+"/player/" + storePlayer.id);
         });
       }
     },

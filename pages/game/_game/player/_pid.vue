@@ -16,12 +16,20 @@ export default {
   }),
 
   created() {
-    this.$store.dispatch("players/getPlayer", this.id);
+    console.debug("pid:"+this.id)
+    console.debug("game:"+this.gameId)
+    this.$store.dispatch("players/getPlayer", {
+      playerId: this.id,
+      gameId: this.gameId
+      });
   },
   
   computed: {
     id() {
       return this.$route.params.pid;
+    },
+    gameId() {
+      return this.$route.params.game;
     },
     player() {
       const player = this.$store.getters["players/player"];

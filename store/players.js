@@ -25,14 +25,14 @@ export const mutations = {
 };
 
 export const actions = {
-    getPlayer({ commit, dispatch }, id) {
+    getPlayer({ commit, dispatch }, playerIds) {
         const callback = player => {
             if (player) {
                 console.debug("setPlayer in state:" + player.id)
                 commit("setPlayer", player);
             }
         }
-        getPlayer(callback, id);
+        getPlayer(callback, playerIds);
     },
 
     async addPlayer({ commit, dispatch }, player) {
