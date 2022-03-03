@@ -1,9 +1,21 @@
 import { collection, doc, addDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-
 export const getGame = async (callback, id) => {
     console.debug("start getGame id=" + id)
+    const docRef = doc(db, "games", id)
+    const docSnap = await getDoc(docRef) 
+    let game = null
+    if (docSnap.exists()) {
+        game = docSnap.data()
+        game.id = docSnap.id
+    }
+    console.debug("end getGame id=" + id)
+    callback(game)
+};
+
+export const listenGame = async (callback, id) => {
+    console.debug("start listenGame id=" + id)
     const docRef = doc(db, "games", id)
     const unsub = onSnapshot(docRef, (docSnap) => {
         let game = null
@@ -11,7 +23,7 @@ export const getGame = async (callback, id) => {
             game = docSnap.data()
             game.id = docSnap.id
         }
-        console.debug("end getGame id=" + id)
+        console.debug("end listenGame id=" + id)
         callback(game)
     })
 };

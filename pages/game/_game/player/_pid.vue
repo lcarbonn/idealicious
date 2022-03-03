@@ -22,6 +22,8 @@ export default {
       playerId: this.id,
       gameId: this.gameId
       });
+    this.$store.dispatch("players/getNbPlayers", this.gameId);
+    this.$store.dispatch("games/getGame", this.gameId);
   },
   
   computed: {
@@ -33,12 +35,12 @@ export default {
     },
     player() {
       const player = this.$store.getters["players/player"];
-      if(player && !this.once) {
-        console.debug("get Player")
-        this.$store.dispatch("players/getNbPlayers", player.gameId);
-        this.$store.dispatch("games/getGame", player.gameId);
-        this.once = true;
-      }
+      // if(player && !this.once) {
+      //   console.debug("get Player")
+      //   this.$store.dispatch("players/getNbPlayers", player.gameId);
+      //   this.$store.dispatch("games/getGame", player.gameId);
+      //   this.once = true;
+      // }
       return player;
     },
     game() {
