@@ -1,7 +1,14 @@
 <!-- Main page -->
 <template>
-
-  <GameAddGame @addGame="addGame" />
+  <div>
+    <div>
+      <div>Idealicious let you generate great ideas</div>
+      <div>Idealicious is based on the "Exquisite Corpse" game</div>
+      <div>Enter the challenge of the game</div>
+      <div>Then share the game to friends</div>
+    </div>
+    <GameAddGame @addGame="addGame" />
+  </div>
 
 </template>
 

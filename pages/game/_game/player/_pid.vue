@@ -34,14 +34,7 @@ export default {
       return this.$route.params.game;
     },
     player() {
-      const player = this.$store.getters["players/player"];
-      // if(player && !this.once) {
-      //   console.debug("get Player")
-      //   this.$store.dispatch("players/getNbPlayers", player.gameId);
-      //   this.$store.dispatch("games/getGame", player.gameId);
-      //   this.once = true;
-      // }
-      return player;
+      return this.$store.getters["players/player"];
     },
     game() {
       return this.$store.getters["games/game"];
