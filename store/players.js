@@ -28,7 +28,7 @@ export const actions = {
     getPlayer({ commit, dispatch }, id) {
         const callback = player => {
             if (player) {
-                console.debug("getPlayer:" + player.id)
+                console.debug("setPlayer in state:" + player.id)
                 commit("setPlayer", player);
             }
         }

@@ -26,6 +26,7 @@ export default {
       if (this.gameTitle != "") {
         this.$emit("addGame", {
           title: this.gameTitle,
+          started:false
         });
       }
     },

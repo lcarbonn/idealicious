@@ -24,12 +24,12 @@ export const addGame = async (game) => {
     console.log("end addGame id=" + game.id)
 };
 
-export const startGame = async (game) => {
+export const updateGameStatus = async (game) => {
     if(!game) return null
-    console.debug("start startGame id=" + game.id + ", started:" + game.started)
+    console.debug("start updateGameStatus id=" + game.id + ", started:" + game.started)
     const gameRef = doc(db, "games", game.id)
     await updateDoc(gameRef, {
         started: game.started
     })
-    console.debug("end startGame id=" + game.id + ", started:" + game.started)
+    console.debug("end updateGameStatus id=" + game.id + ", started:" + game.started)
 };

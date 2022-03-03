@@ -30,10 +30,6 @@ export default {
     nbPlayers: 0
   },
 
-  data: () => ({
-    // started: false,
-  }),
-
   computed: {
     gamePath() {
       if(this.game) return window.location.origin + '/join/' + this.game.id

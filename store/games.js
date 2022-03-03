@@ -1,4 +1,4 @@
-import { addGame, getGame, startGame } from '~/services/gamesServices'
+import { addGame, getGame, updateGameStatus } from '~/services/gamesServices'
 
 export const state = () => ({
     game: null
@@ -37,14 +37,13 @@ export const actions = {
         }
     },
 
-    async startGame({ commit, dispatch }, game) {
+    async updateGameStatus({ commit, dispatch }, game) {
         try {
-            if(game)console.debug("start game:" + game.id +", started:"+game.started)
-            await startGame(game);
+            if (game) console.debug("updateGameStatus game:" + game.id +", started:"+game.started)
+            await updateGameStatus(game);
             commit("setGame", game);
         } catch (error) {
             console.log(error)
         }
     }
-
 };

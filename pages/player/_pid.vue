@@ -1,12 +1,12 @@
 <!-- Main page -->
 <template>
-
-  <PlayerGame @addIdea="addIdea" :lastIdea="lastIdea" :round="round" :started="started"/>
-
+  <div>
+    <PlayerGame @addIdea="addIdea" :player="player" :game="game" :lastIdea="lastIdea" :round="round" :started="started"/>
+    <GameIdeasChain v-if="ended" :ideas="ideas"/>
+  </div>
 </template>
 
 <script>
-
 export default {
   name: "PlayerPage",
 
@@ -16,7 +16,6 @@ export default {
   }),
 
   created() {
-    console.debug("pid mounted");
     this.$store.dispatch("players/getPlayer", this.id);
   },
   
@@ -27,6 +26,7 @@ export default {
     player() {
       const player = this.$store.getters["players/player"];
       if(player && !this.once) {
+        console.debug("get Player")
         this.$store.dispatch("players/getNbPlayers", player.gameId);
         this.$store.dispatch("games/getGame", player.gameId);
         this.once = true;
@@ -47,8 +47,18 @@ export default {
     started() {
       console.debug("game start:"+this.game)
       if(!this.game) return false
-      console.debug("game start:"+this.game.started)
-      return this.game.started
+      console.debug("game started :"+this.game.started)
+      return this.game.started && !this.game.ended
+    },
+    ended() {
+      console.debug("game ended:"+this.game)
+      if(!this.game) return false
+      console.debug("game ended :"+!this.game.started)
+      if(!this.game.started) this.$store.dispatch("ideas/getIdeas", this.game.id);
+      return !this.game.started
+    },
+    ideas() {
+      return this.$store.getters["ideas/ideas"];
     }
   },
 

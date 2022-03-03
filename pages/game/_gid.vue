@@ -36,14 +36,14 @@ computed: {
       console.debug("startGame: gameId:" + this.game.id)
       const game = JSON.parse(JSON.stringify(this.game))
       game.started = true
-      this.$store.dispatch("games/startGame", game)
+      this.$store.dispatch("games/updateGameStatus", game)
       this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Steady, Ready, Go!  ---  Ideas will appear there" });
     },
     endGame() {
       console.debug("endGame: gameId:" + this.game.id)
       const game = JSON.parse(JSON.stringify(this.game))
       game.started = false
-      this.$store.dispatch("games/startGame", game)
+      this.$store.dispatch("games/updateGameStatus", game)
       this.$store.dispatch("ideas/getIdeas", this.game.id)
       this.$store.dispatch("snackbar/setSnackbarMessage", { message: "That was fun !!!" });
     }
