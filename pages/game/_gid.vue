@@ -11,9 +11,9 @@ export default {
   name: "GamePage",
 
   created() {
-    this.$store.dispatch("games/getGame", this.id);
+    this.$store.dispatch("games/listenGame", this.id);
     this.$store.dispatch("ideas/getIdeas", this.id);
-    this.$store.dispatch("players/getNbPlayers", this.id);
+    this.$store.dispatch("players/listenNbPlayers", this.id);
   },
 
 computed: {

@@ -12,26 +12,28 @@ export default {
 
   data: () => ({
     round: 0,
-    once:false
   }),
 
   created() {
-    this.$store.dispatch("players/getPlayer", this.id);
+    console.debug("pid:"+this.id)
+    console.debug("game:"+this.gameId)
+    this.$store.dispatch("players/getPlayer", {
+      playerId: this.id,
+      gameId: this.gameId
+      });
+    this.$store.dispatch("games/listenGame", this.gameId);
+    this.$store.dispatch("players/listenNbPlayers", this.gameId);
   },
   
   computed: {
     id() {
       return this.$route.params.pid;
     },
+    gameId() {
+      return this.$route.params.game;
+    },
     player() {
-      const player = this.$store.getters["players/player"];
-      if(player && !this.once) {
-        console.debug("get Player")
-        this.$store.dispatch("players/getNbPlayers", player.gameId);
-        this.$store.dispatch("games/getGame", player.gameId);
-        this.once = true;
-      }
-      return player;
+      return this.$store.getters["players/player"];
     },
     game() {
       return this.$store.getters["games/game"];
@@ -43,19 +45,19 @@ export default {
     },
     nbPlayers() {
       return this.$store.getters["players/nbPlayers"];
-    },
+    },    
     started() {
       console.debug("game start:"+this.game)
       if(!this.game) return false
       console.debug("game started :"+this.game.started)
-      return this.game.started && !this.game.ended
+      return this.game.started
     },
     ended() {
       console.debug("game ended:"+this.game)
       if(!this.game) return false
       console.debug("game ended :"+!this.game.started)
-      if(!this.game.started) this.$store.dispatch("ideas/getIdeas", this.game.id);
-      return !this.game.started
+      if(!this.game.started && this.round!=0) this.$store.dispatch("ideas/getIdeas", this.game.id);
+      return !this.game.started && this.round!=0
     },
     ideas() {
       return this.$store.getters["ideas/ideas"];
@@ -84,7 +86,7 @@ export default {
             deckId : nextDeck,
             round : this.round
           }
-          this.$store.dispatch("ideas/getLastIdea", param)
+          this.$store.dispatch("ideas/listenLastIdea", param)
         });
       }
     },

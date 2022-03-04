@@ -1,4 +1,4 @@
-import { addGame, getGame, updateGameStatus } from '~/services/gamesServices'
+import { addGame, getGame, listenGame, updateGameStatus } from '~/services/gamesServices'
 
 export const state = () => ({
     game: null
@@ -17,6 +17,16 @@ export const mutations = {
 };
 
 export const actions = {
+    async addGame({ commit, dispatch }, game) {
+        try {
+            console.debug("add game:" + game.title)
+            await addGame(game);
+            commit("setGame", game);
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
     getGame({ commit, dispatch }, id) {
         const callback = game => {
             if (game) {
@@ -27,14 +37,14 @@ export const actions = {
         getGame(callback, id);
     },
 
-    async addGame({ commit, dispatch }, game) {
-        try {
-            console.debug("add game:" + game.title)
-            await addGame(game);
-            commit("setGame", game);
-        } catch (error) {
-            console.log(error)
+    listenGame({ commit, dispatch }, id) {
+        const callback = game => {
+            if (game) {
+                console.debug("listenGame:" + game.id)
+                commit("setGame", game);
+            }
         }
+        listenGame(callback, id);
     },
 
     async updateGameStatus({ commit, dispatch }, game) {
