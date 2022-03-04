@@ -17,6 +17,16 @@ export const mutations = {
 };
 
 export const actions = {
+    async addGame({ commit, dispatch }, game) {
+        try {
+            console.debug("add game:" + game.title)
+            await addGame(game);
+            commit("setGame", game);
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
     getGame({ commit, dispatch }, id) {
         const callback = game => {
             if (game) {
@@ -35,16 +45,6 @@ export const actions = {
             }
         }
         listenGame(callback, id);
-    },
-
-    async addGame({ commit, dispatch }, game) {
-        try {
-            console.debug("add game:" + game.title)
-            await addGame(game);
-            commit("setGame", game);
-        } catch (error) {
-            console.log(error)
-        }
     },
 
     async updateGameStatus({ commit, dispatch }, game) {

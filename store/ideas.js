@@ -1,4 +1,4 @@
-import { addIdea, getIdea, getLastIdea, getIdeas } from '~/services/ideasServices'
+import { addIdea, listenLastIdea, getIdeas } from '~/services/ideasServices'
 
 export const state = () => ({
     idea: null,
@@ -31,25 +31,6 @@ export const mutations = {
 };
 
 export const actions = {
-    getIdea({ commit, dispatch }, id) {
-        const callback = idea => {
-            if (idea) {
-                console.debug("getIdea id:" + idea.id)
-                commit("setIdea", idea);
-            }
-        }
-        getIdea(callback, id);
-    },
-
-    getLastIdea({ commit, dispatch }, param) {
-        const callback = idea => {
-            if (idea) console.debug("getLastIdea id:" + idea.id)
-            else console.debug("getLastIdea id:" + idea)
-            commit("setLastIdea", idea);
-        }
-        getLastIdea(callback, param);
-    },
-
     async addIdea({ commit, dispatch }, idea) {
         try {
             console.debug("add idea:" + idea.title)
@@ -59,6 +40,16 @@ export const actions = {
             console.log(error)
         }
     },
+
+    // getIdea({ commit, dispatch }, id) {
+    //     const callback = idea => {
+    //         if (idea) {
+    //             console.debug("getIdea id:" + idea.id)
+    //             commit("setIdea", idea);
+    //         }
+    //     }
+    //     getIdea(callback, id);
+    // },
 
     getIdeas({ commit, dispatch }, gameId) {
         const callback = ideas => {
@@ -70,4 +61,12 @@ export const actions = {
         getIdeas(callback, gameId);
     },
 
+    listenLastIdea({ commit, dispatch }, param) {
+        const callback = idea => {
+            if (idea) console.debug("listenLastIdea id:" + idea.id)
+            else console.debug("listenLastIdea id:" + idea)
+            commit("setLastIdea", idea);
+        }
+        listenLastIdea(callback, param);
+    },
 };

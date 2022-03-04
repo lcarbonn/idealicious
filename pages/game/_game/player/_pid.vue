@@ -83,7 +83,7 @@ export default {
             deckId : nextDeck,
             round : this.round
           }
-          this.$store.dispatch("ideas/getLastIdea", param)
+          this.$store.dispatch("ideas/listenLastIdea", param)
         });
       }
     },

@@ -1,6 +1,18 @@
 import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
+export const addPlayer = async (player) => {
+    if (!player) return null
+    console.debug("start AddPlayer player=" + player.name)
+    const playersRef = collection(db, "games/" + player.gameId + "/players")
+    const q = query(playersRef);
+    const listOfPlayres = await getDocs(q);
+    player.playerId = listOfPlayres.docs.length
+    const ref = await addDoc(playersRef, player)
+    player.id = ref.id
+    console.debug("end addPlayer id=" + player.id)
+    return player
+};
 
 export const getPlayer = async (callback, playerIds) => {
     console.debug("start getPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
@@ -13,19 +25,6 @@ export const getPlayer = async (callback, playerIds) => {
     }
     console.debug("end getPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
     callback(player)
-};
-
-export const addPlayer = async (player) => {
-    if(!player) return null
-    console.debug("start AddPlayer player=" + player.name)
-    const playersRef = collection(db, "games/" +player.gameId+"/players")
-    const q = query(playersRef);
-    const listOfPlayres = await getDocs(q);
-    player.playerId = listOfPlayres.docs.length
-    const ref = await addDoc(playersRef, player)
-    player.id = ref.id
-    console.debug("end addPlayer id=" + player.id)
-    return player
 };
 
 export const listenNbPlayers = async (callback, gameId) => {

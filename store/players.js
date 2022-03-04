@@ -25,15 +25,6 @@ export const mutations = {
 };
 
 export const actions = {
-    getPlayer({ commit, dispatch }, playerIds) {
-        const callback = player => {
-            if (player) {
-                console.debug("setPlayer in state:" + player.id)
-                commit("setPlayer", player);
-            }
-        }
-        getPlayer(callback, playerIds);
-    },
 
     async addPlayer({ commit, dispatch }, player) {
         try {
@@ -43,6 +34,16 @@ export const actions = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    getPlayer({ commit, dispatch }, playerIds) {
+        const callback = player => {
+            if (player) {
+                console.debug("setPlayer in state:" + player.id)
+                commit("setPlayer", player);
+            }
+        }
+        getPlayer(callback, playerIds);
     },
 
     listenNbPlayers({ commit, dispatch }, gameId) {
