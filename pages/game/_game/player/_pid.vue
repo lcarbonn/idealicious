@@ -22,8 +22,7 @@ export default {
       playerId: this.id,
       gameId: this.gameId
       });
-    this.$store.dispatch("players/getNbPlayers", this.gameId);
-    this.$store.dispatch("games/getGame", this.gameId);
+    this.$store.dispatch("games/listenGame", this.gameId);
   },
   
   computed: {
@@ -44,14 +43,11 @@ export default {
       if(lastIdea) console.debug("lastIdea:"+lastIdea.message);
       return lastIdea;
     },
-    nbPlayers() {
-      return this.$store.getters["players/nbPlayers"];
-    },
     started() {
       console.debug("game start:"+this.game)
       if(!this.game) return false
       console.debug("game started :"+this.game.started)
-      return this.game.started && !this.game.ended
+      return this.game.started
     },
     ended() {
       console.debug("game ended:"+this.game)

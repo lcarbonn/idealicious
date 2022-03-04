@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, getDocs, query, where, onSnapshot } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 
@@ -28,13 +28,13 @@ export const addPlayer = async (player) => {
     return player
 };
 
-export const getNbPlayers = async (callback, gameId) => {
-    console.debug("start getNbPlayers gameId=" + gameId)
+export const listenNbPlayers = async (callback, gameId) => {
+    console.debug("start listenNbPlayers gameId=" + gameId)
     const playersRef = collection(db, "games/" + gameId + "/players")
     const q = query(playersRef);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const nbPlayers = querySnapshot.docs.length
-        console.debug("end getNbPlayers gameId=" + gameId)
+        console.debug("end listenNbPlayers gameId=" + gameId)
         callback(nbPlayers)
     });
 };

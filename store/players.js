@@ -1,4 +1,4 @@
-import { addPlayer, getPlayer, getNbPlayers } from '~/services/playersServices'
+import { addPlayer, getPlayer, listenNbPlayers } from '~/services/playersServices'
 
 export const state = () => ({
     player: null,
@@ -45,15 +45,15 @@ export const actions = {
         }
     },
 
-    getNbPlayers({ commit, dispatch }, gameId) {
-        console.debug("getNbPlayers gameId:" + gameId)
+    listenNbPlayers({ commit, dispatch }, gameId) {
+        console.debug("listenNbPlayers gameId:" + gameId)
         const callback = nbPlayer => {
             if (nbPlayer) {
-                console.debug("getNbPlayers:" + nbPlayer)
+                console.debug("listenNbPlayers:" + nbPlayer)
                 commit("setNbPlayers", nbPlayer);
             }
         }
-        getNbPlayers(callback, gameId);
+        listenNbPlayers(callback, gameId);
     },
 
 };
