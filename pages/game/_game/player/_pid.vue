@@ -12,7 +12,6 @@ export default {
 
   data: () => ({
     round: 0,
-    once:false
   }),
 
   created() {
@@ -23,6 +22,7 @@ export default {
       gameId: this.gameId
       });
     this.$store.dispatch("games/listenGame", this.gameId);
+    this.$store.dispatch("players/listenNbPlayers", this.gameId);
   },
   
   computed: {
@@ -43,6 +43,9 @@ export default {
       if(lastIdea) console.debug("lastIdea:"+lastIdea.message);
       return lastIdea;
     },
+    nbPlayers() {
+      return this.$store.getters["players/nbPlayers"];
+    },    
     started() {
       console.debug("game start:"+this.game)
       if(!this.game) return false
@@ -53,8 +56,8 @@ export default {
       console.debug("game ended:"+this.game)
       if(!this.game) return false
       console.debug("game ended :"+!this.game.started)
-      if(!this.game.started) this.$store.dispatch("ideas/getIdeas", this.game.id);
-      return !this.game.started
+      if(!this.game.started && this.round!=0) this.$store.dispatch("ideas/getIdeas", this.game.id);
+      return !this.game.started && this.round!=0
     },
     ideas() {
       return this.$store.getters["ideas/ideas"];
