@@ -28,7 +28,9 @@ export default {
         const newPlayer = {
           name: player,
           gameId: this.game.id,
-          playerId: null
+          playerId: null,
+          deckId:null,
+          round:0
         };
         this.$store.dispatch("players/addPlayer", newPlayer).then(() => {
           const storePlayer = this.$store.getters["players/player"];

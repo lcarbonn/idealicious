@@ -1,4 +1,4 @@
-import { addPlayer, getPlayer, listenNbPlayers } from '~/services/playersServices'
+import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound } from '~/services/playersServices'
 
 export const state = () => ({
     player: null,
@@ -56,5 +56,15 @@ export const actions = {
         }
         listenNbPlayers(callback, gameId);
     },
+
+    async updatePlayerRound({ commit, dispatch }, player) {
+        try {
+            if (player) console.debug("updatePlayerRound player:" + player.id + ", round:" + player.round)
+            await updatePlayerRound(player);
+            commit("setPlayer", player);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 };

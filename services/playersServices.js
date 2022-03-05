@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addPlayer = async (player) => {
@@ -6,8 +6,9 @@ export const addPlayer = async (player) => {
     console.debug("start AddPlayer player=" + player.name)
     const playersRef = collection(db, "games/" + player.gameId + "/players")
     const q = query(playersRef);
-    const listOfPlayres = await getDocs(q);
-    player.playerId = listOfPlayres.docs.length
+    const listOfPlayers = await getDocs(q);
+    player.playerId = listOfPlayers.docs.length
+    player.deckId = listOfPlayers.docs.length
     const ref = await addDoc(playersRef, player)
     player.id = ref.id
     console.debug("end addPlayer id=" + player.id)
@@ -36,5 +37,16 @@ export const listenNbPlayers = async (callback, gameId) => {
         console.debug("end listenNbPlayers gameId=" + gameId)
         callback(nbPlayers)
     });
+};
+
+export const updatePlayerRound = async (player) => {
+    if (!player) return null
+    console.debug("start updatePlayerRound id=" + player.id + ", round:" + player.round + ", deckId:" + player.deckId)
+    const playerRef = doc(db, "games/" + player.gameId + "/players", player.id)
+    await updateDoc(playerRef, {
+        round: player.round,
+        deckId:player.deckId
+    })
+    console.debug("end updatePlayerRound id=" + player.id + ", round:" + player.round + ", deckId:" + player.deckId)
 };
 
