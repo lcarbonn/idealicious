@@ -1,8 +1,15 @@
 <!-- Main page -->
 <template>
   <div>
-    <PlayerGame @addIdea="addIdea" :player="player" :game="game" :lastIdea="lastIdea" :round="round" :started="started"/>
-    <GameIdeasChain v-if="ended" :ideas="ideas"/>
+    <PlayerGame v-if="!ended" @addIdea="addIdea" :player="player" :game="game" :lastIdea="lastIdea" :round="round" :started="started"/>
+    <div v-if="ended">
+      <div>
+        <h2 class="md-primary">Game as ended</h2>
+      </div>
+      <div>
+        <GameIdeasChain :ideas="ideas"/>
+      </div>
+    </div>
   </div>
 </template>
 

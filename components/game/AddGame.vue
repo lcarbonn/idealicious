@@ -2,7 +2,7 @@
 <template>
   <div>
     <md-field>
-      <label>Enter the game theme</label>
+      <label>Enter the game challenge</label>
       <md-input
         autofocus
         v-model="gameTitle"
