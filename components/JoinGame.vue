@@ -7,6 +7,7 @@
         autofocus
         v-model="playerName"
         @keydown.enter="joinGame"
+        maxlength="30"
       ></md-input>
     </md-field>
     <md-button class="md-primary" @click="joinGame">Join the game</md-button>

@@ -7,6 +7,7 @@
         autofocus
         v-model="gameTitle"
         @keydown.enter="addNewGame"
+        maxlength="140"
       ></md-input>
     </md-field>
     <md-button class="md-primary" @click="addNewGame">Create the game</md-button>

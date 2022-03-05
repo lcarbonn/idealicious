@@ -15,7 +15,8 @@
         <md-input :disabled="disable"
           autofocus
           v-model="newIdea"
-          @keydown.enter="addNewIdea">
+          @keydown.enter="addNewIdea"
+          maxlength="140">
         </md-input>
       </md-field>
       <md-button :disabled="disable" 
