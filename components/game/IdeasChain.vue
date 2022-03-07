@@ -28,7 +28,7 @@ export default {
     flex-direction:row;
     justify-content: space-around;
     align-items: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   .deck {
     display: flex;
