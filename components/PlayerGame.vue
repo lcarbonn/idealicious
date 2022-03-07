@@ -3,7 +3,8 @@
   <div>
     <div>
       <md-field v-if="started && round!=0">
-        <label v-if="lastIdea">Previous player's idea...</label>
+        <label v-if="lastIdea && lastIdea.message!=''">Previous player's idea...</label>
+        <label v-else-if="lastIdea && lastIdea.message==''">Previous player's idea skiped</label>
         <label v-else>Waiting for previous player's idea...</label>
         <md-input v-if="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
       </md-field>

@@ -129,6 +129,7 @@ export const getNextDeck = (deckId, maxId) => {
   console.debug("actualDeck:"+deckId+", maxId="+maxId)
   let nextDeck = deckId-1;
   if(nextDeck<0) nextDeck=maxId-1;
+  if(maxId==0) nextDeck=0;
   console.debug("nextDeck:"+nextDeck+", maxId="+maxId)
   return nextDeck
 }
