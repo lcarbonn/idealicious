@@ -32,7 +32,7 @@ export default {
         let player = this.$store.getters["players/player"];
         let nbPlayers =  this.$store.getters["players/nbPlayers"];
         if(player) {
-          let nextDeck = getPreviousDeck(player.deckId, nbPlayers)
+          let nextDeck = getNextDeck(player.deckId, nbPlayers)
           const param = {
             gameId : this.gameId,
             deckId : nextDeck,
@@ -128,17 +128,9 @@ export default {
 export const getNextDeck = (deckId, maxId) => {
   console.debug("actualDeck:"+deckId+", maxId="+maxId)
   let nextDeck = deckId-1;
-  if(nextDeck<0) nextDeck=maxId;
+  if(nextDeck<0) nextDeck=maxId-1;
   console.debug("nextDeck:"+nextDeck+", maxId="+maxId)
   return nextDeck
-}
-
-export const getPreviousDeck = (deckId, maxId) => {
-  console.debug("actualDeck:"+deckId+", maxId="+maxId)
-  let previousDeck = deckId+1;
-  if(previousDeck==maxId) previousDeck=0;
-  console.debug("previousDeck:"+previousDeck+", maxId="+maxId)
-  return previousDeck
 }
 
 </script>
