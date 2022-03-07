@@ -18,18 +18,31 @@ export default {
   name: "PlayerPage",
 
   data: () => ({
-    // round: 0,
+    once: false
   }),
 
   created() {
     console.debug("pid:"+this.id)
     console.debug("game:"+this.gameId)
-    this.$store.dispatch("players/getPlayer", {
+    this.$store.dispatch("players/getNbPlayers", this.gameId);
+    this.$store.dispatch("players/getSyncPlayer", {
       playerId: this.id,
       gameId: this.gameId
+      }).then(() => {
+        let player = this.$store.getters["players/player"];
+        let nbPlayers =  this.$store.getters["players/nbPlayers"];
+        if(player) {
+          let nextDeck = getPreviousDeck(player.deckId, nbPlayers)
+          const param = {
+            gameId : this.gameId,
+            deckId : nextDeck,
+            round : player.round
+          }
+          //listen to next idea
+          this.$store.dispatch("ideas/listenLastIdea", param)
+        }
       })
     this.$store.dispatch("games/listenGame", this.gameId);
-    this.$store.dispatch("players/listenNbPlayers", this.gameId);
   },
   
   computed: {
@@ -40,18 +53,7 @@ export default {
       return this.$route.params.game;
     },
     player() {
-      let player = this.$store.getters["players/player"];
-      if(player) {
-      let nextDeck = getPreviousDeck(player.deckId, this.nbPlayers)
-      const param = {
-        gameId : this.gameId,
-        deckId : nextDeck,
-        round : player.round
-      }
-      //listen to next idea
-      this.$store.dispatch("ideas/listenLastIdea", param)
-      }
-      return player
+      return this.$store.getters["players/player"];
     },
     round() {
       if(!this.player) return 0

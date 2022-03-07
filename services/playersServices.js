@@ -28,6 +28,29 @@ export const getPlayer = async (callback, playerIds) => {
     callback(player)
 };
 
+export const getSyncPlayer = async (playerIds) => {
+    console.debug("start getSyncPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
+    const docRef = doc(db, "games/" + playerIds.gameId + "/players", playerIds.playerId)
+    const docSnap = await getDoc(docRef)
+    let player = null
+    if (docSnap.exists()) {
+        player = docSnap.data()
+        player.id = docSnap.id
+    }
+    console.debug("end getSyncPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
+    return player
+};
+
+export const getNbPlayers = async (gameId) => {
+    console.debug("start getNbPlayers gameId=" + gameId)
+    const playersRef = collection(db, "games/" + gameId + "/players")
+    const q = query(playersRef);
+    const querySnapshot = await getDocs(q)
+    const nbPlayers = querySnapshot.docs.length
+    console.debug("end getNbPlayers gameId=" + gameId)
+    return nbPlayers
+};
+
 export const listenNbPlayers = async (callback, gameId) => {
     console.debug("start listenNbPlayers gameId=" + gameId)
     const playersRef = collection(db, "games/" + gameId + "/players")

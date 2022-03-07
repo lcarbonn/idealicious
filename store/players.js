@@ -1,4 +1,4 @@
-import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound } from '~/services/playersServices'
+import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound, getSyncPlayer, getNbPlayers } from '~/services/playersServices'
 
 export const state = () => ({
     player: null,
@@ -46,6 +46,14 @@ export const actions = {
         getPlayer(callback, playerIds);
     },
 
+    async getSyncPlayer({ commit, dispatch }, playerIds) {
+        const player = await getSyncPlayer(playerIds);
+        if (player) {
+            console.debug("setPlayer in state:" + player.id)
+            commit("setPlayer", player);
+        }
+    },
+
     listenNbPlayers({ commit, dispatch }, gameId) {
         console.debug("listenNbPlayers gameId:" + gameId)
         const callback = nbPlayer => {
@@ -55,6 +63,14 @@ export const actions = {
             }
         }
         listenNbPlayers(callback, gameId);
+    },
+
+    async getNbPlayers({ commit, dispatch }, gameId) {
+        const nbPlayers = await getNbPlayers(gameId);
+        if (nbPlayers) {
+            console.debug("getNbPlayers:" + nbPlayers)
+            commit("setNbPlayers", nbPlayers);
+        }
     },
 
     async updatePlayerRound({ commit, dispatch }, player) {
