@@ -103,8 +103,9 @@ export default {
         if(this.lastIdea) {
           newIdea.deckId = this.lastIdea.deckId
         }
-        this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
+        if(newIdea.message!="") this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
           console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
+        })
           //update round player
           const upPlayer = JSON.parse(JSON.stringify(this.player))
           upPlayer.round = round
@@ -119,7 +120,6 @@ export default {
           }
           //listen to next idea
           this.$store.dispatch("ideas/listenLastIdea", param)
-        });
       }
     },
   },

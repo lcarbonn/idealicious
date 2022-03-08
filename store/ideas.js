@@ -54,18 +54,17 @@ export const actions = {
     listenLastIdea({ commit, dispatch }, param) {
         const callback = async idea => {
             let lastIdea = idea
-            if (idea) {
+            if (lastIdea) {
                 console.debug("listenLastIdea id:" + lastIdea.id)
                 console.debug("idea.message:" + lastIdea.message)
-                if (lastIdea.message == "") {
-                    while (lastIdea.message == "" && param.round >= 0) {
-                        console.debug("idea.message:" + lastIdea.message + ", round:" + param.round)
-                        param.round--
-                        lastIdea = await getLastIdea(param)
-                    }
+            }
+            if (!lastIdea) {
+                while (!lastIdea && param.round > 0) {
+                    console.debug("null idea, round:" + param.round)
+                    param.round--
+                    lastIdea = await getLastIdea(param)
                 }
             }
-            else console.debug("listenLastIdea id:" + lastIdea)
             commit("setLastIdea", lastIdea);
         }
         listenLastIdea(callback, param);
