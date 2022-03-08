@@ -1,4 +1,4 @@
-import { addIdea, listenLastIdea, getIdeas } from '~/services/ideasServices'
+import { addIdea, listenLastIdea, getIdeas, getLastIdea } from '~/services/ideasServices'
 
 export const state = () => ({
     idea: null,
@@ -41,16 +41,6 @@ export const actions = {
         }
     },
 
-    // getIdea({ commit, dispatch }, id) {
-    //     const callback = idea => {
-    //         if (idea) {
-    //             console.debug("getIdea id:" + idea.id)
-    //             commit("setIdea", idea);
-    //         }
-    //     }
-    //     getIdea(callback, id);
-    // },
-
     getIdeas({ commit, dispatch }, gameId) {
         const callback = ideas => {
             console.debug("getIdeas :" + ideas.length)
@@ -62,10 +52,21 @@ export const actions = {
     },
 
     listenLastIdea({ commit, dispatch }, param) {
-        const callback = idea => {
-            if (idea) console.debug("listenLastIdea id:" + idea.id)
-            else console.debug("listenLastIdea id:" + idea)
-            commit("setLastIdea", idea);
+        const callback = async idea => {
+            let lastIdea = idea
+            if (idea) {
+                console.debug("listenLastIdea id:" + lastIdea.id)
+                console.debug("idea.message:" + lastIdea.message)
+                if (lastIdea.message == "") {
+                    while (lastIdea.message == "" && param.round >= 0) {
+                        console.debug("idea.message:" + lastIdea.message + ", round:" + param.round)
+                        param.round--
+                        lastIdea = await getLastIdea(param)
+                    }
+                }
+            }
+            else console.debug("listenLastIdea id:" + lastIdea)
+            commit("setLastIdea", lastIdea);
         }
         listenLastIdea(callback, param);
     },
