@@ -3,7 +3,7 @@ import { db } from '@/plugins/firebase.js'
 
 export const addIdea = async (idea) => {
     if (!idea) return null
-    console.debug("start addIdea id=" + idea.message)
+    console.debug("start addIdea message=" + idea.message)
     const ideasRef = collection(db, "games/" + idea.gameId + "/ideas")
     const ref = await addDoc(ideasRef, idea)
     idea.id = ref.id

@@ -33,7 +33,7 @@ export const mutations = {
 export const actions = {
     async addIdea({ commit, dispatch }, idea) {
         try {
-            console.debug("add idea:" + idea.title)
+            console.debug("add idea:" + idea.message)
             await addIdea(idea);
             commit("setIdea", idea);
         } catch (error) {
@@ -58,8 +58,8 @@ export const actions = {
                 console.debug("listenLastIdea id:" + lastIdea.id)
                 console.debug("idea.message:" + lastIdea.message)
                 if (lastIdea.message=="") {
-                    while (lastIdea.message == "" && param.round > 0) {
-                        console.debug("null idea, round:" + param.round)
+                    while (lastIdea && lastIdea.message == "" && param.round > 1) {
+                        console.debug("skiped idea, round:" + param.round)
                         param.round--
                         lastIdea = await getLastIdea(param)
                     }

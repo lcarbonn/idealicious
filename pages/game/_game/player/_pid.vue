@@ -18,7 +18,6 @@ export default {
   name: "PlayerPage",
 
   data: () => ({
-    once: false
   }),
 
   created() {
@@ -66,9 +65,7 @@ export default {
       return this.$store.getters["games/game"];
     },
     lastIdea() {
-      const lastIdea = this.$store.getters["ideas/lastIdea"];
-      if(lastIdea) console.debug("lastIdea:"+lastIdea.message);
-      return lastIdea;
+      return this.$store.getters["ideas/lastIdea"];
     },
     nbPlayers() {
       return this.$store.getters["players/nbPlayers"];
@@ -107,7 +104,7 @@ export default {
           newIdea.deckId = this.lastIdea.deckId
         }
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
-          console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
+          console.debug("newIdea added:" + newIdea.id+", deckId:"+newIdea.deckId+", round:"+newIdea.round);
         })
           //update round player
           const upPlayer = JSON.parse(JSON.stringify(this.player))

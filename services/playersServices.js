@@ -64,12 +64,12 @@ export const listenNbPlayers = async (callback, gameId) => {
 
 export const updatePlayerRound = async (player) => {
     if (!player) return null
-    console.debug("start updatePlayerRound id=" + player.id + ", round:" + player.round + ", deckId:" + player.deckId)
+    console.debug("start updatePlayerRound id=" + player.id + ", deckId:" + player.deckId + ", round:" + player.round)
     const playerRef = doc(db, "games/" + player.gameId + "/players", player.id)
     await updateDoc(playerRef, {
         round: player.round,
         deckId:player.deckId
     })
-    console.debug("end updatePlayerRound id=" + player.id + ", round:" + player.round + ", deckId:" + player.deckId)
+    console.debug("end updatePlayerRound id=" + player.id + ", deckId:" + player.deckId + ", round:" + player.round)
 };
 
