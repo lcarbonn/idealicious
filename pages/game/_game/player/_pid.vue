@@ -24,6 +24,7 @@ export default {
   created() {
     console.debug("pid:"+this.id)
     console.debug("game:"+this.gameId)
+    // for init and reloaded page
     this.$store.dispatch("players/getNbPlayers", this.gameId);
     this.$store.dispatch("players/getSyncPlayer", {
       playerId: this.id,
@@ -42,7 +43,9 @@ export default {
           this.$store.dispatch("ideas/listenLastIdea", param)
         }
       })
+    // for further listening
     this.$store.dispatch("games/listenGame", this.gameId);
+    this.$store.dispatch("players/listenNbPlayers", this.gameId);
   },
   
   computed: {
@@ -103,7 +106,7 @@ export default {
         if(this.lastIdea) {
           newIdea.deckId = this.lastIdea.deckId
         }
-        if(newIdea.message!="") this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
+        this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
           console.debug("newIdea:" + newIdea.id+", deckId:"+newIdea.deckId);
         })
           //update round player

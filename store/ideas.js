@@ -57,12 +57,12 @@ export const actions = {
             if (lastIdea) {
                 console.debug("listenLastIdea id:" + lastIdea.id)
                 console.debug("idea.message:" + lastIdea.message)
-            }
-            if (!lastIdea) {
-                while (!lastIdea && param.round > 0) {
-                    console.debug("null idea, round:" + param.round)
-                    param.round--
-                    lastIdea = await getLastIdea(param)
+                if (lastIdea.message=="") {
+                    while (lastIdea.message == "" && param.round > 0) {
+                        console.debug("null idea, round:" + param.round)
+                        param.round--
+                        lastIdea = await getLastIdea(param)
+                    }
                 }
             }
             commit("setLastIdea", lastIdea);
