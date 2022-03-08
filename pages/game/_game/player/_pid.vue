@@ -111,7 +111,7 @@ export default {
           upPlayer.deckId = newIdea.deckId
           this.$store.dispatch("players/updatePlayerRound", upPlayer)
           // get next deck id
-          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers-1)
+          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
           const param = {
             gameId : this.game.id,
             deckId : nextDeck,
