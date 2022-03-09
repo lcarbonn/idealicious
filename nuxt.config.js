@@ -43,7 +43,7 @@ export default {
       components: ['MdDrawer', 'MdRadio', 'MdMenu', 'MdContent', 'MdList', 'MdButton',
         'MdToolbar', 'MdIcon', 'MdApp', 'MdCard', 'MdField',
         'MdCheckbox', 'MdSnackbar', 'MdSwitch', 'MdTooltip',
-        "MdDivider", "MdDialog", "MdDialogConfirm", "MdAvatar"
+        "MdDivider", "MdDialog", "MdDialogConfirm", "MdAvatar", "MdBadge"
       ]
     }],
 

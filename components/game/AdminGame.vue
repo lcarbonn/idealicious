@@ -17,6 +17,7 @@
     <div>
       <md-button :disabled="this.started" class="md-primary" @click="startGame">Start the game</md-button>
       <md-button :disabled="!this.started" class="md-primary" @click="endGame">End the game</md-button>
+      <md-button :disabled="this.started" class="md-primary" @click="resetLoves">Reset Loves</md-button>
     </div>
   </div>
 </template>
@@ -56,7 +57,10 @@ export default {
       } catch($e) {
         this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Copy to clipboard error" });
       }
-    }    
+    },
+    resetLoves() {
+      this.$emit("resetLoves")
+    }
   },
 };
 </script>

@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, onSnapshot, orderBy, getDocs, doc, updateDoc } from "firebase/firestore"
+import { collection, addDoc, query, where, onSnapshot, orderBy, getDocs, doc, updateDoc, increment, writeBatch } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addIdea = async (idea) => {
@@ -67,13 +67,31 @@ export const getLastIdea = async (param) => {
     return idea
 };
 
-export const updateIdea = async (idea) => {
-    if (!idea) return null
-    console.debug("start updateIdea id=" + idea.id + ", isLoved:" + idea.isLoved)
-    const ideaRef = doc(db, "games/" + idea.gameId + "/ideas", idea.id)
+export const updateIdea = async (param) => {
+    if (!param) return null
+    console.debug("start updateIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
+    const ideaRef = doc(db, "games/" + param.idea.gameId + "/ideas", param.idea.id)
+    let inc = 1
+    if(!param.isLoved) inc = -1
     await updateDoc(ideaRef, {
-        isLoved: idea.isLoved
+        loved: increment(inc)
     })
-    console.debug("end updateIdea id=" + idea.id + ", isLoved:" + idea.isLoved)
+    console.debug("end updateIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
 };
 
+export const resetLoves = async (callback, gameId, ideas) => {
+    console.debug("start resetLoves gameId=" + gameId + ", ideas:" + ideas)
+    const batch = writeBatch(db)
+    ideas.forEach(deck => {
+        deck.forEach(idea => {
+            idea.loved = 0
+            let ideaRef = doc(db, "games/" + gameId + "/ideas", idea.id)
+            batch.update(ideaRef, {
+                loved: 0
+            });
+         })
+    });
+    await batch.commit()
+    callback(ideas)
+    console.debug("end resetLoves gameId=" + gameId + ", ideas:" + ideas)
+};

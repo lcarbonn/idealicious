@@ -1,4 +1,4 @@
-import { addIdea, listenLastIdea, getIdeas, getLastIdea, updateIdea } from '~/services/ideasServices'
+import { addIdea, listenLastIdea, getIdeas, getLastIdea, updateIdea, resetLoves } from '~/services/ideasServices'
 
 export const state = () => ({
     idea: null,
@@ -78,14 +78,22 @@ export const actions = {
         listenLastIdea(callback, param);
     },
 
-    async loveIdea({ commit, dispatch }, idea) {
+    async loveIdea({ commit, dispatch }, param) {
         try {
-            if (idea) console.debug("loveIdea idea:" + idea.id + ", isLoved:" + idea.isLoved)
-            await updateIdea(idea);
-            commit("updateIdea", idea);
+            if (param) console.debug("loveIdea idea:" + param.idea.id + ", isLoved:" + param.isLoved)
+            await updateIdea(param);
+            commit("updateIdea", param.idea);
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    resetLoves({ state, commit, dispatch }, gameId) {
+        const callback = async newIdeas => {
+            commit("setIdeas", newIdeas);
+        }
+        const copyIdeas = JSON.parse(JSON.stringify(state.ideas))
+        resetLoves(callback, gameId, copyIdeas);
+    },
 
 };

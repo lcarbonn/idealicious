@@ -4,7 +4,7 @@
     <div class="decks">
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
         <div>Deck {{ index+1 }}</div>
-        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" />
+        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode"/>
       </div>
     </div>
   </div>
@@ -16,12 +16,13 @@ export default {
 
   props: {
     ideas: [],
+    mode: String
   },
 
   methods: {
-    loveIdea(idea) {
-      console.debug("chain love idea:" + idea.message),
-      this.$emit("loveIdea", idea);
+    loveIdea(param) {
+      console.debug("chain love idea:" + param.idea.message),
+      this.$emit("loveIdea", param);
     }
   },
 
