@@ -4,6 +4,11 @@
     <md-card-content>
       {{idea.message}}
     </md-card-content>
+    <md-card-actions>
+      <md-button class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
+        <md-icon>favorite</md-icon>
+      </md-button>
+    </md-card-actions>
   </md-card>
 </template>
 
@@ -13,6 +18,17 @@ export default {
   props: {
     idea: Object,
   },
+
+  methods: {
+    loveIdea() {
+      console.debug("love idea:" + this.idea.message),
+      this.$emit("loveIdea", this.idea);
+    },
+    getLovedClass() {
+      if(this.idea.isLoved) return "md-raised md-primary"
+    }
+  },
+
 };
 </script>
 

@@ -2,7 +2,7 @@
 <template>
   <div>
     <GameAdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame"/>
-    <GameIdeasChain :ideas="ideas"/>
+    <GameIdeasChain @loveIdea="loveIdea" :ideas="ideas"/>
   </div>
 </template>
 
@@ -46,6 +46,14 @@ computed: {
       this.$store.dispatch("games/updateGameStatus", game)
       this.$store.dispatch("ideas/getIdeas", this.game.id)
       this.$store.dispatch("snackbar/setSnackbarMessage", { message: "That was fun !!!" });
+    },
+    loveIdea(idea) {
+      if(idea) {
+        console.debug("loveIdea idea:"+idea.message)
+        const lovedIdea = JSON.parse(JSON.stringify(idea))
+        lovedIdea.isLoved = !lovedIdea.isLoved
+        this.$store.dispatch("ideas/loveIdea", lovedIdea)
+      }
     }
   },
 };

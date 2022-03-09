@@ -1,4 +1,4 @@
-import { addIdea, listenLastIdea, getIdeas, getLastIdea } from '~/services/ideasServices'
+import { addIdea, listenLastIdea, getIdeas, getLastIdea, updateIdea } from '~/services/ideasServices'
 
 export const state = () => ({
     idea: null,
@@ -27,6 +27,14 @@ export const mutations = {
     },
     setIdeas(state, payload) {
         state.ideas = payload
+    },
+    updateIdea(state, idea) {
+        state.ideas.forEach(element => {
+            if (element.id == idea.id) {
+                element = idea
+            }
+        });
+        state.ideas = state.ideas
     }
 };
 
@@ -69,4 +77,15 @@ export const actions = {
         }
         listenLastIdea(callback, param);
     },
+
+    async loveIdea({ commit, dispatch }, idea) {
+        try {
+            if (idea) console.debug("loveIdea idea:" + idea.id + ", isLoved:" + idea.isLoved)
+            await updateIdea(idea);
+            commit("updateIdea", idea);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 };

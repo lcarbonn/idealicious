@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, onSnapshot, orderBy, getDocs } from "firebase/firestore"
+import { collection, addDoc, query, where, onSnapshot, orderBy, getDocs, doc, updateDoc } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addIdea = async (idea) => {
@@ -66,3 +66,14 @@ export const getLastIdea = async (param) => {
     console.debug("end getLastIdea gameId:" + param.gameId + ", deckId:" + param.deckId + ", round:" + param.round + ", idea:" + idea)
     return idea
 };
+
+export const updateIdea = async (idea) => {
+    if (!idea) return null
+    console.debug("start updateIdea id=" + idea.id + ", isLoved:" + idea.isLoved)
+    const ideaRef = doc(db, "games/" + idea.gameId + "/ideas", idea.id)
+    await updateDoc(ideaRef, {
+        isLoved: idea.isLoved
+    })
+    console.debug("end updateIdea id=" + idea.id + ", isLoved:" + idea.isLoved)
+};
+

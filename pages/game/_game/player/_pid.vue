@@ -7,7 +7,7 @@
         <h2 class="md-primary">Game as ended</h2>
       </div>
       <div>
-        <GameIdeasChain :ideas="ideas"/>
+        <GameIdeasChain @loveIdea="loveIdea" :ideas="ideas"/>
       </div>
     </div>
   </div>
@@ -98,7 +98,8 @@ export default {
           gameId: this.game.id,
           playerId: this.player.id,
           deckId:this.player.deckId,
-          round:round
+          round:round,
+          isLoved:false
         };
         if(this.lastIdea) {
           newIdea.deckId = this.lastIdea.deckId
@@ -122,6 +123,14 @@ export default {
           this.$store.dispatch("ideas/listenLastIdea", param)
       }
     },
+    loveIdea(idea) {
+      if(idea) {
+        console.debug("loveIdea idea:"+idea.message)
+        const lovedIdea = JSON.parse(JSON.stringify(idea))
+        lovedIdea.isLoved = !lovedIdea.isLoved
+        this.$store.dispatch("ideas/loveIdea", lovedIdea)
+      }
+    }
   },
 };
 
