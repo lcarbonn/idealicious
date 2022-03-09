@@ -28,7 +28,7 @@
         @click="skipRound">Skip this round</md-button>
     </div>
     <div>
-      <md-avatar class="md-primary">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
+      <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
     </div>
   </div>
 </template>

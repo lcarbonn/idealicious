@@ -5,8 +5,8 @@
       <span>Copy the link and share it to players to join the game</span>
     </div>
     <div class="halign">
-      <NuxtLink v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
-      <md-button class="md-icon-button" @click="copyToClipboard">
+      <NuxtLink class="md-accent" v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
+      <md-button class="md-icon-button md-accent" @click="copyToClipboard">
         <md-icon>content_copy</md-icon>
         <md-tooltip md-direction="top">Copy to clipboard</md-tooltip>
       </md-button>

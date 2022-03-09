@@ -1,8 +1,8 @@
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
 @include md-register-theme("default", (
-  primary: #EA148D, // The primary color of your brand
-  accent: #ffff00, // The accent color of your brand
+  primary: #005AFF, // The primary color of your brand EA148D
+  accent: #FE5000, // The accent color of your brand ffff00
   theme: light // This can be dark or light
 ));
 
