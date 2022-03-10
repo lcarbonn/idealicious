@@ -28,23 +28,32 @@
             </md-input>
           </md-field>
         </md-card-content>
-        <md-card-actions class="md-layout md-alignment-top-center">
+        <md-card-actions md-alignment="space-between">
+          <div>
           <md-button :disabled="disable" 
             class="md-accent md-icon-button md-raised" 
             @click="addNewIdea">
-              <md-icon>add</md-icon>
+              <md-icon>queue</md-icon>
               <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
           </md-button>
-          <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
+          </div>
+          <div>
+            <md-badge :md-content="round+1">
+              <md-avatar class="md-accent md-avatar-icon">
+                <md-icon>loop</md-icon>
+                <md-tooltip md-direction="top">Round {{round+1}}</md-tooltip>
+              </md-avatar>
+            </md-badge>
+          </div>
+          <div>
           <md-button :disabled="disable" 
             class="md-accent md-icon-button md-raised" 
             @click="skipRound">
               <md-icon>skip_next</md-icon>
               <md-tooltip md-direction="top">Skip this round</md-tooltip>
             </md-button>
+          </div>
         </md-card-actions>
-        <md-card-content class="md-layout md-alignment-top-center">
-        </md-card-content>
       </md-card>
     </div>
   </div>
