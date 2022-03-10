@@ -11,7 +11,7 @@
     <md-app-content>
       <nuxt/>
       <div class="md-layout md-alignment-bottom-center md-body-1">
-        <span>Copyright © 2022 - Agilized in Toulouse, France</span>
+        <p><span>Copyright © 2022 - Agilized in Toulouse, France</span></p>
       </div>
       <BaseSnackbar/>
     </md-app-content>

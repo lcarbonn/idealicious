@@ -21,11 +21,17 @@
         </md-input>
       </md-field>
       <md-button :disabled="disable" 
-        class="md-primary" 
-        @click="addNewIdea">Send to next player</md-button>
+        class="md-primary md-icon-button" 
+        @click="addNewIdea">
+          <md-icon>add</md-icon>
+          <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
+      </md-button>
       <md-button :disabled="disable" 
-        class="md-primary" 
-        @click="skipRound">Skip this round</md-button>
+        class="md-primary md-icon-button" 
+        @click="skipRound">
+          <md-icon>skip_next</md-icon>
+          <md-tooltip md-direction="top">Skip this round</md-tooltip>
+        </md-button>
     </div>
     <div class="md-layout md-alignment-top-center">
       <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>

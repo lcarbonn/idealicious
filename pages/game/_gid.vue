@@ -1,8 +1,12 @@
 <!-- Main page -->
 <template>
   <div>
+    <p>
     <GameAdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame" @resetLoves="resetLoves"/>
+    </p>
+    <p>
     <GameIdeasChain :mode="'game'" :ideas="ideas"/>
+    </p>
   </div>
 </template>
 

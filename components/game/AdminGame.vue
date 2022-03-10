@@ -1,7 +1,7 @@
 <!-- Game page -->
 <template>
   <div>
-    <md-card class="md-layout md-alignment-top-center">
+    <md-card>
       <md-card-content>
         <div class="md-layout md-alignment-top-center">
           <span>Copy the link and share it to players to join the game</span>
@@ -17,11 +17,22 @@
           <span>Players in the game : {{nbPlayers}}</span>
         </div>
       </md-card-content>
+      <md-card-actions class="md-layout md-alignment-top-center">
+      <md-button :disabled="this.started" class="md-primary md-icon-button" @click="startGame">
+        <md-icon>start</md-icon>
+        <md-tooltip md-direction="top">Start the game</md-tooltip>
+      </md-button>
+      <md-button :disabled="!this.started" class="md-primary md-icon-button" @click="endGame">
+        <md-icon>stop</md-icon>
+        <md-tooltip md-direction="top">End the game</md-tooltip>
+      </md-button>
+      <md-button :disabled="this.started" class="md-primary md-icon-button" @click="resetLoves">
+        <md-icon>restart_alt</md-icon>
+        <md-tooltip md-direction="top">Reset loves</md-tooltip>
+      </md-button>
+      </md-card-actions>
     </md-card>
     <div class="md-layout md-alignment-top-center">
-      <md-button :disabled="this.started" class="md-primary" @click="startGame">Start the game</md-button>
-      <md-button :disabled="!this.started" class="md-primary" @click="endGame">End the game</md-button>
-      <md-button :disabled="this.started" class="md-primary" @click="resetLoves">Reset Loves</md-button>
     </div>
   </div>
 </template>

@@ -10,7 +10,10 @@
         maxlength="30"
       ></md-input>
     </md-field>
-    <md-button class="md-primary" @click="joinGame">Join the game</md-button>
+    <md-button class="md-primary md-icon-button" @click="joinGame">
+      <md-icon>login</md-icon>
+      <md-tooltip md-direction="top">Join the game</md-tooltip>
+    </md-button>
   </div>
 </template>
 
