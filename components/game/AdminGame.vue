@@ -32,8 +32,6 @@
       </md-button>
       </md-card-actions>
     </md-card>
-    <div class="md-layout md-alignment-top-center">
-    </div>
   </div>
 </template>
 

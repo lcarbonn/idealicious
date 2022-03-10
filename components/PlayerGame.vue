@@ -1,40 +1,51 @@
 <!-- Game page -->
 <template>
   <div>
-    <div class="md-layout md-alignment-top-center">
-      <md-field v-if="started && round!=0">
-        <label v-if="lastIdea && lastIdea.message!=''">Previous player's idea...</label>
-        <label v-else-if="lastIdea && lastIdea.message==''">Previous player's idea skiped</label>
-        <label v-else>Waiting for previous player's idea...</label>
-        <md-input v-if="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
-      </md-field>
-      <md-field>
-        <label v-if="!started && round==0">Please, wait for the game to start...</label>
-        <label v-else-if="started && round==0">Game started, write your first idea here...</label>
-        <label v-else-if="!started && round!=0">Game as ended</label>
-        <label v-else>Then, write your new idea here...</label>
-        <md-input :disabled="disable"
-          autofocus
-          v-model="newIdea"
-          @keydown.enter="addNewIdea"
-          maxlength="140">
-        </md-input>
-      </md-field>
-      <md-button :disabled="disable" 
-        class="md-primary md-icon-button" 
-        @click="addNewIdea">
-          <md-icon>add</md-icon>
-          <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
-      </md-button>
-      <md-button :disabled="disable" 
-        class="md-primary md-icon-button" 
-        @click="skipRound">
-          <md-icon>skip_next</md-icon>
-          <md-tooltip md-direction="top">Skip this round</md-tooltip>
-        </md-button>
+    <div>
+      <md-card>
+        <md-card-content>
+          <md-field v-if="started && round!=0">
+            <label v-if="lastIdea && lastIdea.message!=''">Previous player's idea...</label>
+            <label v-else-if="lastIdea && lastIdea.message==''">Previous player's idea skiped</label>
+            <label v-else>Waiting for previous player's idea...</label>
+            <md-input v-if="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
+          </md-field>
+        </md-card-content>
+      </md-card>
+      <p/>
+      <md-card>
+        <md-card-content>
+          <md-field>
+            <label v-if="!started && round==0">Please, wait for the game to start...</label>
+            <label v-else-if="started && round==0">Game started, write your first idea here...</label>
+            <label v-else-if="!started && round!=0">Game as ended</label>
+            <label v-else>Then, write your new idea here...</label>
+            <md-input :disabled="disable"
+              autofocus
+              v-model="newIdea"
+              @keydown.enter="addNewIdea"
+              maxlength="140">
+            </md-input>
+          </md-field>
+        </md-card-content>
+        <md-card-actions class="md-layout md-alignment-top-center">
+          <md-button :disabled="disable" 
+            class="md-primary md-icon-button" 
+            @click="addNewIdea">
+              <md-icon>add</md-icon>
+              <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
+          </md-button>
+          <md-button :disabled="disable" 
+            class="md-primary md-icon-button" 
+            @click="skipRound">
+              <md-icon>skip_next</md-icon>
+              <md-tooltip md-direction="top">Skip this round</md-tooltip>
+            </md-button>
+        </md-card-actions>
+      </md-card>
     </div>
     <div class="md-layout md-alignment-top-center">
-      <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
+      <p><md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar></p>
     </div>
   </div>
 </template>

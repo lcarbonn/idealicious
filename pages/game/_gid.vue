@@ -54,6 +54,7 @@ computed: {
     resetLoves() {
       console.debug("resetLoves: gameId:" + this.game.id)
       this.$store.dispatch("ideas/resetLoves", this.game.id)
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Sorry for loves, reset done" });
     }
   },
 };
