@@ -3,14 +3,14 @@
   <div>
     <div class="decks">
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
-        <div class="md-layout md-alignment-center-center">
+        <div class="md-layout md-alignment-center-center md-gutter">
           <div>
-          <md-avatar class="md-primary md-avatar-icon">
-            <md-icon>style</md-icon>
-          </md-avatar>
+            <md-avatar class="md-primary md-avatar-icon">
+              <md-icon>style</md-icon>
+            </md-avatar>
           </div>
           <div>
-            <span>Deck {{index+1}}</span>
+            <span>&nbsp;Deck {{index+1}}</span>
           </div>
         </div>
         <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode"/>
