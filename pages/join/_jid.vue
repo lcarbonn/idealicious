@@ -1,7 +1,16 @@
 <!-- Main page -->
 <template>
 
-  <JoinGame @joinGame="joinGame" />
+  <div>
+    <JoinGame v-if="!started" @joinGame="joinGame"/>
+    <div v-else>
+      <md-card class="md-layout md-alignment-top-center">
+        <md-card-content>
+          <h2>Game is started, to late to join</h2>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
 
 </template>
 
@@ -10,7 +19,7 @@ export default {
   name: "JoinPage",
 
   created() {
-    this.$store.dispatch("games/getGame", this.id);
+    this.$store.dispatch("games/listenGame", this.id);
   },
   
   computed: {
@@ -20,6 +29,10 @@ export default {
     game() {
       return this.$store.getters["games/game"];
     },
+    started() {
+      if(this.game) return this.game.started
+      return false
+    }
   },
 
   methods: {
