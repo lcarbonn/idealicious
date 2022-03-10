@@ -42,10 +42,10 @@
               <md-tooltip md-direction="top">Skip this round</md-tooltip>
             </md-button>
         </md-card-actions>
+        <md-card-content class="md-layout md-alignment-top-center">
+          <md-avatar class="md-primary md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
+        </md-card-content>
       </md-card>
-    </div>
-    <div class="md-layout md-alignment-top-center">
-      <p><md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar></p>
     </div>
   </div>
 </template>
