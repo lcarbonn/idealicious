@@ -30,13 +30,13 @@
         </md-card-content>
         <md-card-actions class="md-layout md-alignment-top-center">
           <md-button :disabled="disable" 
-            class="md-primary md-icon-button" 
+            class="md-accent md-icon-button md-raised" 
             @click="addNewIdea">
               <md-icon>add</md-icon>
               <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
           </md-button>
           <md-button :disabled="disable" 
-            class="md-primary md-icon-button" 
+            class="md-accent md-icon-button md-raised" 
             @click="skipRound">
               <md-icon>skip_next</md-icon>
               <md-tooltip md-direction="top">Skip this round</md-tooltip>

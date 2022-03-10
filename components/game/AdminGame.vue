@@ -18,15 +18,15 @@
         </div>
       </md-card-content>
       <md-card-actions class="md-layout md-alignment-top-center">
-        <md-button :disabled="this.started" class="md-primary md-icon-button" @click="startGame">
+        <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="startGame">
           <md-icon>start</md-icon>
           <md-tooltip md-direction="top">Start the game</md-tooltip>
         </md-button>
-        <md-button :disabled="!this.started" class="md-primary md-icon-button" @click="endGame">
+        <md-button :disabled="!this.started" class="md-accent md-icon-button md-raised" @click="endGame">
           <md-icon>stop</md-icon>
           <md-tooltip md-direction="top">End the game</md-tooltip>
         </md-button>
-        <md-button :disabled="this.started" class="md-primary md-icon-button" @click="resetLoves">
+        <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="resetLoves">
           <md-icon>restart_alt</md-icon>
           <md-tooltip md-direction="top">Reset loves</md-tooltip>
         </md-button>
