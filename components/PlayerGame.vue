@@ -1,7 +1,7 @@
 <!-- Game page -->
 <template>
   <div>
-    <div>
+    <div class="md-layout md-alignment-top-center">
       <md-field v-if="started && round!=0">
         <label v-if="lastIdea && lastIdea.message!=''">Previous player's idea...</label>
         <label v-else-if="lastIdea && lastIdea.message==''">Previous player's idea skiped</label>
@@ -27,7 +27,7 @@
         class="md-primary" 
         @click="skipRound">Skip this round</md-button>
     </div>
-    <div>
+    <div class="md-layout md-alignment-top-center">
       <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
     </div>
   </div>

@@ -2,15 +2,18 @@
 <template>
   <div>
     <div>
-      <h2>Welcome to Idealicious</h2>
-      <h3>Idealicious let you generate great ideas</h3>
-      <h3>Idealicious is based on the "Exquisite Corpse" game</h3>
-      <h3>Enter the challenge of the game</h3>
-      <h3>Then share the game to other players</h3>
+        <md-card class="md-layout md-alignment-top-center">
+          <md-card-content>
+            <h2>Welcome to Idealicious</h2>
+            <div>Idealicious let you generate great ideas</div>
+            <div>Idealicious is based on the "Exquisite Corpse" game</div>
+            <div>Enter the challenge of the game</div>
+            <div>Then share the game to other players</div>
+          </md-card-content>
+        </md-card>
     </div>
     <GameAddGame @addGame="addGame" />
   </div>
-
 </template>
 
 <script>

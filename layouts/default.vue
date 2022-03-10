@@ -1,7 +1,7 @@
 <!-- Main page -->
 <template>
   <md-app md-waterfall md-mode="fixed">
-    <md-app-toolbar class="md-small md-dense md-primary">
+    <md-app-toolbar class="md-small md-dense md-primary md-layout md-alignment-top-center">
       <span class="md-title">
         <n-link to="/" class="md-title n-link">Idealicious</n-link>
       </span>

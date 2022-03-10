@@ -1,20 +1,24 @@
 <!-- Game page -->
 <template>
   <div>
-    <div>
-      <span>Copy the link and share it to players to join the game</span>
-    </div>
-    <div class="halign">
-      <NuxtLink class="md-accent" v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
-      <md-button class="md-icon-button md-accent" @click="copyToClipboard">
-        <md-icon>content_copy</md-icon>
-        <md-tooltip md-direction="top">Copy to clipboard</md-tooltip>
-      </md-button>
-    </div>
-    <div>
-      <span>Players in the game : {{nbPlayers}}</span>
-    </div>
-    <div>
+    <md-card class="md-layout md-alignment-top-center">
+      <md-card-content>
+        <div class="md-layout md-alignment-top-center">
+          <span>Copy the link and share it to players to join the game</span>
+        </div>
+        <div class="md-layout md-alignment-center-center">
+          <NuxtLink class="md-accent" v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
+          <md-button class="md-icon-button md-accent" @click="copyToClipboard">
+            <md-icon>content_copy</md-icon>
+            <md-tooltip md-direction="top">Copy to clipboard</md-tooltip>
+          </md-button>
+        </div>
+        <div class="md-layout md-alignment-top-center">
+          <span>Players in the game : {{nbPlayers}}</span>
+        </div>
+      </md-card-content>
+    </md-card>
+    <div class="md-layout md-alignment-top-center">
       <md-button :disabled="this.started" class="md-primary" @click="startGame">Start the game</md-button>
       <md-button :disabled="!this.started" class="md-primary" @click="endGame">End the game</md-button>
       <md-button :disabled="this.started" class="md-primary" @click="resetLoves">Reset Loves</md-button>
@@ -64,11 +68,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.halign {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-</style>

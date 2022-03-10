@@ -35,7 +35,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 600px) {
   .decks {
     display: flex;
     flex-direction:row;
@@ -47,13 +46,4 @@ export default {
     display: flex;
     flex-direction:column;
   }
-}
-@media (max-width: 600px) {
-  .decks {
-    display: block;
-  }
-  .deck {
-    display: block;
-  }
-}
 </style>

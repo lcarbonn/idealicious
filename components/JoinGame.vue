@@ -1,6 +1,6 @@
 <!-- Game page -->
 <template>
-  <div>
+  <div class="md-layout md-alignment-top-center">
     <md-field>
       <label>Enter your name</label>
       <md-input
