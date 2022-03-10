@@ -6,9 +6,10 @@
           <md-card-content>
             <h2>Welcome to Idealicious</h2>
             <div>Idealicious let you generate great ideas</div>
-            <div>Idealicious is based on the "Exquisite Corpse" game</div>
+            <div>The game is based on the "Exquisite Corpse" game</div>
+            <p/>
             <div>Enter the challenge of the game</div>
-            <div>Then share the game to other players</div>
+            <div>Then share the join link to other players</div>
           </md-card-content>
         </md-card>
     </div>
