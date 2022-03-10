@@ -5,7 +5,7 @@
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
         <div class="md-layout md-alignment-center-center md-gutter">
           <div>
-            <md-avatar class="md-primary md-avatar-icon">
+            <md-avatar class="md-accent md-avatar-icon">
               <md-icon>style</md-icon>
             </md-avatar>
           </div>
