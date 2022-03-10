@@ -35,6 +35,7 @@
               <md-icon>add</md-icon>
               <md-tooltip md-direction="top">Add the idea and send to next player</md-tooltip>
           </md-button>
+          <md-avatar class="md-accent md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
           <md-button :disabled="disable" 
             class="md-accent md-icon-button md-raised" 
             @click="skipRound">
@@ -43,7 +44,6 @@
             </md-button>
         </md-card-actions>
         <md-card-content class="md-layout md-alignment-top-center">
-          <md-avatar class="md-primary md-avatar-icon">{{round+1}}<md-tooltip md-direction="top">Round {{round+1}}</md-tooltip></md-avatar>
         </md-card-content>
       </md-card>
     </div>
