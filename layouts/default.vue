@@ -20,9 +20,13 @@
 
 <script>
 
+import authenticated from '~/mixins/authenticated.js';
+
 export default {
   name: "DefaultLayout",
-  
+  // anonymous login
+  mixins: [authenticated],
+
   computed: {
     player() {
       return this.$store.getters["players/player"];
