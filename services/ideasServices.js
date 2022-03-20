@@ -83,14 +83,16 @@ export const loveIdea = async (param) => {
 export const resetLoves = async (callback, gameId, ideas) => {
     console.debug("start resetLoves gameId=" + gameId + ", ideas:" + ideas)
     const batch = writeBatch(db)
+    let i = 0
     ideas.forEach(deck => {
         deck.forEach(idea => {
             idea.loved = 0
-            let ideaRef = doc(db, "games/" + gameId + "/ideas", idea.id)
+            let ideaRef = doc(db, "games/" + gameId + "/decks/" + i + "/ideas", idea.id)
             batch.update(ideaRef, {
                 loved: 0
             });
-         })
+        })
+        i++
     });
     await batch.commit()
     callback(ideas)
