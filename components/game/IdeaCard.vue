@@ -50,15 +50,15 @@ export default {
         idea:this.idea,
         isLoved:this.isLoved
         });
-        if(this.isLoved)         this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Thanks for your vote ;-)" });
-        else         this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Ok, you still can change your choice :-(" });
+        if(this.isLoved) this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Thanks for your vote ;-)" });
+        else this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Ok, you still can change your choice :-(" });
       } else {
         this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey, you're the game master, not a player !!!" });
       }
     },
     getLovedClass() {
-      if(this.mode=="player" && this.isLoved) return "md-raised md-primary"
-      if(this.mode=="game" && this.idea.loved>0) return "md-raised md-primary"
+      if(this.mode=="player" && this.isLoved) return "md-raised md-accent"
+      if(this.mode=="game" && this.idea.loved>0) return "md-raised md-accent"
     }
   },
 

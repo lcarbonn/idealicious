@@ -1,17 +1,13 @@
-import { addIdea, listenLastIdea, getIdeas, getLastIdea, updateIdea, resetLoves } from '~/services/ideasServices'
+import { addIdea, listenDecks, listenDeckIdeas, loveIdea, resetLoves } from '~/services/ideasServices'
 
 export const state = () => ({
     idea: null,
-    lastIdea: null,
     ideas:null
 });
 
 export const getters = {
     idea: state => {
         return state.idea
-    },
-    lastIdea: state => {
-        return state.lastIdea
     },
     ideas: state => {
         return state.ideas
@@ -22,19 +18,15 @@ export const mutations = {
     setIdea(state, payload) {
         state.idea = payload
     },
-    setLastIdea(state, payload) {
-        state.lastIdea = payload
-    },
     setIdeas(state, payload) {
+        console.debug("change ideas state set")
         state.ideas = payload
     },
-    updateIdea(state, idea) {
-        state.ideas.forEach(element => {
-            if (element.id == idea.id) {
-                element = idea
-            }
-        });
-        state.ideas = state.ideas
+    addDeckIdeas(state, payload) {
+        const newIdeas = JSON.parse(JSON.stringify(state.ideas))
+        newIdeas[payload.id] = JSON.parse(JSON.stringify(payload.ideas))
+        console.debug("change ideas state update")
+        state.ideas = newIdeas
     }
 };
 
@@ -42,47 +34,34 @@ export const actions = {
     async addIdea({ commit, dispatch }, idea) {
         try {
             console.debug("add idea:" + idea.message)
-            await addIdea(idea);
+            idea = await addIdea(idea);
             commit("setIdea", idea);
         } catch (error) {
             console.log(error)
         }
     },
 
-    getIdeas({ commit, dispatch }, gameId) {
+    listenIdeas({ commit, dispatch }, gameId) {
         const callback = ideas => {
-            console.debug("getIdeas :" + ideas.length)
             if (ideas) {
+                let i = 0
+                ideas.forEach(deck => {
+                    const callbackIdea = deckIdeas => {
+                        commit("addDeckIdeas", deckIdeas);
+                    }
+                    listenDeckIdeas(callbackIdea, gameId, i++);
+                });
                 commit("setIdeas", ideas);
             }
         }
-        getIdeas(callback, gameId);
-    },
-
-    listenLastIdea({ commit, dispatch }, param) {
-        const callback = async idea => {
-            let lastIdea = idea
-            if (lastIdea) {
-                console.debug("listenLastIdea id:" + lastIdea.id)
-                console.debug("idea.message:" + lastIdea.message)
-                if (lastIdea.message=="") {
-                    while (lastIdea && lastIdea.message == "" && param.round > 1) {
-                        console.debug("skiped idea, round:" + param.round)
-                        param.round--
-                        lastIdea = await getLastIdea(param)
-                    }
-                }
-            }
-            commit("setLastIdea", lastIdea);
-        }
-        listenLastIdea(callback, param);
+        listenDecks(callback, gameId);
     },
 
     async loveIdea({ commit, dispatch }, param) {
         try {
             if (param) console.debug("loveIdea idea:" + param.idea.id + ", isLoved:" + param.isLoved)
-            await updateIdea(param);
-            commit("updateIdea", param.idea);
+            await loveIdea(param);
+            // listen ideas already done, no need to change state
         } catch (error) {
             console.log(error)
         }

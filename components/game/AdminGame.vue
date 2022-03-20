@@ -51,7 +51,7 @@ export default {
     },
     started() {
       console.debug("game"+this.game)
-      if(this.game) return this.game.started
+      if(this.game) return this.game.started && !this.game.ended
       return false
     }
   },

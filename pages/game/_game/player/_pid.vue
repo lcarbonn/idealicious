@@ -1,7 +1,15 @@
 <!-- Main page -->
 <template>
   <div>
-    <PlayerGame v-if="!ended" @addIdea="addIdea" :player="player" :game="game" :lastIdea="lastIdea" :round="round" :started="started"/>
+    <PlayerGame v-if="!ended" 
+      @addIdea="addIdea" 
+      :player="player" 
+      :game="game"
+      :deck="deck"
+      :lastIdea="lastIdea"
+      :started="started"
+      :ended="ended"
+      :round="round"/>
     <div v-if="ended">
       <div>
         <h2 class="md-primary">Game as ended</h2>
@@ -14,6 +22,7 @@
 </template>
 
 <script>
+import { Timestamp } from '@firebase/firestore';
 export default {
   name: "PlayerPage",
 
@@ -21,34 +30,24 @@ export default {
   }),
 
   created() {
-    console.debug("pid:"+this.id)
+    console.debug("pid:"+this.playerId)
     console.debug("game:"+this.gameId)
-    // for init and reloaded page
-    this.$store.dispatch("players/getNbPlayers", this.gameId);
-    this.$store.dispatch("players/getSyncPlayer", {
-      playerId: this.id,
+    this.$store.dispatch("games/listenGame", this.gameId);
+    this.$store.dispatch("players/getPlayer", {
+      playerId: this.playerId,
       gameId: this.gameId
       }).then(() => {
         let player = this.$store.getters["players/player"];
-        let nbPlayers =  this.$store.getters["players/nbPlayers"];
-        if(player) {
-          let nextDeck = getNextDeck(player.deckId, nbPlayers)
-          const param = {
-            gameId : this.gameId,
-            deckId : nextDeck,
-            round : player.round
-          }
-          //listen to next idea
-          this.$store.dispatch("ideas/listenLastIdea", param)
-        }
+        this.$store.dispatch("decks/getDeck", {
+          playerId: player.playerId,
+          gameId: this.gameId
+          })
       })
-    // for further listening
-    this.$store.dispatch("games/listenGame", this.gameId);
     this.$store.dispatch("players/listenNbPlayers", this.gameId);
   },
   
   computed: {
-    id() {
+    playerId() {
       return this.$route.params.pid;
     },
     gameId() {
@@ -57,15 +56,14 @@ export default {
     player() {
       return this.$store.getters["players/player"];
     },
-    round() {
-      if(!this.player) return 0
-      return this.player.round 
+    deck() {
+      return this.$store.getters["decks/deck"];
     },
     game() {
       return this.$store.getters["games/game"];
     },
     lastIdea() {
-      return this.$store.getters["ideas/lastIdea"];
+      return this.$store.getters["decks/lastIdea"];
     },
     nbPlayers() {
       return this.$store.getters["players/nbPlayers"];
@@ -73,54 +71,54 @@ export default {
     started() {
       console.debug("game start:"+this.game)
       if(!this.game) return false
-      console.debug("game started :"+this.game.started)
-      return this.game.started
+      console.debug("game started :"+this.game.started + ", ended:"+this.game.ended)
+      return this.game.started && !this.game.ended
     },
     ended() {
       console.debug("game ended:"+this.game)
       if(!this.game) return false
-      console.debug("game ended :"+!this.game.started)
-      if(!this.game.started && this.round!=0) this.$store.dispatch("ideas/getIdeas", this.game.id);
-      return !this.game.started && this.round!=0
+      if(this.game.ended) this.$store.dispatch("ideas/listenIdeas", this.game.id);
+      return this.game.ended
     },
     ideas() {
       return this.$store.getters["ideas/ideas"];
+    },
+    round() {
+      if(this.player) return this.player.round
+      return 0
     }
   },
 
   methods: {
     addIdea(idea) {
       if (idea != null) {
-        let round = this.round;
-        round++;
+        const deck = this.deck
         const newIdea = {
           message: idea,
           gameId: this.game.id,
           playerId: this.player.id,
-          deckId:this.player.deckId,
-          round:round,
-          loved:0
-        };
-        if(this.lastIdea) {
-          newIdea.deckId = this.lastIdea.deckId
+          loved:0,
+          createTime: null,
+          deckId:deck.id
         }
         this.$store.dispatch("ideas/addIdea", newIdea).then(() => {
-          console.debug("newIdea added:" + newIdea.id+", deckId:"+newIdea.deckId+", round:"+newIdea.round);
-        })
-          //update round player
-          const upPlayer = JSON.parse(JSON.stringify(this.player))
-          upPlayer.round = round
-          upPlayer.deckId = newIdea.deckId
-          this.$store.dispatch("players/updatePlayerRound", upPlayer)
+          console.debug("newIdea added:" + newIdea.id+", deckId:"+deck.id);
+          // then send the deck to next player
           // get next deck id
-          let nextDeck = getNextDeck(newIdea.deckId, this.nbPlayers)
-          const param = {
-            gameId : this.game.id,
-            deckId : nextDeck,
-            round : round
-          }
-          //listen to next idea
-          this.$store.dispatch("ideas/listenLastIdea", param)
+          const deckToNextPlayer = JSON.parse(JSON.stringify(deck))
+          deckToNextPlayer.playerId = getNextPlayerId(deck.playerId, this.nbPlayers)
+          this.$store.dispatch("decks/sendDeck", deckToNextPlayer).then(() => {
+            // the listen to deck availability and get last idea
+            this.$store.dispatch("decks/listenDeck", {
+              playerId: this.player.playerId,
+              gameId: this.gameId
+              })
+            // then update player round
+            const upPlayer = JSON.parse(JSON.stringify(this.player))
+            upPlayer.round++
+            this.$store.dispatch("players/updatePlayerRound", upPlayer)
+          })
+        })
       }
     },
     loveIdea(param) {
@@ -132,13 +130,13 @@ export default {
   },
 };
 
-export const getNextDeck = (deckId, maxId) => {
-  console.debug("actualDeck:"+deckId+", maxId="+maxId)
-  let nextDeck = deckId-1;
-  if(nextDeck<0) nextDeck=maxId-1;
-  if(maxId==0) nextDeck=0;
-  console.debug("nextDeck:"+nextDeck+", maxId="+maxId)
-  return nextDeck
+export const getNextPlayerId = (playerId, nbPlayers) => {
+  let maxId = nbPlayers-1
+  console.debug("actualPlayer:"+playerId+", maxId="+maxId)
+  let nextPlayer = playerId+1;
+  if(nextPlayer>maxId) nextPlayer=0;
+  console.debug("nextPlayer:"+nextPlayer+", maxId="+maxId)
+  return nextPlayer
 }
 
 </script>

@@ -1,82 +1,83 @@
-import { collection, addDoc, query, where, onSnapshot, orderBy, getDocs, doc, updateDoc, increment, writeBatch } from "firebase/firestore"
+import { collection, addDoc, query, onSnapshot, orderBy, getDocs, doc, updateDoc, increment, writeBatch, Timestamp } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addIdea = async (idea) => {
     if (!idea) return null
     console.debug("start addIdea message=" + idea.message)
-    const ideasRef = collection(db, "games/" + idea.gameId + "/ideas")
+    const ideasRef = collection(db, "games/" + idea.gameId + "/decks/" + idea.deckId + "/ideas")
+    idea.createTime = Timestamp.fromDate(new Date())
     const ref = await addDoc(ideasRef, idea)
     idea.id = ref.id
     console.debug("end addIdea id=" + idea.id)
     return idea
 };
 
-export const getIdeas = async (callback, gameId) => {
-    console.debug("start getIdeas: gameId :" + gameId)
-    const ideasRef = collection(db, "games/" + gameId + "/ideas")
-    const q = query(ideasRef, orderBy("deckId"), orderBy("round"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const ideas = [];
-        querySnapshot.forEach((docSnap) => {
-            let idea = docSnap.data()
-            if (idea.message != "") {
-                idea.id = docSnap.id
-                let deck = ideas[idea.deckId]
-                if (!deck) {
-                    deck = []
-                    ideas.push(deck)
-                }
-                deck.push(idea)
-            }
-        });
-        console.debug("end getIdeas: gameId :" + gameId +", " + ideas.length)
+export const listenDecks = async (callback, gameId) => {
+    console.debug("start listenDecks: gameId :" + gameId)
+    const decksRef = collection(db, "games/" + gameId + "/decks")
+    const q = query(decksRef, orderBy("id"));
+    const unsubd = onSnapshot(q, (decksSnapshot) => {
+        const ideas = []
+        decksSnapshot.forEach((deckSnap) => {
+            let deck = []
+            ideas.push(deck)
+        })
+        console.debug("end listenDecks: gameId :" + gameId + ", " + ideas.length)
         callback(ideas)
     });
 };
 
-export const listenLastIdea = async (callback, param) => {
-    if (!param) return null
-    console.debug("start listenLastIdea gameId:"+param.gameId+", deckId:" + param.deckId + ", round:" + param.round)
-    const ideasRef = collection(db, "games/" + param.gameId + "/ideas")
-    const q = query(ideasRef, where("deckId", "==", param.deckId), where("round", "==", param.round));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const docSnap = querySnapshot.docs[0]
-        let idea = null
+export const listenDeckIdeas = async (callback, gameId, deckId) => {
+    console.debug("start listenIdeas: gameId :" + gameId)
+    const ideasRef = collection(db, "games/" + gameId + "/decks/" + deckId + "/ideas")
+    const qi = query(ideasRef, orderBy("createTime"));
+    const unsubi = onSnapshot(qi, (ideasSnapshot) => {
+        const ideas = []
+        ideasSnapshot.forEach((ideaSnap) => {
+            const idea = ideaSnap.data()
+            if (idea.message != "") {
+                idea.id = ideaSnap.id
+                ideas.push(idea)
+            }
+        })
+        console.debug("end listenIdeas: gameId :" + gameId + ", " + ideas.length)
+        const deckIdeas = {
+            id : deckId,
+            ideas: ideas
+        }
+        callback(deckIdeas)
+    })
+};
+
+export const getLastIdea = async (deck) => {
+    if (!deck) return null
+    console.debug("start getLastIdea gameId:" + deck.gameId + ", deckId:" + deck.id)
+    const ideasRef = collection(db, "games/" + deck.gameId + "/decks/" +deck.id + "/ideas")
+    const q = query(ideasRef, orderBy("createTime","desc"));
+    const querySnapshot = await getDocs(q)
+    let idea = null
+    for (let index = 0; index < querySnapshot.docs.length; index++) {
+        const docSnap = querySnapshot.docs[index];
         if (docSnap) {
             idea = docSnap.data()
             idea.id = docSnap.id
+            if (idea.message != "") break
         }
-        console.debug("end listenLastIdea gameId:" + param.gameId +", deckId:" + param.deckId + ", round:" + param.round + ", idea:" + idea)
-        callback(idea)
-    });
-};
-
-export const getLastIdea = async (param) => {
-    if (!param) return null
-    console.debug("start getLastIdea gameId:" + param.gameId + ", deckId:" + param.deckId + ", round:" + param.round)
-    const ideasRef = collection(db, "games/" + param.gameId + "/ideas")
-    const q = query(ideasRef, where("deckId", "==", param.deckId), where("round", "==", param.round));
-    const querySnapshot = await getDocs(q)
-    const docSnap = querySnapshot.docs[0]
-    let idea = null
-    if (docSnap) {
-        idea = docSnap.data()
-        idea.id = docSnap.id
     }
-    console.debug("end getLastIdea gameId:" + param.gameId + ", deckId:" + param.deckId + ", round:" + param.round + ", idea:" + idea)
+    console.debug("end getLastIdea gameId:" + deck.gameId + ", deckId:" + deck.id + ", idea:"+idea)
     return idea
 };
 
-export const updateIdea = async (param) => {
+export const loveIdea = async (param) => {
     if (!param) return null
-    console.debug("start updateIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
-    const ideaRef = doc(db, "games/" + param.idea.gameId + "/ideas", param.idea.id)
+    console.debug("start loveIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
+    const ideaRef = doc(db, "games/" + param.idea.gameId + "/decks/" + param.idea.deckId + "/ideas", param.idea.id)
     let inc = 1
     if(!param.isLoved) inc = -1
     await updateDoc(ideaRef, {
         loved: increment(inc)
     })
-    console.debug("end updateIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
+    console.debug("end loveIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
 };
 
 export const resetLoves = async (callback, gameId, ideas) => {

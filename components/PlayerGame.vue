@@ -1,12 +1,10 @@
 <!-- Game page -->
 <template>
   <div>
-    <div>
       <md-card>
         <md-card-content>
-          <md-field v-if="started && round!=0">
+          <md-field v-if="started && !ended && round!=0">
             <label v-if="lastIdea && lastIdea.message!=''">Previous player's idea...</label>
-            <label v-else-if="lastIdea && lastIdea.message==''">Previous player's idea skiped</label>
             <label v-else>Waiting for previous player's idea...</label>
             <md-input v-if="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }}</md-input>
           </md-field>
@@ -16,9 +14,9 @@
       <md-card>
         <md-card-content>
           <md-field>
-            <label v-if="!started && round==0">Please, wait for the game to start...</label>
-            <label v-else-if="started && round==0">Game started, write your first idea here...</label>
-            <label v-else-if="!started && round!=0">Game as ended</label>
+            <label v-if="!started && !ended">Please, wait for the game to start...</label>
+            <label v-else-if="started && !ended && round==0">Game started, write your first idea here...</label>
+            <label v-else-if="ended">Game as ended</label>
             <label v-else>Then, write your new idea here...</label>
             <md-input :disabled="disable"
               autofocus
@@ -55,7 +53,6 @@
           </div>
         </md-card-actions>
       </md-card>
-    </div>
   </div>
 </template>
 
@@ -65,6 +62,7 @@ export default {
 
   props: {
     started: false,
+    ended: false,
     lastIdea: Object,
     round:0
   },
@@ -89,7 +87,6 @@ export default {
       }
     },
     skipRound() {
-      //TODO : change skip management
         this.$emit("addIdea", "")
         this.newIdea=""
     },

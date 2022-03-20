@@ -38,10 +38,11 @@ export const listenGame = async (callback, id) => {
 
 export const updateGameStatus = async (game) => {
     if(!game) return null
-    console.debug("start updateGameStatus id=" + game.id + ", started:" + game.started)
+    console.debug("start updateGameStatus id=" + game.id + ", started:" + game.started + ", ended:"+game.ended)
     const gameRef = doc(db, "games", game.id)
     await updateDoc(gameRef, {
-        started: game.started
+        started: game.started,
+        ended:game.ended
     })
-    console.debug("end updateGameStatus id=" + game.id + ", started:" + game.started)
+    console.debug("end updateGameStatus id=" + game.id + ", started:" + game.started + ", ended:" + game.ended)
 };
