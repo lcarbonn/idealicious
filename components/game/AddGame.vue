@@ -2,7 +2,7 @@
 <template>
   <div class="md-layout md-alignment-top-center">
     <md-field>
-      <label>Enter the game challenge</label>
+      <label>{{$t('addGameLabel')}}</label>
       <md-input
         autofocus
         v-model="gameTitle"
@@ -12,7 +12,7 @@
     </md-field>
     <md-button class="md-accent md-icon-button md-raised" @click="addNewGame">
       <md-icon>add</md-icon>
-      <md-tooltip md-direction="top">Add new game</md-tooltip>
+      <md-tooltip md-direction="top">{{$t('addGameButton')}}</md-tooltip>
     </md-button>
   </div>
 </template>

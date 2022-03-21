@@ -1,0 +1,21 @@
+export default {
+    copyright: "Copyright © 2022 - Agilisé à Toulouse, France",
+    welcome: 'Bienvenue sur Idealicious',
+    welcome2: 'Idealicious permet de générer de fabuleuses idées de façon collective',
+    welcome3: 'Ce jeux est basé sur le jeu du "Cadavre Exquis"',
+    welcome4: 'Saisissez le sujet du challenge',
+    welcome5: 'Puis partagez le lien de participation aux autres joueurs',
+    game: 'Jeux',
+    player: 'Joueur',
+    addGameLabel: 'Entrer le sujet du challenge',
+    addGameButton: 'Ajouter nouveau challenge',
+    adminGameCopyLink: 'Copier le lien et partager le aux joueurs pour rejoindre le jeu',
+    adminGameClipboard: 'Copier le lien dans le presse-papier',
+    adminGameNbPlayers: 'Nombre de joueurs',
+    adminGameStart: 'Lancer le jeu',
+    adminGameEnd: 'Arrêter le jeu',
+    adminGameResetLoves: 'Remise à zéro des votes',
+    adminGameCopyDone: 'Lien copié dans le presse-papier',
+    adminGameCopyError: 'Erreur de copie dans le presse-papier', 
+
+}

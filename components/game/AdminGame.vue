@@ -4,31 +4,31 @@
     <md-card>
       <md-card-content>
         <div class="md-layout md-alignment-top-center">
-          <span>Copy the link and share it to players to join the game</span>
+          <span>{{$t('adminGameCopyLink')}}</span>
         </div>
         <div class="md-layout md-alignment-center-center">
           <NuxtLink class="md-accent" v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
           <md-button class="md-icon-button md-accent" @click="copyToClipboard">
             <md-icon>content_copy</md-icon>
-            <md-tooltip md-direction="top">Copy to clipboard</md-tooltip>
+            <md-tooltip md-direction="top">{{$t('adminGameClipboard')}}</md-tooltip>
           </md-button>
         </div>
         <div class="md-layout md-alignment-top-center">
-          <span>Players in the game : {{nbPlayers}}</span>
+          <span>{{$t('adminGameNbPlayers')}} : {{nbPlayers}}</span>
         </div>
       </md-card-content>
       <md-card-actions class="md-layout md-alignment-top-center">
         <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="startGame">
           <md-icon>start</md-icon>
-          <md-tooltip md-direction="top">Start the game</md-tooltip>
+          <md-tooltip md-direction="top">{{$t('adminGameStart')}}</md-tooltip>
         </md-button>
         <md-button :disabled="!this.started" class="md-accent md-icon-button md-raised" @click="endGame">
           <md-icon>stop</md-icon>
-          <md-tooltip md-direction="top">End the game</md-tooltip>
+          <md-tooltip md-direction="top">{{$t('adminGameEnd')}}</md-tooltip>
         </md-button>
         <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="resetLoves">
           <md-icon>restart_alt</md-icon>
-          <md-tooltip md-direction="top">Reset loves</md-tooltip>
+          <md-tooltip md-direction="top">{{$t('adminGameResetLoves')}}</md-tooltip>
         </md-button>
       </md-card-actions>
     </md-card>
@@ -66,9 +66,10 @@ export default {
     async copyToClipboard() {
       try {
         await navigator.clipboard.writeText(this.gamePath);
-        this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Copy to clipboard done" });
+        console.debug(this.$i18n.t('adminGameCopyDone'))
+        this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('adminGameCopyDone') });
       } catch($e) {
-        this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Copy to clipboard error" });
+        this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('adminGameCopyError') });
       }
     },
     resetLoves() {

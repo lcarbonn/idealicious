@@ -46,8 +46,26 @@ export default {
         "MdDivider", "MdDialog", "MdDialogConfirm", "MdAvatar", "MdBadge"
       ]
     }],
-
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    /* module options */
+    locales: [
+      {
+        code: 'en',
+        file: 'en-US.js'
+      },
+      {
+        code: 'fr',
+        file: 'fr-FR.js'
+      }
+    ],
+    lazy: true,
+    langDir: 'lang/',
+    strategy: 'no_prefix',
+    defaultLocale: 'en',
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

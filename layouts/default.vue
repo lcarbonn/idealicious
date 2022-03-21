@@ -3,15 +3,15 @@
   <md-app md-waterfall md-mode="fixed">
     <md-app-toolbar class="md-small md-dense md-primary md-layout md-alignment-top-center">
       <span class="md-title">
-        <n-link to="/" class="md-title n-link">Idealicious</n-link>
+        <n-link :to="localePath('/')" class="md-title n-link">Idealicious</n-link>
       </span>
-      <span class="md-title" v-if="game">Game : {{game.title}}</span>
-      <span class="md-title" v-if="player"> - Player : {{player.name}}</span>
+      <span class="md-title" v-if="game">{{$t('game')}} : {{game.title}}</span>
+      <span class="md-title" v-if="player"> - {{$t('player')}} : {{player.name}}</span>
     </md-app-toolbar>
     <md-app-content>
       <nuxt/>
       <div class="md-layout md-alignment-bottom-center md-body-1">
-        <p><span>Copyright © 2022 - Agilized in Toulouse, France</span></p>
+        <p><span>{{$t('copyright')}}</span></p>
       </div>
       <BaseSnackbar/>
     </md-app-content>
