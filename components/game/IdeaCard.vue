@@ -43,6 +43,15 @@ export default {
     }
   },
 
+  watch: {
+    // in case of loves reset
+    idea(newIdea, oldIdea) {
+      if (newIdea.loved == 0) {
+        this.isLoved = false
+      }
+    }
+  },
+
   methods: {
     loveIdea() {
       console.debug("love idea:" + this.idea.message)
