@@ -12,7 +12,7 @@
       :round="round"/>
     <div v-if="ended">
       <div>
-        <h2 class="md-primary">Game as ended</h2>
+        <h2 class="md-primary">{{$t('pidGameEnded')}}</h2>
       </div>
       <div>
         <GameIdeasChain @loveIdea="loveIdea" :mode="'player'" :ideas="ideas"/>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { Timestamp } from '@firebase/firestore';
 export default {
   name: "PlayerPage",
 

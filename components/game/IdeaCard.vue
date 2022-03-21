@@ -5,14 +5,16 @@
       {{idea.message}}
     </md-card-content>
     <md-card-actions>
-      <md-badge v-if="gameMode && nbLoved>0" class="md-primary" :md-content="nbLoved" md-dense>
+      <md-badge v-if="gameMode" class="md-primary" :md-content="nbLoved" md-dense>
         <md-button class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
           <md-icon>favorite</md-icon>
+          <md-tooltip md-direction="top">{{$t('ideaCardNbVote')}}</md-tooltip>
         </md-button>
       </md-badge>
-        <md-button v-else class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
-          <md-icon>favorite</md-icon>
-        </md-button>
+      <md-button v-else class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
+        <md-icon>favorite</md-icon>
+        <md-tooltip md-direction="top">{{$t('ideaCardVote')}}</md-tooltip>
+      </md-button>
     </md-card-actions>
   </md-card>
 </template>
@@ -50,10 +52,10 @@ export default {
         idea:this.idea,
         isLoved:this.isLoved
         });
-        if(this.isLoved) this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Thanks for your vote ;-)" });
-        else this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Ok, you still can change your choice :-(" });
+        if(this.isLoved) this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('ideaCardLike') });
+        else this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('ideaCardUnlike') });
       } else {
-        this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey, you're the game master, not a player !!!" });
+        this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('ideaCardLikeDisabled') });
       }
     },
     getLovedClass() {

@@ -3,13 +3,6 @@
 
   <div>
     <JoinGame @joinGame="joinGame"/>
-    <!-- <div v-else>
-      <md-card class="md-layout md-alignment-top-center">
-        <md-card-content>
-          <h2>Game is started, to late to join</h2>
-        </md-card-content>
-      </md-card>
-    </div> -->
   </div>
 
 </template>
@@ -57,7 +50,7 @@ export default {
           // then create his deck
           this.$store.dispatch("decks/addDeck", newDeck)
           console.debug("newPlayer playerId:" + storePlayer.playerId);
-          this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Hey welcome " + player + " ;-)" });
+          this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('jidWelcomePlayer', {player: player}) });
           this.$router.push("/game/"+this.game.id+"/player/" + storePlayer.id);
         });
       }
