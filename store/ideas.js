@@ -42,7 +42,7 @@ export const actions = {
         }
     },
 
-    listenIdeas({ commit, dispatch }, gameId) {
+    listenIdeas({ commit, dispatch }, param) {
         const callback = ideas => {
             if (ideas) {
                 let i = 0
@@ -50,12 +50,12 @@ export const actions = {
                     const callbackIdea = deckIdeas => {
                         commit("addDeckIdeas", deckIdeas);
                     }
-                    listenDeckIdeas(callbackIdea, gameId, i++);
+                    listenDeckIdeas(callbackIdea, param.gameId, param.sortByLove, i++);
                 });
                 commit("setIdeas", ideas);
             }
         }
-        listenDecks(callback, gameId);
+        listenDecks(callback, param.gameId);
     },
 
     async loveIdea({ commit, dispatch }, param) {

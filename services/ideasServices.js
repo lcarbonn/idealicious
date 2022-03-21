@@ -27,10 +27,11 @@ export const listenDecks = async (callback, gameId) => {
     });
 };
 
-export const listenDeckIdeas = async (callback, gameId, deckId) => {
+export const listenDeckIdeas = async (callback, gameId, sortByLove, deckId) => {
     console.debug("start listenIdeas: gameId :" + gameId)
     const ideasRef = collection(db, "games/" + gameId + "/decks/" + deckId + "/ideas")
-    const qi = query(ideasRef, orderBy("createTime"));
+    let qi = query(ideasRef, orderBy("createTime"));
+    if (sortByLove) qi = query(ideasRef, orderBy("loved", "desc"), orderBy("createTime"));
     const unsubi = onSnapshot(qi, (ideasSnapshot) => {
         const ideas = []
         ideasSnapshot.forEach((ideaSnap) => {

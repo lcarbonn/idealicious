@@ -76,7 +76,10 @@ export default {
     ended() {
       console.debug("game ended:"+this.game)
       if(!this.game) return false
-      if(this.game.ended) this.$store.dispatch("ideas/listenIdeas", this.game.id);
+      if(this.game.ended) this.$store.dispatch("ideas/listenIdeas", { 
+        gameId : this.game.id,
+        sortByLove : false
+      });
       return this.game.ended
     },
     ideas() {

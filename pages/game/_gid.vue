@@ -16,7 +16,10 @@ export default {
 
   created() {
     this.$store.dispatch("games/listenGame", this.id);
-    this.$store.dispatch("ideas/listenIdeas", this.id);
+    this.$store.dispatch("ideas/listenIdeas", { 
+        gameId : this.id,
+        sortByLove : true
+      });
     this.$store.dispatch("players/listenNbPlayers", this.id);
   },
 
