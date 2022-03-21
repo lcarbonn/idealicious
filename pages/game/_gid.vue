@@ -42,7 +42,7 @@ computed: {
       game.started = true
       game.ended = false
       this.$store.dispatch("games/updateGameStatus", game)
-      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Steady, Ready, Go!  ---  Ideas will appear there" });
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('gidStartGame') });
     },
     endGame() {
       console.debug("endGame: gameId:" + this.game.id)
@@ -50,12 +50,12 @@ computed: {
       game.ended = true
       this.$store.dispatch("games/updateGameStatus", game)
       // this.$store.dispatch("ideas/getIdeas", this.game.id)
-      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "That was fun !!!" });
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('gidEndGame') });
     },
     resetLoves() {
       console.debug("resetLoves: gameId:" + this.game.id)
       this.$store.dispatch("ideas/resetLoves", this.game.id)
-      this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Sorry for loves, reset done" });
+      this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('gidResetLoves') });
     }
   },
 };

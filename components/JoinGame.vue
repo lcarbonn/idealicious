@@ -2,7 +2,7 @@
 <template>
   <div class="md-layout md-alignment-top-center">
     <md-field>
-      <label>Enter your name</label>
+      <label>{{$t('joinGameLabel')}}</label>
       <md-input
         autofocus
         v-model="playerName"
@@ -12,7 +12,7 @@
     </md-field>
     <md-button class="md-accent md-icon-button md-raised" @click="joinGame">
       <md-icon>login</md-icon>
-      <md-tooltip md-direction="top">Join the game</md-tooltip>
+      <md-tooltip md-direction="top">{{$t('joinGameButton')}}</md-tooltip>
     </md-button>
   </div>
 </template>

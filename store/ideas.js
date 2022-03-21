@@ -23,8 +23,9 @@ export const mutations = {
         state.ideas = payload
     },
     addDeckIdeas(state, payload) {
-        const newIdeas = JSON.parse(JSON.stringify(state.ideas))
-        newIdeas[payload.id] = JSON.parse(JSON.stringify(payload.ideas))
+        const newIdeas = []
+        Object.assign(newIdeas, state.ideas)
+        Object.assign(newIdeas[payload.id], payload.ideas)
         console.debug("change ideas state update")
         state.ideas = newIdeas
     }

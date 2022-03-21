@@ -10,7 +10,7 @@
             </md-avatar>
           </div>
           <div>
-            <span>&nbsp;Deck {{index+1}}</span>
+            <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
           </div>
         </div>
         <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode"/>

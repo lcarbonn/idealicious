@@ -4,12 +4,12 @@
     <div>
         <md-card class="md-layout md-alignment-top-center">
           <md-card-content>
-            <h2>Welcome to Idealicious</h2>
-            <div>Idealicious let you generate great ideas</div>
-            <div>The game is based on the "Exquisite Corpse" game</div>
+            <h2>{{$t('welcome')}}</h2>
+            <div>{{$t('welcome2')}}</div>
+            <div>{{$t('welcome3')}}</div>
             <p/>
-            <div>Enter the challenge of the game</div>
-            <div>Then share the join link to other players</div>
+            <div>{{$t('welcome4')}}</div>
+            <div>{{$t('welcome5')}}</div>
           </md-card-content>
         </md-card>
     </div>
@@ -30,7 +30,7 @@ export default {
       if (game != null) {
         this.$store.dispatch("games/addGame", game).then(() => {
           this.$router.push("/game/" + game.id);
-          this.$store.dispatch("snackbar/setSnackbarMessage", { message: "Game added" });
+          this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('addGameSnack') });
         });
       }
     },
