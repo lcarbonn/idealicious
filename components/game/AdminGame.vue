@@ -66,7 +66,7 @@ export default {
     async copyToClipboard() {
       try {
         await navigator.clipboard.writeText(this.gamePath);
-        console.debug(this.$i18n.t('adminGameCopyDone'))
+        console.debug(this.$i18n.locale +" " +this.$i18n.t('adminGameCopyDone'))
         this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('adminGameCopyDone') });
       } catch($e) {
         this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('adminGameCopyError') });

@@ -1,0 +1,21 @@
+{
+    "copyright": "Copyright © 2022 - Agilized in Toulouse, France",
+    "welcome": "Welcome to Idealicious",
+    "welcome2": "Idealicious let you generate great ideas collectively",
+    "welcome3": "The game is based on the \"Exquisite Corpse\" game",
+    "welcome4": "Enter the challenge of the game",
+    "welcome5": "Then share the join link to other players",
+    "game": "Game",
+    "player": "Player",
+    "addGameLabel": "Enter the game challenge",
+    "addGameButton": "Add new game",
+    "adminGameCopyLink": "Copy the link and share it to players to join the game",
+    "adminGameClipboard": "Copy to clipboard",
+    "adminGameNbPlayers": "Players in the game",
+    "adminGameStart": "Start the game",
+    "adminGameEnd": "End the game",
+    "adminGameResetLoves": "Reset loves",
+    "adminGameCopyDone": "Copy to clipboard done",
+    "adminGameCopyError": "Copy to clipboard error"
+
+}
