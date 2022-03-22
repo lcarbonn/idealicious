@@ -107,7 +107,8 @@ export default {
           console.debug("newIdea added:" + newIdea.id+", deckId:"+deck.id);
           // then send the deck to next player
           // get next deck id
-          const deckToNextPlayer = JSON.parse(JSON.stringify(deck))
+          const deckToNextPlayer = {}
+          Object.assign(deckToNextPlayer,deck)
           deckToNextPlayer.playerId = getNextPlayerId(deck.playerId, this.nbPlayers)
           this.$store.dispatch("decks/sendDeck", deckToNextPlayer).then(() => {
             // the listen to deck availability and get last idea
@@ -116,7 +117,8 @@ export default {
               gameId: this.gameId
               })
             // then update player round
-            const upPlayer = JSON.parse(JSON.stringify(this.player))
+            const upPlayer = {}
+            Object.assign(upPlayer,this.player)
             upPlayer.round++
             this.$store.dispatch("players/updatePlayerRound", upPlayer)
           })
