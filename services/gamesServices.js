@@ -6,7 +6,7 @@ export const addGame = async (game) => {
     console.debug("start addGame title=" + game.title)
     const ref = await addDoc(collection(db, "games"), game)
     game.id = ref.id
-    console.log("end addGame id=" + game.id)
+    console.debug("end addGame id=" + game.id)
 };
 
 export const getGame = async (callback, id) => {
