@@ -2,7 +2,7 @@ export default {
     copyright: "Copyright © 2022 - Agilisé à Toulouse, France",
     welcome: 'Bienvenue sur Idealicious',
     welcome2: 'Idealicious permet de générer de fabuleuses idées de façon collective',
-    welcome3: 'Ce jeux est basé sur le jeu du "Cadavre Exquis"',
+    welcome3: 'Ce jeu est basé sur le jeu du "Cadavre Exquis"',
     welcome4: 'Saisissez le sujet du challenge',
     welcome5: 'Puis partagez le lien de participation aux autres joueurs',
     game: 'Challenge',
