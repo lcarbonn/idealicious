@@ -21,7 +21,8 @@ export const listenDeck = async (callback, deck) => {
             newDeck = docSnap.data()
             newDeck.id = docSnap.id
         }
-        console.debug("end listenDeck playerId=" + deck.playerId +", newDeck:"+newDeck)
+        if (newDeck) console.debug("end listenDeck playerId=" + deck.playerId + ", newDeck:" + newDeck.id)
+        else console.debug("end listenDeck playerId=" + deck.playerId + ", newDeck:" + newDeck)
         callback(newDeck)
     })
 };
@@ -37,8 +38,9 @@ export const getDeck = async (callback, deck) => {
             newDeck = docSnap.data()
             newDeck.id = docSnap.id
         }
-        console.debug("end listenDeck playerId=" + deck.playerId + ", newDeck:" + newDeck)
-        callback(newDeck)
+    if (newDeck) console.debug("end getDeck playerId=" + deck.playerId + ", newDeck:" + newDeck.id)
+    else console.debug("end getDeck playerId=" + deck.playerId + ", newDeck:" + newDeck)
+    callback(newDeck)
 };
 
 export const sendDeck = async (deck) => {
