@@ -2,7 +2,11 @@
 <template>
   <div>
     <p>
-      <GameAdminGame :game="game" :nbPlayers="nbPlayers" @startGame="startGame" @endGame="endGame" @resetLoves="resetLoves"/>
+      <GameAdminGame :game="game" :nbPlayers="nbPlayers" 
+        @startGame="startGame"
+        @endGame="endGame"
+        @resetLoves="resetLoves"
+        @exportIdeas="exportIdeas"/>
     </p>
     <p>
       <GameIdeasChain :mode="'game'" :ideas="ideas"/>
@@ -11,6 +15,9 @@
 </template>
 
 <script>
+import { exportCSVFile } from "/scripts/common.js";
+
+
 export default {
   name: "GamePage",
 
@@ -59,6 +66,10 @@ computed: {
       console.debug("resetLoves: gameId:" + this.game.id)
       this.$store.dispatch("ideas/resetLoves", this.game.id)
       this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('gidResetLoves') });
+    },
+    exportIdeas() {
+      const separator = this.$i18n.t('exportSeparator')
+      exportCSVFile(this.ideas, "Idealicious-ideas-"+this.game.id, separator)
     }
   },
 };

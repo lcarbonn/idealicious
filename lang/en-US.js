@@ -17,7 +17,8 @@ export default {
     adminGameEnd: 'End the game',
     adminGameResetLoves: 'Reset loves',
     adminGameCopyDone: 'Copy to clipboard done',
-    adminGameCopyError: 'Copy to clipboard error', 
+    adminGameCopyError: 'Copy to clipboard error',
+    adminGameExportIdeas: 'Export ideas to csv file',
     joinGameLabel: 'Enter your name',
     joinGameButton: 'Join the game',
     jidWelcomePlayer: 'Hey welcome {player} ;-)',
@@ -40,5 +41,6 @@ export default {
     ideaCardLike: 'Thanks for your vote ;-)',
     ideaCardUnlike: 'Ok, you still can change your choice: -(',
     ideaCardLikeDisabled: 'Hey, you\'re the game master, not a player !!!',
-
+    exportSeparator: ','
+    
 }

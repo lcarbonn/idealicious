@@ -30,12 +30,17 @@
           <md-icon>restart_alt</md-icon>
           <md-tooltip md-direction="top">{{$t('adminGameResetLoves')}}</md-tooltip>
         </md-button>
+        <md-button :disabled="!this.started" class="md-accent md-icon-button md-raised" @click="exportIdeas">
+          <md-icon>download</md-icon>
+          <md-tooltip md-direction="top">{{$t('adminGameExportIdeas')}}</md-tooltip>
+        </md-button>
       </md-card-actions>
     </md-card>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "AdminGameComp",
 
@@ -74,6 +79,9 @@ export default {
     },
     resetLoves() {
       this.$emit("resetLoves")
+    },
+    exportIdeas() {
+      this.$emit("exportIdeas")
     }
   },
 };
