@@ -17,7 +17,8 @@ export default {
     adminGameEnd: 'Arrêter le jeu',
     adminGameResetLoves: 'Remise à zéro des votes',
     adminGameCopyDone: 'Lien copié dans le presse-papier',
-    adminGameCopyError: 'Erreur de copie dans le presse-papier', 
+    adminGameCopyError: 'Erreur de copie dans le presse-papier',
+    adminGameExportIdeas: 'Exporter les idées vers un fichier csv',
     joinGameLabel: 'Entrer votre nom',
     joinGameButton: 'Rejoindre le challenge',
     jidWelcomePlayer: 'Hello, bienvenue {player} ;-)',
@@ -40,5 +41,6 @@ export default {
     ideaCardLike: 'Merci d\'avoir voté pour moi ;-)',
     ideaCardUnlike: 'Ok, vous pouvez encore changer d\'avis :-(',
     ideaCardLikeDisabled: 'Hey, vous êtes le maître du jeu, pas un joueur !!!',
+    exportSeparator: ';'
 
 }
