@@ -25,9 +25,6 @@
 export default {
   name: "PlayerPage",
 
-  data: () => ({
-  }),
-
   created() {
     console.debug("pid:"+this.playerId)
     console.debug("game:"+this.gameId)

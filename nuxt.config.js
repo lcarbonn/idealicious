@@ -76,7 +76,8 @@ export default {
       name: 'Idealicious',
       short_name: 'Idealicious',
       display: 'standalone',
-      lang: 'en'
+      description: 'Idealicious let you generate great ideas collectively',
+      lang: 'en-US'
     }
   },
 
