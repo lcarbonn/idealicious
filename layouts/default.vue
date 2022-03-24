@@ -11,7 +11,7 @@
     <md-app-content>
       <nuxt/>
       <div class="md-layout md-alignment-bottom-center md-body-1">
-        <p><span>{{$t('copyright')}} - V{{appliVersion}}</span></p>
+        <p><span>{{$t('copyright')}} - V{{appVersion}}</span></p>
       </div>
       <BaseSnackbar/>
     </md-app-content>
@@ -21,7 +21,7 @@
 <script>
 
 import authenticated from '~/mixins/authenticated.js';
-import { version as appVersion } from '../package.json';
+import { version } from '../package.json';
 
 export default {
   name: "DefaultLayout",
@@ -29,11 +29,11 @@ export default {
   mixins: [authenticated],
 
   data: () => ({
-    appliVersion: appVersion
+    appVersion: version
   }),
 
   created() {
-    console.debug("appVersion:"+this.appliVersion)
+    console.debug("appVersion:"+this.appVersion)
   },
   computed: {
     player() {
