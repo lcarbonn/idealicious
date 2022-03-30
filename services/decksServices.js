@@ -16,11 +16,6 @@ export const listenDeck = async (callback, deck) => {
     const decksRef = collection(db, "games/" + deck.gameId + "/decks")
     const q = query(decksRef, where("playerId", "==", deck.playerId), orderBy("updateTime"))
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        // console.debug("snapshot listenDeck playerId=" + deck.playerId + ', nbDecks:' + querySnapshot.docs.length)
-        // querySnapshot.forEach((snap) => {
-        //     let deck = snap.data()
-        //     console.debug("snapshot listenDeck playerId=" + deck.playerId + ', snap:' + deck.id)
-        // })
         const docSnap = querySnapshot.docs[0]
         let newDeck = null
         if (docSnap) {
