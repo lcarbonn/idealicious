@@ -6,7 +6,7 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav>
         <b-nav-item v-if="game">{{$t('game')}} : {{game.title}}</b-nav-item>
         <b-nav-item v-if="player"> - {{$t('player')}} : {{player.name}}</b-nav-item>
       </b-navbar-nav>

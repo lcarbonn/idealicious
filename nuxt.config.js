@@ -37,14 +37,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    // ['nuxt-vue-material', {
-    //   theme: 'default',
-    //   components: ['MdDrawer', 'MdRadio', 'MdMenu', 'MdContent', 'MdList', 'MdButton',
-    //     'MdToolbar', 'MdIcon', 'MdApp', 'MdCard', 'MdField',
-    //     'MdCheckbox', 'MdSnackbar', 'MdSwitch', 'MdTooltip',
-    //     "MdDivider", "MdDialog", "MdDialogConfirm", "MdAvatar", "MdBadge"
-    //   ]
-    // }],
     '@nuxtjs/i18n',
     // https://go.nuxtjs.dev/bootstrap
     ['bootstrap-vue/nuxt',
