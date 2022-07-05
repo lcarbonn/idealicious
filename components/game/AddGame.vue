@@ -11,8 +11,8 @@
         </b-col>
       </b-row>
       <b-row align-h="center">
-        <b-col cols="12" md="auto">
-          <b-button id="addButton" variant="info" @click="addNewGame">
+        <b-col md="auto">
+          <b-button id="addButton" variant="secondary" @click="addNewGame">
             <b-icon icon="plus-circle-fill"></b-icon>
           </b-button>
           <b-tooltip target="addButton" triggers="hover">{{$t('addGameButton')}}</b-tooltip>
