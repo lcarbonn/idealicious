@@ -1,27 +1,30 @@
 <!-- Ideas page -->
 <template>
-  <md-card v-if="idea">
-    <md-card-content>
+  <b-card v-if="idea">
+    <b-card-text>
       {{idea.message}}
-    </md-card-content>
-    <md-card-actions>
-      <md-badge v-if="gameMode" class="md-primary" :md-content="nbLoved" md-dense>
-        <md-button class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
-          <md-icon>favorite</md-icon>
-          <md-tooltip md-direction="top">{{$t('ideaCardNbVote')}}</md-tooltip>
-        </md-button>
-      </md-badge>
-      <md-button v-else class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
-        <md-icon>favorite</md-icon>
-        <md-tooltip md-direction="top">{{$t('ideaCardVote')}}</md-tooltip>
-      </md-button>
-    </md-card-actions>
-  </md-card>
+    </b-card-text>
+    <b-avatar v-if="gameMode" id="loveButton" :variant="getLovedClass()" icon="heart-fill" :badge="nbLoved">
+    </b-avatar>
+    <b-avatar v-else id="loveButton" button :variant="getLovedClass()" icon="heart-fill" @click="loveIdea">
+    </b-avatar>
+    <b-tooltip v-if="gameMode" target="loveButton" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
+    <b-tooltip v-else target="loveButton" triggers="hover">{{ $t('ideaCardVote')}}</b-tooltip>
+  </b-card>
 </template>
 
 <script>
+import { BIcon, BIconHeartFill } from 'bootstrap-vue'
+
 export default {
   name: "IdeaCardComp",
+
+  components: {
+    BIcon,
+    BIconHeartFill
+  },
+
+
   props: {
     idea: Object,
     mode:String
@@ -68,8 +71,9 @@ export default {
       }
     },
     getLovedClass() {
-      if(this.mode=="player" && this.isLoved) return "md-raised md-accent"
-      if(this.mode=="game" && this.idea.loved>0) return "md-raised md-accent"
+      if (this.mode == "player" && this.isLoved) return "secondary"
+      if (this.mode == "game" && this.idea.loved > 0) return "secondary"
+      return "light"
     }
   },
 

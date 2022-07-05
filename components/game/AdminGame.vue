@@ -27,7 +27,6 @@
           </b-row>
         </b-container>
       </b-card-text>
-
       <b-container>
         <b-row>
           <b-col md="auto">
