@@ -48,7 +48,7 @@
             <b-tooltip target="reset" triggers="hover">{{ $t('adminGameResetLoves')}}</b-tooltip>
           </b-col>
           <b-col md="auto">
-            <b-button id="download" variant="secondary" @click="exportIdeas" :disabled="!this.started">
+            <b-button id="download" variant="secondary" @click="exportIdeas" :disabled="this.started">
               <b-icon icon="download"></b-icon>
             </b-button>
             <b-tooltip target="download" triggers="hover">{{ $t('adminGameExportIdeas')}}</b-tooltip>
