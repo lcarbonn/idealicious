@@ -1,11 +1,11 @@
 <!-- Ideas page -->
 <template>
-  <b-card v-if="idea">
+  <b-card v-if="idea" class="mb-1 shadow-sm">
     <b-card-text>
       {{idea.message}}
     </b-card-text>
     <template v-if="gameMode">
-      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="nbLoved">
+      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="idea.loved">
       </b-avatar>
       <b-tooltip :target="idea.id" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
     </template>
@@ -41,9 +41,6 @@ export default {
   computed: {
     isDisable() {
       return (this.mode=="game")
-    },
-    nbLoved() {
-      return (this.idea.loved)
     },
     gameMode() {
       return (this.mode=="game")
@@ -83,12 +80,3 @@ export default {
 
 };
 </script>
-
-<style lang="scss" scoped>
-.md-card {
-  width: 320px;
-  margin: 4px;
-  display: inline-block;
-  vertical-align: top;
-}
-</style>
