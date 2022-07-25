@@ -4,24 +4,28 @@
     <b-card-text>
       {{idea.message}}
     </b-card-text>
-    <b-avatar v-if="gameMode" id="loveButton" :variant="getLovedClass()" icon="heart-fill" :badge="nbLoved">
-    </b-avatar>
-    <b-avatar v-else id="loveButton" button :variant="getLovedClass()" icon="heart-fill" @click="loveIdea">
-    </b-avatar>
-    <b-tooltip v-if="gameMode" target="loveButton" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
-    <b-tooltip v-else target="loveButton" triggers="hover">{{ $t('ideaCardVote')}}</b-tooltip>
+    <template v-if="gameMode">
+      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="nbLoved">
+      </b-avatar>
+      <b-tooltip :target="idea.id" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
+    </template>
+    <template v-else>
+      <b-avatar :id="idea.id" button :variant="getLovedClass()" icon="heart" @click="loveIdea">
+      </b-avatar>
+      <b-tooltip :target="idea.id" triggers="hover">{{ $t('ideaCardVote')}}</b-tooltip>
+    </template>
   </b-card>
 </template>
 
 <script>
-import { BIcon, BIconHeartFill } from 'bootstrap-vue'
+import { BIcon, BIconHeart } from 'bootstrap-vue'
 
 export default {
   name: "IdeaCardComp",
 
   components: {
     BIcon,
-    BIconHeartFill
+    BIconHeart
   },
 
 

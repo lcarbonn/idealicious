@@ -3,26 +3,31 @@
   <div>
     <div class="decks">
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
-        <div class="md-layout md-alignment-center-center md-gutter">
-          <div>
-            <md-avatar class="md-accent md-avatar-icon">
-              <md-icon>style</md-icon>
-            </md-avatar>
-          </div>
-          <div>
-            <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
-          </div>
-        </div>
-        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode"/>
-        <p/>
+        <b-container>
+          <b-row align-h="center">
+            <b-col md="auto">
+              <b-avatar icon="card-list">
+              </b-avatar>
+              <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
+            </b-col>
+          </b-row>
+        </b-container>
+        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { BIcon, BIconCardList } from 'bootstrap-vue'
+
 export default {
   name: "IdeasChainComp",
+
+  components: {
+    BIcon,
+    BIconCardList
+  },
 
   props: {
     ideas: [],
