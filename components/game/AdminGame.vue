@@ -27,34 +27,33 @@
           </b-row>
         </b-container>
       </b-card-text>
-      <b-container>
+      <b-container class="text-center">
         <b-row>
-          <b-col md="auto">
+          <b-col>
             <b-button id="start" variant="secondary" @click="startGame" :disabled="this.started">
               <b-icon icon="play-circle"></b-icon>
             </b-button>
             <b-tooltip target="start" triggers="hover">{{ $t('adminGameStart')}}</b-tooltip>
           </b-col>
-          <b-col md="auto">
+          <b-col>
             <b-button id="stop" variant="secondary" @click="endGame" :disabled="!this.started">
               <b-icon icon="stop-circle"></b-icon>
             </b-button>
             <b-tooltip target="stop" triggers="hover">{{ $t('adminGameEnd')}}</b-tooltip>
           </b-col>
-          <b-col md="auto">
+          <b-col>
             <b-button id="reset" variant="secondary" @click="resetLoves" :disabled="this.started">
               <b-icon icon="arrow-counterclockwise"></b-icon>
             </b-button>
             <b-tooltip target="reset" triggers="hover">{{ $t('adminGameResetLoves')}}</b-tooltip>
           </b-col>
-          <b-col md="auto">
+          <b-col>
             <b-button id="download" variant="secondary" @click="exportIdeas" :disabled="this.started">
               <b-icon icon="download"></b-icon>
             </b-button>
             <b-tooltip target="download" triggers="hover">{{ $t('adminGameExportIdeas')}}</b-tooltip>
           </b-col>
         </b-row>
-
       </b-container>
     </b-card>
   </div>

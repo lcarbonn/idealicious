@@ -22,20 +22,20 @@
             maxlength="140" trim class="mb-0" :state="newIdeaState"></b-form-input>
         </b-form-group>
       </b-card-text>
-      <b-container>
-        <b-row align-h="center">
-          <b-col md="auto">
+      <b-container class="text-center">
+        <b-row align-h="around">
+          <b-col>
             <b-button id="addButton" :disabled="disable" @click="addNewIdea">
               <b-icon icon="plus-circle-fill"></b-icon>
             </b-button>
             <b-tooltip target="addButton" triggers="hover">{{ $t('playerGameAddIdea')}}</b-tooltip>
           </b-col>
-          <b-col md="auto">
+          <b-col>
             <b-avatar id="avatar" variant="secondary" icon="arrow-counterclockwise" :badge="round+1">
             </b-avatar>
             <b-tooltip target="avatar" triggers="hover">{{$t('playerGameRound')}} {{round+1}}</b-tooltip>
           </b-col>
-          <b-col md="auto">
+          <b-col>
             <b-button id="skipButton" :disabled="disable" @click="skipRound">
               <b-icon icon="skip-end"></b-icon>
             </b-button>

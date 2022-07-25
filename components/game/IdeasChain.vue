@@ -3,16 +3,21 @@
   <div>
     <div class="decks">
       <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
-        <b-container>
+        <b-container class="text-center">
           <b-row align-h="center">
-            <b-col md="auto">
+            <b-col>
               <b-avatar icon="card-list">
               </b-avatar>
               <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
             </b-col>
           </b-row>
+          <b-row></b-row>
+          <b-row>
+            <b-col>
+              <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode" />
+            </b-col>
+          </b-row>
         </b-container>
-        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode" />
       </div>
     </div>
   </div>
