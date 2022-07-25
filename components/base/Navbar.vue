@@ -1,16 +1,12 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="info" class="sticky-top">
+  <b-navbar type="dark" variant="info" class="sticky-top">
     <b-navbar-brand href="/">
       <b-icon icon="house"></b-icon>
     </b-navbar-brand>
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item v-if="game">{{$t('game')}} : {{game.title}}</b-nav-item>
-        <b-nav-item v-if="player"> - {{$t('player')}} : {{player.name}}</b-nav-item>
-      </b-navbar-nav>
-    </b-collapse>
+    <b-navbar-nav>
+      <b-nav-item v-if="game">{{$t('game')}} : {{ game.title }}</b-nav-item>
+      <b-nav-item v-if="player">{{$t('player')}} : {{player.name}}</b-nav-item>
+    </b-navbar-nav>
   </b-navbar>
 </template>
 
