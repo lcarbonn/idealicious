@@ -1,6 +1,6 @@
 {
-  "name": "idealicinpm ous",
-  "version": "1.0.2",
+  "name": "idealicious",
+  "version": "1.1.0",
   "description": "Ideation tool",
   "author": "lcarbonn",
   "private": true,
@@ -13,21 +13,18 @@
   "dependencies": {
     "@nuxtjs/i18n": "^7.2.0",
     "@nuxtjs/pwa": "^3.3.5",
+    "bootstrap": "^4.6.1",
+    "bootstrap-vue": "^2.22.0",
     "core-js": "^3.19.3",
-    "firebase": "^9.6.6",
+    "firebase": "^9.6.10",
     "nuxt": "^2.15.8",
-    "nuxt-vue-material": "^1.2.0",
-    "sass": "^1.49.7",
     "vue": "^2.6.14",
-    "vue-material": "^1.0.0-beta-15",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
-    "vuelidate": "^0.7.6",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@types/vuelidate": "^0.7.13",
-    "nodemon": "^2.0.7",
-    "sass-loader": "^10.1.1"
+    "sass": "^1.50.0",
+    "sass-loader": "^10.2.1"
   }
 }

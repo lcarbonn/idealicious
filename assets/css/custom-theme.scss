@@ -1,10 +1,7 @@
-@import "~vue-material/dist/theme/engine"; // Import the theme engine
+$theme-colors: (
+  primary: #17a2b8,
+  secondary: #FE5000,
+  // info: #d900a3,
+);
 
-@include md-register-theme("default", (
-  primary: #005AFF, // The primary color of your brand EA148D
-  accent: #FE5000, // The accent color of your brand ffff00
-  theme: light // This can be dark or light
-));
-
-@import "~vue-material/dist/theme/all"; // Apply the theme  
-
+@import "~/node_modules/bootstrap/scss/bootstrap";

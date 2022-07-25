@@ -2,16 +2,15 @@
 <template>
   <div>
     <div>
-        <md-card class="md-layout md-alignment-top-center">
-          <md-card-content>
-            <h2>{{$t('welcome')}}</h2>
-            <div>{{$t('welcome2')}}</div>
-            <div>{{$t('welcome3')}}</div>
-            <p/>
-            <div>{{$t('welcome4')}}</div>
-            <div>{{$t('welcome5')}}</div>
-          </md-card-content>
-        </md-card>
+      <b-card :title="$t('welcome')">
+        <b-card-text>
+          <div>{{$t('welcome2')}}</div>
+          <div>{{$t('welcome3')}}</div>
+          <p />
+          <div>{{$t('welcome4')}}</div>
+          <div>{{$t('welcome5')}}</div>
+        </b-card-text>
+      </b-card>
     </div>
     <GameAddGame @addGame="addGame" />
   </div>

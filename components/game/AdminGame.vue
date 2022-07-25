@@ -1,48 +1,79 @@
 <!-- Game page -->
 <template>
   <div>
-    <md-card>
-      <md-card-content>
-        <div class="md-layout md-alignment-top-center">
-          <span>{{$t('adminGameCopyLink')}}</span>
-        </div>
-        <div class="md-layout md-alignment-center-center">
-          <NuxtLink class="md-accent" v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
-          <md-button class="md-icon-button md-accent" @click="copyToClipboard">
-            <md-icon>content_copy</md-icon>
-            <md-tooltip md-direction="top">{{$t('adminGameClipboard')}}</md-tooltip>
-          </md-button>
-        </div>
-        <div class="md-layout md-alignment-top-center">
-          <span>{{$t('adminGameNbPlayers')}} : {{nbPlayers}}</span>
-        </div>
-      </md-card-content>
-      <md-card-actions class="md-layout md-alignment-top-center">
-        <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="startGame">
-          <md-icon>start</md-icon>
-          <md-tooltip md-direction="top">{{$t('adminGameStart')}}</md-tooltip>
-        </md-button>
-        <md-button :disabled="!this.started" class="md-accent md-icon-button md-raised" @click="endGame">
-          <md-icon>stop</md-icon>
-          <md-tooltip md-direction="top">{{$t('adminGameEnd')}}</md-tooltip>
-        </md-button>
-        <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="resetLoves">
-          <md-icon>restart_alt</md-icon>
-          <md-tooltip md-direction="top">{{$t('adminGameResetLoves')}}</md-tooltip>
-        </md-button>
-        <md-button :disabled="this.started" class="md-accent md-icon-button md-raised" @click="exportIdeas">
-          <md-icon>download</md-icon>
-          <md-tooltip md-direction="top">{{$t('adminGameExportIdeas')}}</md-tooltip>
-        </md-button>
-      </md-card-actions>
-    </md-card>
+    <b-card>
+      <b-card-text>
+        <b-container>
+          <b-row>
+            <b-col>
+              <span>{{$t('adminGameCopyLink')}}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <NuxtLink v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
+            </b-col>
+            <b-col>
+              <b-button id="clipboard" variant="secondary" @click="copyToClipboard">
+                <b-icon icon="clipboard"></b-icon>
+              </b-button>
+              <b-tooltip target="clipboard" triggers="hover">{{ $t('adminGameClipboard')}}</b-tooltip>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <span>{{$t('adminGameNbPlayers')}} : {{nbPlayers}}</span>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card-text>
+      <b-container class="text-center">
+        <b-row>
+          <b-col>
+            <b-button id="start" variant="secondary" @click="startGame" :disabled="this.started">
+              <b-icon icon="play-circle"></b-icon>
+            </b-button>
+            <b-tooltip target="start" triggers="hover">{{ $t('adminGameStart')}}</b-tooltip>
+          </b-col>
+          <b-col>
+            <b-button id="stop" variant="secondary" @click="endGame" :disabled="!this.started">
+              <b-icon icon="stop-circle"></b-icon>
+            </b-button>
+            <b-tooltip target="stop" triggers="hover">{{ $t('adminGameEnd')}}</b-tooltip>
+          </b-col>
+          <b-col>
+            <b-button id="reset" variant="secondary" @click="resetLoves" :disabled="this.started">
+              <b-icon icon="arrow-counterclockwise"></b-icon>
+            </b-button>
+            <b-tooltip target="reset" triggers="hover">{{ $t('adminGameResetLoves')}}</b-tooltip>
+          </b-col>
+          <b-col>
+            <b-button id="download" variant="secondary" @click="exportIdeas" :disabled="this.started">
+              <b-icon icon="download"></b-icon>
+            </b-button>
+            <b-tooltip target="download" triggers="hover">{{ $t('adminGameExportIdeas')}}</b-tooltip>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card>
   </div>
 </template>
 
 <script>
+import { BIcon, BIconPlayCircle, BIconClipboard, BIconStopCircle, BIconArrowCounterclockwise, BIconDownload } from 'bootstrap-vue'
 
 export default {
+  
   name: "AdminGameComp",
+
+  components: {
+    BIcon,
+    BIconPlayCircle,
+    BIconClipboard,
+    BIconStopCircle,
+    BIconArrowCounterclockwise,
+    BIconDownload
+  },
 
   props: {
     game: Object,

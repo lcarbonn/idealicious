@@ -1,27 +1,34 @@
 <!-- Ideas page -->
 <template>
-  <md-card v-if="idea">
-    <md-card-content>
+  <b-card v-if="idea" class="mb-1 shadow-sm">
+    <b-card-text>
       {{idea.message}}
-    </md-card-content>
-    <md-card-actions>
-      <md-badge v-if="gameMode" class="md-primary" :md-content="nbLoved" md-dense>
-        <md-button class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
-          <md-icon>favorite</md-icon>
-          <md-tooltip md-direction="top">{{$t('ideaCardNbVote')}}</md-tooltip>
-        </md-button>
-      </md-badge>
-      <md-button v-else class="md-icon-button" :class="getLovedClass()" @click="loveIdea">
-        <md-icon>favorite</md-icon>
-        <md-tooltip md-direction="top">{{$t('ideaCardVote')}}</md-tooltip>
-      </md-button>
-    </md-card-actions>
-  </md-card>
+    </b-card-text>
+    <template v-if="gameMode">
+      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="idea.loved">
+      </b-avatar>
+      <b-tooltip :target="idea.id" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
+    </template>
+    <template v-else>
+      <b-avatar :id="idea.id" button :variant="getLovedClass()" icon="heart" @click="loveIdea">
+      </b-avatar>
+      <b-tooltip :target="idea.id" triggers="hover">{{ $t('ideaCardVote')}}</b-tooltip>
+    </template>
+  </b-card>
 </template>
 
 <script>
+import { BIcon, BIconHeart } from 'bootstrap-vue'
+
 export default {
   name: "IdeaCardComp",
+
+  components: {
+    BIcon,
+    BIconHeart
+  },
+
+
   props: {
     idea: Object,
     mode:String
@@ -34,9 +41,6 @@ export default {
   computed: {
     isDisable() {
       return (this.mode=="game")
-    },
-    nbLoved() {
-      return (this.idea.loved)
     },
     gameMode() {
       return (this.mode=="game")
@@ -68,19 +72,11 @@ export default {
       }
     },
     getLovedClass() {
-      if(this.mode=="player" && this.isLoved) return "md-raised md-accent"
-      if(this.mode=="game" && this.idea.loved>0) return "md-raised md-accent"
+      if (this.mode == "player" && this.isLoved) return "secondary"
+      if (this.mode == "game" && this.idea.loved > 0) return "secondary"
+      return "light"
     }
   },
 
 };
 </script>
-
-<style lang="scss" scoped>
-.md-card {
-  width: 320px;
-  margin: 4px;
-  display: inline-block;
-  vertical-align: top;
-}
-</style>

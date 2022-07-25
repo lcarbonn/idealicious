@@ -1,28 +1,37 @@
 <!-- Game page -->
 <template>
-  <div>
-    <div class="decks">
-      <div class="deck" v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
-        <div class="md-layout md-alignment-center-center md-gutter">
-          <div>
-            <md-avatar class="md-accent md-avatar-icon">
-              <md-icon>style</md-icon>
-            </md-avatar>
-          </div>
-          <div>
-            <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
-          </div>
-        </div>
-        <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode"/>
-        <p/>
-      </div>
-    </div>
-  </div>
+  <b-container>
+    <b-row align-h="around">
+      <b-col v-for="(deck, index) in ideas" :key="deck.id" :deck="deck">
+        <b-container class="text-center">
+          <b-row class="mb-1">
+            <b-col>
+              <b-avatar icon="card-list">
+              </b-avatar>
+              <span>&nbsp;{{$t('ideasChainDeck')}} {{index+1}}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode" />
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
+import { BIcon, BIconCardList } from 'bootstrap-vue'
+
 export default {
   name: "IdeasChainComp",
+
+  components: {
+    BIcon,
+    BIconCardList
+  },
 
   props: {
     ideas: [],
@@ -38,17 +47,3 @@ export default {
 
 };
 </script>
-
-<style lang="scss" scoped>
-  .decks {
-    display: flex;
-    flex-direction:row;
-    justify-content: space-around;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  .deck {
-    display: flex;
-    flex-direction:column;
-  }
-</style>
