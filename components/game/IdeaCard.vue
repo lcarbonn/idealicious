@@ -1,4 +1,4 @@
-<!-- Ideas page -->
+<!-- Idea page -->
 <template>
   <b-card v-if="idea" class="mb-1 shadow-sm">
     <b-card-text>

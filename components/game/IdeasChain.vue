@@ -1,4 +1,4 @@
-<!-- Game page -->
+<!-- Ideas chain page -->
 <template>
   <b-container>
     <b-row align-h="around">

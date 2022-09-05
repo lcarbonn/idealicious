@@ -1,4 +1,4 @@
-<!-- Game page -->
+<!-- Join page -->
 <template>
   <div>
     <b-container>

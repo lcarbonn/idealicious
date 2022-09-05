@@ -1,4 +1,4 @@
-<!-- Game page -->
+<!-- Admin Game page -->
 <template>
   <div>
     <b-card>
