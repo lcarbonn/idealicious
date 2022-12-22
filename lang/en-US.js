@@ -26,6 +26,7 @@ export default {
     gidEndGame: 'That was fun !!!',
     gidResetLoves: 'Sorry for loves, reset done',
     pidGameEnded: 'Game as ended',
+    pidGameStarted: 'Game is started',
     playerGamePreviousIdea: 'Previous player\'s idea...',
     playerGameWaitingIdea: 'Waiting for previous player\'idea...',
     playerGameWaitingStart: 'Please, wait for the game to start...',

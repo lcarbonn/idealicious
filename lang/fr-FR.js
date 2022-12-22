@@ -26,6 +26,7 @@ export default {
     gidEndGame: 'C\'était sympa !!!',
     gidResetLoves: 'Désolé les amours, ce n\'est que partie remise',
     pidGameEnded: 'Le challenge est terminé',
+    pidGameStarted: 'Le challenge est lancé',
     playerGamePreviousIdea: 'Idée du joueur précédent...',
     playerGameWaitingIdea: 'En attente de l\'idée du joueur précédent...',
     playerGameWaitingStart: 'Merci d\'attendre que le jeu démarre...',
