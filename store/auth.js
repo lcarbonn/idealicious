@@ -78,7 +78,7 @@ export const actions = {
         return new Promise((resolve, reject) => {
             const auth = getAuth();
             signOut(auth).then(() => {
-                commit('setUser', { user: { uid: user.uid, email: user.email, isAnonymous: true } });
+                commit('setUser', { user: { uid: null, email: null, isAnonymous: true } });
                 dispatch("snackbar/setSnackbarMessage", { message: "Au revoir" }, { root: true });
                 resolve();
             }).catch((error) => {
