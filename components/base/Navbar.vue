@@ -3,7 +3,7 @@
     <b-navbar-brand href="/">
       <b-icon icon="house"></b-icon>
     </b-navbar-brand>
-    <b-navbar-nav>
+    <b-navbar-nav class="ml-auto">
       <b-nav-item-dropdown v-show="isConnected && !isAnonymous" text="Settings">
         <b-dropdown-item
             href="/admin">Games List</b-dropdown-item>
@@ -20,10 +20,12 @@
             <em v-if="!userEmail"><b-icon icon="person"></b-icon></em>
             <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
           </template>
-          <b-dropdown-item v-show="isConnected  && !isAnonymous" @click="logout()">Logout</b-dropdown-item>
+          <b-dropdown-item 
+              v-show="isConnected  && !isAnonymous" 
+              @click="logout()">Logout</b-dropdown-item>
           <b-dropdown-item
-                       v-show="!isConnected || isAnonymous"
-                       href="/login">Login</b-dropdown-item>
+              v-show="!isConnected || isAnonymous"
+              href="/login">Login</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
