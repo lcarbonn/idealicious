@@ -27,8 +27,8 @@
           </b-row>
           <b-row class="text-center">
             <b-col>
-              <h2 v-if="game.ended">{{$t('pidGameEnded')}}</h2>
-              <h2 v-if="game.started && !game.ended">{{$t('pidGameStarted')}}</h2>
+              <h2 v-if="game && game.ended">{{$t('pidGameEnded')}}</h2>
+              <h2 v-if="game && game.started && !game.ended">{{$t('pidGameStarted')}}</h2>
             </b-col>
           </b-row>
         </b-container>
