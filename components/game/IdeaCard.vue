@@ -5,7 +5,7 @@
       {{idea.message}}
     </b-card-text>
     <template v-if="gameMode">
-      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="idea.loved">
+      <b-avatar :id="idea.id" :variant="getLovedClass()" icon="heart" :badge="String(idea.loved)">
       </b-avatar>
       <b-tooltip :target="idea.id" triggers="hover">{{$t('ideaCardNbVote')}}</b-tooltip>
     </template>

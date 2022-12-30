@@ -4,6 +4,10 @@
       <b-icon icon="house"></b-icon>
     </b-navbar-brand>
     <b-navbar-nav>
+      <b-nav-item-dropdown v-show="isConnected && !isAnonymous" text="Settings">
+        <b-dropdown-item
+            href="/admin">Games List</b-dropdown-item>
+      </b-nav-item-dropdown>    
       <b-nav-item v-if="game">{{$t('game')}} : {{ game.title }}</b-nav-item>
       <b-nav-item v-if="player">{{$t('player')}} : {{player.name}}</b-nav-item>
     </b-navbar-nav>
@@ -20,9 +24,6 @@
           <b-dropdown-item
                        v-show="!isConnected || isAnonymous"
                        href="/login">Login</b-dropdown-item>
-          <b-dropdown-item
-                        v-show="isConnected && !isAnonymous"
-                        href="/admin">Settings</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
