@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc, orderBy } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addPlayer = async (player) => {
@@ -58,3 +58,18 @@ export const updatePlayerRound = async (player) => {
     console.debug("end updatePlayerRound id=" + player.id + ", round:" + player.round)
 };
 
+export const getPlayers = async (callback, gameId) => {
+    console.debug("start getPlayers gameid="+gameId)
+    const gamesRef = collection(db, "games/" + gameId + "/players")
+    const q = query(gamesRef, orderBy("playerId"));
+    const unsubd = onSnapshot(q, (gamesSnapshot) => {
+        const players = []
+        gamesSnapshot.forEach((playerSnap) => {
+            let player = playerSnap.data()
+            player.id = playerSnap.id
+            players.push(player)
+        })
+        console.debug("end  getPlayers: nb players="+players.length)
+        callback(players)
+    });
+};

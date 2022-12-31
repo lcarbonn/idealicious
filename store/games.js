@@ -71,6 +71,7 @@ export const actions = {
         }
         getGames(callback);
     },
+
     async deleteGame({ commit, dispatch }, id) {
         dispatch("snackbar/setSnackbarMessage", { message: null }, { root: true });
         try {

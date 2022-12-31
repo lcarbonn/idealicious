@@ -1,7 +1,8 @@
-import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound, getNbPlayers } from '~/services/playersServices'
+import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound, getNbPlayers, getPlayers } from '~/services/playersServices'
 
 export const state = () => ({
     player: null,
+    players: null,
     nbPlayers:0
 });
 
@@ -12,6 +13,9 @@ export const getters = {
     nbPlayers: state => {
         return state.nbPlayers
     },
+    players: state => {
+        return state.players
+    },
 
 };
 
@@ -21,7 +25,10 @@ export const mutations = {
     },
     setNbPlayers(state, payload) {
         state.nbPlayers = payload
-    }
+    },
+    setPlayers(state, payload) {
+        state.players = payload
+    },
 };
 
 export const actions = {
@@ -70,6 +77,13 @@ export const actions = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    getPlayers({ commit, dispatch }, gameId) {
+        const callback = players => {
+            commit("setPlayers", players);
+        }
+        getPlayers(callback, gameId);
+    },
 
 };

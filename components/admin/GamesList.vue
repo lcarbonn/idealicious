@@ -8,8 +8,9 @@
       :items="games"
     >
       <template #cell(id)="data">
-        <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover title="Detail"><b-icon icon="pen"/></b-button>
-        <b-button @click="deleteGame(data.value)" size="sm" v-b-tooltip.hover title="Delete"><b-icon icon="trash"/></b-button>
+        <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
+        <b-button :href="'/admin/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
+        <b-button @click="deleteGame(data.value)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
       </template>
     </b-table>
   </div>
@@ -17,14 +18,16 @@
 
 <script>
 
-import { BIcon, BIconPen, BIconTrash } from 'bootstrap-vue'
+import { BIcon, BIconPen, BIconTrash, BIconPlay, BIconPeople } from 'bootstrap-vue'
 
 export default {
   name: 'GamesListComp',
-  mixins: [global],
+  // mixins: [global],
   components: {
     BIcon,
     BIconPen,
+    BIconPlay,
+    BIconPeople,
     BIconTrash
   },
 

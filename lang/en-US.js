@@ -42,6 +42,11 @@ export default {
     ideaCardLike: 'Thanks for your vote ;-)',
     ideaCardUnlike: 'Ok, you still can change your choice: -(',
     ideaCardLikeDisabled: 'Hey, you\'re the game master, not a player !!!',
-    exportSeparator: ','
-    
+    exportSeparator: ',',
+    gamelistPlay: "Play the Game",
+    gamelistDelete: "Delete the Game",
+    gamelistPeople: "Players List",
+    navbarLogin: "Login",
+    navbarLogout: "Logout",
+    navbarGameList: "Games List",
 }

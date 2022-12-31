@@ -42,6 +42,12 @@ export default {
     ideaCardLike: 'Merci d\'avoir voté pour moi ;-)',
     ideaCardUnlike: 'Ok, vous pouvez encore changer d\'avis :-(',
     ideaCardLikeDisabled: 'Hey, vous êtes le maître du jeu, pas un joueur !!!',
-    exportSeparator: ';'
+    exportSeparator: ';',
+    gamelistPlay: "Jouer le Challenge",
+    gamelistDelete: "Supprimer",
+    gamelistPeople: "Liste des Joueurs",
+    navbarLogin: "Connexion",
+    navbarLogout: "Deconnexion",
+    navbarGameList: "Liste Challenges",
 
 }

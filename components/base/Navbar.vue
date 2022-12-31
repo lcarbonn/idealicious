@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info" class="sticky-top">
     <b-navbar-brand href="/">
-      <b-icon icon="house"></b-icon>
+      <b-avatar rounded src="~/static/icon.png"></b-avatar>
     </b-navbar-brand>
 
     <b-navbar-nav>
@@ -19,15 +19,15 @@
             <em v-if="!userEmail"><b-icon icon="person"></b-icon></em>
             <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
           </template>
-          <b-dropdown-item 
-              v-show="isConnected  && !isAnonymous" 
-              @click="logout()">Logout</b-dropdown-item>
           <b-dropdown-item
               v-show="!isConnected || isAnonymous"
-              href="/login">Login</b-dropdown-item>
+              href="/login">{{$t('navbarLogin')}}</b-dropdown-item>
           <b-dropdown-item
-          v-show="isConnected && !isAnonymous"
-            href="/admin">Games List</b-dropdown-item>
+              v-show="isConnected && !isAnonymous"
+                href="/admin">{{$t('navbarGameList')}}</b-dropdown-item>
+          <b-dropdown-item 
+              v-show="isConnected  && !isAnonymous" 
+              @click="logout()">{{$t('navbarLogout')}}</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
