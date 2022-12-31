@@ -92,7 +92,7 @@ export default {
       else return ""
     },
     started() {
-      console.debug("game"+this.game)
+      console.debug("game="+this.game)
       if(this.game) return this.game.started && !this.game.ended
       return false
     }

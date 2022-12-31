@@ -21,18 +21,19 @@ export default {
             if (user) {
                 console.debug("user anonymous="+user.isAnonymous)
                 console.debug("user email="+user.email)
-                // User is signed in and is not anynomous
+                // User is signed in
                 this.$store.dispatch('auth/setActiveUser', user)
-
+                // User is anonymous and want go to admin, redirect to login
                 if(user.isAnonymous && path.indexOf('/admin')!=-1) {
+                    console.debug("go to login")
                     this.$store.dispatch('auth/setActiveUser', { user: null })
                     route.nextRoute = this.$router.currentRoute;
                     this.$router.push('/login')
                 }
             } else {
-                if(!this.$store.getters['auth/isAnonymousConnected']) {
-                    this.$store.dispatch("auth/signInAnonymous")
-                }
+                // if no user, login anonymously
+                console.debug("signInAnonymous")
+                this.$store.dispatch("auth/signInAnonymous")
             }
         });
     }

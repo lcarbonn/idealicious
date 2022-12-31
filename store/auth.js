@@ -1,7 +1,6 @@
 import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export const state = () => ({
-    // isAnonymousConnected: false,
     authUser: {
         uid: null,
         email: null,
@@ -23,9 +22,6 @@ export const getters = {
 };
 
 export const mutations = {
-    // setAnonymousConnected(state, isAnonymousConnected) {
-    //     state.isAnonymousConnected = isAnonymousConnected
-    // },
     setUser(state, payload) {
         Object.assign(state.authUser, payload.user);
         state.loading = false
@@ -38,21 +34,18 @@ export const actions = {
         signInAnonymously(auth)
             .then((userCredential) => {
                 // Signed in..
-                console.debug("signInAnonymously")
                 const user = userCredential.user;
                 commit('setUser', { user: { uid: user.uid, email: user.email, isAnonymous: user.isAnonymous } });
                 // commit("setAnonymousConnected", true)
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(error)
                 commit('setUser', null);
             });        
     },
     setActiveUser({ commit }, payload) {
         return new Promise((resolve, reject) => {
-            commit('setUser', { user: { uid: payload.uid, email: payload.email, isAnonymous: payload.isAnonymous } });
+            if(payload) commit('setUser', { user: { uid: payload.uid, email: payload.email, isAnonymous: payload.isAnonymous } });
+            else commit('setUser', { user: { uid: null, email: null, isAnonymous: false } });
             resolve();
         });
     },
@@ -78,11 +71,11 @@ export const actions = {
         return new Promise((resolve, reject) => {
             const auth = getAuth();
             signOut(auth).then(() => {
-                commit('setUser', { user: { uid: null, email: null, isAnonymous: true } });
+                commit('setUser', { user: { uid: null, email: null, isAnonymous: false } });
                 dispatch("snackbar/setSnackbarMessage", { message: "Au revoir" }, { root: true });
                 resolve();
             }).catch((error) => {
-                commit('setUser', { user: null });
+                commit('setUser', { user: { uid: null, email: null, isAnonymous: false } });
                 dispatch("snackbar/setSnackbarMessage", { message: "Erreur logout" + error.message }, { root: true });
                 reject(e)
             });
