@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info" class="sticky-top">
     <b-navbar-brand href="/">
-      <b-avatar rounded src="~/static/icon.png"></b-avatar>
+      <b-avatar variant="primary" rounded src="~/static/icon.png"></b-avatar>
     </b-navbar-brand>
 
     <b-navbar-nav>
