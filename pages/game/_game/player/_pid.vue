@@ -90,14 +90,14 @@ export default {
 
   methods: {
     addIdea(idea) {
-      if (idea != null) {
-        const deck = this.deck
-        const newIdea = {
-          message: idea,
-          playerId: this.player.id,
-          loved:0,
-          createTime: null,
-        }
+      const deck = this.deck
+      const newIdea = {
+        message: idea,
+        playerId: this.player.id,
+        loved:0,
+        createTime: null,
+      }
+      if(idea!=null) {
         this.$store.dispatch("ideas/addIdea", 
         {
           gameId:this.gameId,
@@ -105,33 +105,43 @@ export default {
           idea:newIdea
         }).then(() => {
           console.debug("newIdea added:" + newIdea.id+", deckId:"+deck.id);
-          // then send the deck to next player
-          // get next deck id
+        })
+      }
+        
+      this.sendDeckToNextPlayer(deck)
+    },
+    sendDeckToNextPlayer(deck) {
+          // send the deck to next player
           const deckToNextPlayer = {}
           Object.assign(deckToNextPlayer,deck)
+          // get next deck id
           deckToNextPlayer.playerId = getNextPlayerId(deck.playerId, this.nbPlayers)
           this.$store.dispatch("decks/sendDeck", 
           {
             gameId:this.gameId,
             deck:deckToNextPlayer
           }).then(() => {
-            // the listen to deck availability and get last idea
-            this.$store.dispatch("decks/listenDeck", {
-              gameId: this.gameId,
-              playerId: this.player.playerId
-              })
-            // then update player round
-            const upPlayer = {}
-            Object.assign(upPlayer,this.player)
-            upPlayer.round++
-            this.$store.dispatch("players/updatePlayerRound", 
-            {
-              gameId:this.gameId,
-              player:upPlayer
-            })
+            this.listendToNewDeck()
+            this.updatePlayerround()
           })
+    },
+    listendToNewDeck() {
+      // the listen to deck availability and get last idea
+      this.$store.dispatch("decks/listenDeck", {
+        gameId: this.gameId,
+        playerId: this.player.playerId
         })
-      }
+    },
+    updatePlayerround() {
+      // then update player round
+      const upPlayer = {}
+      Object.assign(upPlayer,this.player)
+      upPlayer.round++
+      this.$store.dispatch("players/updatePlayerRound", 
+      {
+        gameId:this.gameId,
+        player:upPlayer
+      })
     },
     loveIdea(param) {
       if(param) {

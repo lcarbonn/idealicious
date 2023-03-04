@@ -81,7 +81,7 @@ export default {
             centered: true
           })
             .then(value => {
-              if(value==true) this.$emit("addIdea", "")
+              if(value==true) this.$emit("addIdea")
             })
       } else {
         this.$emit("addIdea", this.newIdea)
