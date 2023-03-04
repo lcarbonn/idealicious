@@ -35,7 +35,8 @@ export default {
     playerGameNewIdea: 'Puis, écrivez une nouvelle idée...',
     playerGameAddIdea: 'Ajouter l\'idée et passer au prochain joueur',
     playerGameRound: 'Tour',
-    playerGameSkip: 'Passer ce tour',
+    playerGameSkipTitle: "Pas d'idée",
+    playerGameSkipQuestion: 'Vraiment, voulez-vous passez votre tour ?',
     ideasChainDeck: 'Deck',
     ideaCardVote: 'J\'adore... ou pas',
     ideaCardNbVote: 'Nombres de votes',
@@ -49,5 +50,4 @@ export default {
     navbarLogin: "Connexion",
     navbarLogout: "Deconnexion",
     navbarGameList: "Liste Challenges",
-
 }

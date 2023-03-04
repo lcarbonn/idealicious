@@ -69,15 +69,15 @@ export default {
     disable() {
       if(!this.started) return true;
       if(this.round==0) return false;
-      if(this.lastIdea==null) return true;
+      if(this.lastIdea==null || this.lastIdea.message == "") return true;
     }
   },
 
   methods: {
     addNewIdea() {
       if (this.newIdea == "") {
-        this.$bvModal.msgBoxConfirm('Vous passez votre tour ?',  {
-            title: 'Skip idea',
+        this.$bvModal.msgBoxConfirm(this.$i18n.t('playerGameSkipQuestion'),  {
+            title: this.$i18n.t('playerGameSkipTitle'),
             centered: true
           })
             .then(value => {
