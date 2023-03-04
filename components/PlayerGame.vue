@@ -6,7 +6,7 @@
         <b-form-group v-if="started && !ended && round!=0" class="mb-0">
           <label :for="lastIdea" v-if="lastIdea && lastIdea.message!=''">{{$t('playerGamePreviousIdea')}}</label>
           <label :for="lastIdea" v-else>{{$t('playerGameWaitingIdea')}}</label>
-          <b-form-input v-if="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }} class="mb-0">
+          <b-form-input v-if="lastIdea && lastIdea.message!=''" disabled v-model="lastIdea.message">{{ lastIdea.message }} class="mb-0">
           </b-form-input>
         </b-form-group>
       </b-card-text>
