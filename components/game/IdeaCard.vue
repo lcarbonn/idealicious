@@ -31,7 +31,7 @@ export default {
 
   props: {
     idea: Object,
-    deckId: String,
+    deckId: Number,
     mode:String
   },
 

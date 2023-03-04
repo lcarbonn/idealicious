@@ -31,7 +31,7 @@
             <b-tooltip target="addButton" triggers="hover">{{ $t('playerGameAddIdea')}}</b-tooltip>
           </b-col>
           <b-col>
-            <b-avatar id="avatar" variant="secondary" icon="arrow-counterclockwise" :badge="round+1">
+            <b-avatar id="avatar" variant="secondary" icon="arrow-counterclockwise" :badge="String(round+1)">
             </b-avatar>
             <b-tooltip target="avatar" triggers="hover">{{$t('playerGameRound')}} {{round+1}}</b-tooltip>
           </b-col>
