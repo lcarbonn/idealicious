@@ -13,7 +13,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :idea="idea" :mode="mode" />
+              <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :deckId= "index" :idea="idea" :mode="mode" />
             </b-col>
           </b-row>
         </b-container>

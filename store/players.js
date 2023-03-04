@@ -33,25 +33,25 @@ export const mutations = {
 
 export const actions = {
 
-    async addPlayer({ commit, dispatch }, player) {
+    async addPlayer({ commit }, payload) {
         try {
-            console.debug("add player:" + player.name)
-            await addPlayer(player);
-            commit("setPlayer", player);
+            console.debug("add player:" + payload.player.name)
+            const addedPlayer = await addPlayer(payload);
+            commit("setPlayer", addedPlayer);
         } catch (error) {
             console.log(error)
         }
     },
 
-    async getPlayer({ commit, dispatch }, playerIds) {
-        const player = await getPlayer(playerIds);
+    async getPlayer({ commit }, payload) {
+        const player = await getPlayer(payload);
         if (player) {
             console.debug("setPlayer in state:" + player.id)
             commit("setPlayer", player);
         }
     },
 
-    listenNbPlayers({ commit, dispatch }, gameId) {
+    listenNbPlayers({ commit }, gameId) {
         console.debug("listenNbPlayers gameId:" + gameId)
         const callback = nbPlayer => {
             if (nbPlayer) {
@@ -62,7 +62,7 @@ export const actions = {
         listenNbPlayers(callback, gameId);
     },
 
-    async getNbPlayers({ commit, dispatch }, gameId) {
+    async getNbPlayers({ commit }, gameId) {
         const nbPlayers = await getNbPlayers(gameId);
         if (nbPlayers) {
             console.debug("getNbPlayers:" + nbPlayers)
@@ -70,16 +70,16 @@ export const actions = {
         }
     },
 
-    async updatePlayerRound({ commit, dispatch }, player) {
+    async updatePlayerRound({ commit }, payload) {
         try {
-            await updatePlayerRound(player);
-            commit("setPlayer", player);
+            await updatePlayerRound(payload);
+            commit("setPlayer", payload.player);
         } catch (error) {
             console.log(error)
         }
     },
 
-    getPlayers({ commit, dispatch }, gameId) {
+    getPlayers({ commit }, gameId) {
         const callback = players => {
             commit("setPlayers", players);
         }

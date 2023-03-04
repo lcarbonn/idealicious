@@ -1,15 +1,14 @@
 import { collection, addDoc, query, onSnapshot, orderBy, getDocs, doc, updateDoc, increment, writeBatch, Timestamp } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-export const addIdea = async (idea) => {
-    if (!idea) return null
-    console.debug("start addIdea message=" + idea.message)
-    const ideasRef = collection(db, "games/" + idea.gameId + "/decks/" + idea.deckId + "/ideas")
-    idea.createTime = Timestamp.fromDate(new Date())
-    const ref = await addDoc(ideasRef, idea)
-    idea.id = ref.id
-    console.debug("end addIdea id=" + idea.id)
-    return idea
+export const addIdea = async (payload) => {
+    console.debug("start addIdea message=" + payload.idea.message)
+    const ideasRef = collection(db, "games/" + payload.gameId + "/decks/" + payload.deckId + "/ideas")
+    payload.idea.createTime = Timestamp.fromDate(new Date())
+    const ref = await addDoc(ideasRef, payload.idea)
+    payload.idea.id = ref.id
+    console.debug("end addIdea id=" + payload.idea.id)
+    return payload.idea
 };
 
 export const listenDecks = async (callback, gameId) => {
@@ -50,10 +49,9 @@ export const listenDeckIdeas = async (callback, gameId, sortByLove, deckId) => {
     })
 };
 
-export const getLastIdea = async (deck) => {
-    if (!deck) return null
-    console.debug("start getLastIdea gameId:" + deck.gameId + ", deckId:" + deck.id)
-    const ideasRef = collection(db, "games/" + deck.gameId + "/decks/" +deck.id + "/ideas")
+export const getLastIdea = async (payload) => {
+    console.debug("start getLastIdea gameId:" + payload.gameId + ", deckId:" + payload.deckId)
+    const ideasRef = collection(db, "games/" + payload.gameId + "/decks/" +payload.deckId + "/ideas")
     const q = query(ideasRef, orderBy("createTime","desc"));
     const querySnapshot = await getDocs(q)
     let idea = null
@@ -65,20 +63,19 @@ export const getLastIdea = async (deck) => {
             if (idea.message != "") break
         }
     }
-    console.debug("end getLastIdea gameId:" + deck.gameId + ", deckId:" + deck.id + ", idea:"+idea)
+    console.debug("end getLastIdea gameId:" + payload.gameId + ", deckId:" + payload.deckId + ", idea:"+idea)
     return idea
 };
 
-export const loveIdea = async (param) => {
-    if (!param) return null
-    console.debug("start loveIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
-    const ideaRef = doc(db, "games/" + param.idea.gameId + "/decks/" + param.idea.deckId + "/ideas", param.idea.id)
+export const loveIdea = async (payload) => {
+    console.debug("start loveIdea id=" + payload.idea.id + ", isLoved:" + payload.isLoved)
+    const ideaRef = doc(db, "games/" + payload.gameId + "/decks/" + payload.deckId + "/ideas", payload.idea.id)
     let inc = 1
-    if(!param.isLoved) inc = -1
+    if(!payload.isLoved) inc = -1
     await updateDoc(ideaRef, {
         loved: increment(inc)
     })
-    console.debug("end loveIdea id=" + param.idea.id + ", isLoved:" + param.isLoved)
+    console.debug("end loveIdea id=" + payload.idea.id + ", isLoved:" + payload.isLoved)
 };
 
 export const resetLoves = async (callback, gameId, ideas) => {

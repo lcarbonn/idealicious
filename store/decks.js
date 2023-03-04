@@ -32,54 +32,54 @@ export const mutations = {
 };
 
 export const actions = {
-    async addDeck({ commit, dispatch }, deck) {
+    async addDeck({ commit }, payload) {
         try {
-            console.debug("add deck:" + deck.id)
-            await addDeck(deck);
-            commit("setDeck", deck);
+            console.debug("add deck:" + payload.deck.id)
+            await addDeck(payload);
+            commit("setDeck", payload.deck);
         } catch (error) {
             console.log(error)
         }
     },
 
-    listenDeck({ commit, dispatch }, param) {
+    listenDeck({ commit, dispatch }, payload) {
         const callback = deck => {
             if (deck) {
                 console.debug("listenDeck :" + deck.id)
                 commit("setDeck", deck);
-                dispatch("getLastIdea", deck)
+                dispatch("getLastIdea", {gameId:payload.gameId, deckId:deck.id})
             } else {
                 commit("setDeck", deck);
                 commit("setLastIdea", null);
             }
         }
-        listenDeck(callback, param);
+        listenDeck(callback, payload);
     },
 
-    getDeck({ commit, dispatch }, param) {
+    getDeck({ commit, dispatch }, payload) {
         const callback = deck => {
             if (deck) {
                 console.debug("getDeck :" + deck.id)
                 commit("setDeck", deck);
-                dispatch("getLastIdea", deck)
+                dispatch("getLastIdea", {gameId:payload.gameId, deckId:deck.id})
             }
         }
-        getDeck(callback, param);
+        getDeck(callback, payload);
     },
 
-    async sendDeck({ commit, dispatch }, deck) {
+    async sendDeck({ commit, dispatch }, payload) {
         try {
-            if (deck) console.debug("sendDeck deck:" + deck.id + ", playerId:" + deck.playerId)
-            await sendDeck(deck);
-            commit("setDeck", deck);
+            if (payload) console.debug("sendDeck deck:" + payload.deck.id + ", playerId:" + payload.deck.playerId)
+            await sendDeck(payload);
+            commit("setDeck", payload.deck);
         } catch (error) {
             console.log(error)
         }
     },
 
-    async getLastIdea({ commit, dispatch }, deck) {
+    async getLastIdea({ commit, dispatch }, payload) {
         try {
-            let idea = await getLastIdea(deck);
+            let idea = await getLastIdea(payload);
             commit("setLastIdea", idea);
         } catch (error) {
             console.log(error)

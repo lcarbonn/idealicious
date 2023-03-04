@@ -31,6 +31,7 @@ export default {
 
   props: {
     idea: Object,
+    deckId: String,
     mode:String
   },
 
@@ -39,9 +40,6 @@ export default {
   }),
 
   computed: {
-    isDisable() {
-      return (this.mode=="game")
-    },
     gameMode() {
       return (this.mode=="game")
     }
@@ -58,10 +56,11 @@ export default {
 
   methods: {
     loveIdea() {
-      console.debug("love idea:" + this.idea.message)
+      console.debug("love idea:" + this.idea.message + ", deckId:"+this.deckId)
       if(!this.gameMode) {
         this.isLoved = !this.isLoved
         this.$emit("loveIdea", {
+        deckId:this.deckId,
         idea:this.idea,
         isLoved:this.isLoved
         });

@@ -1,29 +1,28 @@
 import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc, orderBy } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-export const addPlayer = async (player) => {
-    if (!player) return null
-    console.debug("start AddPlayer player=" + player.name)
-    const playersRef = collection(db, "games/" + player.gameId + "/players")
+export const addPlayer = async (payload) => {
+    console.debug("start AddPlayer player=" + payload.player.name)
+    const playersRef = collection(db, "games/" + payload.gameId + "/players")
     const q = query(playersRef);
     const listOfPlayers = await getDocs(q);
-    player.playerId = listOfPlayers.docs.length
-    const ref = await addDoc(playersRef, player)
-    player.id = ref.id
-    console.debug("end addPlayer id=" + player.id)
-    return player
+    payload.player.playerId = listOfPlayers.docs.length
+    const ref = await addDoc(playersRef, payload.player)
+    payload.player.id = ref.id
+    console.debug("end addPlayer id=" + payload.player.id)
+    return payload.player
 };
 
-export const getPlayer = async (playerIds) => {
-    console.debug("start getPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
-    const docRef = doc(db, "games/" + playerIds.gameId + "/players", playerIds.playerId)
+export const getPlayer = async (payload) => {
+    console.debug("start getPlayer games / " + payload.gameId + " / players", payload.playerId)
+    const docRef = doc(db, "games/" + payload.gameId + "/players", payload.playerId)
     const docSnap = await getDoc(docRef)
     let player = null
     if (docSnap.exists()) {
         player = docSnap.data()
         player.id = docSnap.id
     }
-    console.debug("end getPlayer games / " + playerIds.gameId + " / players", playerIds.playerId)
+    console.debug("end getPlayer games / " + payload.gameId + " / players", payload.playerId)
     return player
 };
 
@@ -48,14 +47,13 @@ export const listenNbPlayers = async (callback, gameId) => {
     });
 };
 
-export const updatePlayerRound = async (player) => {
-    if (!player) return null
-    console.debug("start updatePlayerRound id=" + player.id + ", round:" + player.round)
-    const playerRef = doc(db, "games/" + player.gameId + "/players", player.id)
+export const updatePlayerRound = async (payload) => {
+    console.debug("start updatePlayerRound id=" + payload.player.id + ", round:" + payload.player.round)
+    const playerRef = doc(db, "games/" + payload.gameId + "/players", payload.player.id)
     await updateDoc(playerRef, {
-        round: player.round
+        round: payload.player.round
     })
-    console.debug("end updatePlayerRound id=" + player.id + ", round:" + player.round)
+    console.debug("end updatePlayerRound id=" + payload.player.id + ", round:" + payload.player.round)
 };
 
 export const getPlayers = async (callback, gameId) => {

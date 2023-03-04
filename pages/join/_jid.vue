@@ -18,13 +18,6 @@ export default {
   computed: {
     id() {
       return this.$route.params.jid;
-    },
-    game() {
-      return this.$store.getters["games/game"];
-    },
-    started() {
-      if(this.game) return this.game.started
-      return false
     }
   },
 
@@ -33,25 +26,27 @@ export default {
       if (player != null) {
         const newPlayer = {
           name: player,
-          gameId: this.game.id,
           playerId: null,
           round:0
         };
         const newDeck = {
           id:null,
-          gameId: this.game.id,
           playerId:null
         }
         //create the player
-        this.$store.dispatch("players/addPlayer", newPlayer).then(() => {
+        this.$store.dispatch("players/addPlayer", 
+        {
+          gameId:this.id,
+          player:newPlayer
+        }).then(() => {
           const storePlayer = this.$store.getters["players/player"];
           newDeck.id = storePlayer.playerId
           newDeck.playerId = storePlayer.playerId
           // then create his deck
-          this.$store.dispatch("decks/addDeck", newDeck)
+          this.$store.dispatch("decks/addDeck", {gameId:this.id, deck:newDeck})
           console.debug("newPlayer playerId:" + storePlayer.playerId);
           this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('jidWelcomePlayer', {player: player}) });
-          this.$router.push("/game/"+this.game.id+"/player/" + storePlayer.id);
+          this.$router.push("/game/"+this.id+"/player/" + storePlayer.id);
         });
       }
     },

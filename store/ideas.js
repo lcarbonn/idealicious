@@ -32,17 +32,17 @@ export const mutations = {
 };
 
 export const actions = {
-    async addIdea({ commit, dispatch }, idea) {
+    async addIdea({ commit }, payload) {
         try {
-            console.debug("add idea:" + idea.message)
-            idea = await addIdea(idea);
+            console.debug("add idea:" + payload.idea.message)
+            const idea = await addIdea(payload);
             commit("setIdea", idea);
         } catch (error) {
             console.log(error)
         }
     },
 
-    listenIdeas({ commit, dispatch }, param) {
+    listenIdeas({ commit }, param) {
         const callback = ideas => {
             if (ideas) {
                 let i = 0
@@ -58,7 +58,7 @@ export const actions = {
         listenDecks(callback, param.gameId);
     },
 
-    async loveIdea({ commit, dispatch }, param) {
+    async loveIdea({ commit }, param) {
         try {
             if (param) console.debug("loveIdea idea:" + param.idea.id + ", isLoved:" + param.isLoved)
             await loveIdea(param);
@@ -68,7 +68,7 @@ export const actions = {
         }
     },
 
-    resetLoves({ state, commit, dispatch }, gameId) {
+    resetLoves({ state, commit }, gameId) {
         const callback = async newIdeas => {
             commit("setIdeas", newIdeas);
         }

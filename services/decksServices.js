@@ -1,20 +1,19 @@
 import { collection, doc, setDoc, onSnapshot, query, where, Timestamp, orderBy, updateDoc, getDocs } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-export const addDeck = async (deck) => {
-    if (!deck) return null
-    console.debug("start addDeck:" + deck.id)
-    const deckRef = doc(db, "games/" + deck.gameId + '/decks', new String(deck.id))
-    deck.updateTime = Timestamp.fromDate(new Date()),
-    await setDoc(deckRef, deck)
-    console.debug("end addDeck:" + deck.id)
-    return deck
+export const addDeck = async (payload) => {
+    console.debug("start addDeck:" + payload.deck.id)
+    const deckRef = doc(db, "games/" + payload.gameId + '/decks', new String(payload.deck.id))
+    payload.deck.updateTime = Timestamp.fromDate(new Date()),
+    await setDoc(deckRef, payload.deck)
+    console.debug("end addDeck:" + payload.deck.id)
+    return payload.deck
 };
 
-export const listenDeck = async (callback, deck) => {
-    console.debug("start listenDeck playerId=" + deck.playerId)
-    const decksRef = collection(db, "games/" + deck.gameId + "/decks")
-    const q = query(decksRef, where("playerId", "==", deck.playerId), orderBy("updateTime"))
+export const listenDeck = async (callback, payload) => {
+    console.debug("start listenDeck playerId=" + payload.playerId)
+    const decksRef = collection(db, "games/" + payload.gameId + "/decks")
+    const q = query(decksRef, where("playerId", "==", payload.playerId), orderBy("updateTime"))
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const docSnap = querySnapshot.docs[0]
         let newDeck = null
@@ -22,16 +21,16 @@ export const listenDeck = async (callback, deck) => {
             newDeck = docSnap.data()
             newDeck.id = docSnap.id
         }
-        if (newDeck) console.debug("end listenDeck playerId=" + deck.playerId + ", newDeck:" + newDeck.id)
-        else console.debug("end listenDeck playerId=" + deck.playerId + ", newDeck:" + newDeck)
+        if (newDeck) console.debug("end listenDeck playerId=" + payload.playerId + ", newDeck:" + newDeck.id)
+        else console.debug("end listenDeck playerId=" + payload.playerId + ", newDeck:" + newDeck)
         callback(newDeck)
     })
 };
 
-export const getDeck = async (callback, deck) => {
-    console.debug("start getDeck playerId=" + deck.playerId)
-    const decksRef = collection(db, "games/" + deck.gameId + "/decks")
-    const q = query(decksRef, where("playerId", "==", deck.playerId), orderBy("updateTime"))
+export const getDeck = async (callback, payload) => {
+    console.debug("start getDeck playerId=" + payload.playerId)
+    const decksRef = collection(db, "games/" + payload.gameId + "/decks")
+    const q = query(decksRef, where("playerId", "==", payload.playerId), orderBy("updateTime"))
     const querySnapshot = await getDocs(q)
         const docSnap = querySnapshot.docs[0]
         let newDeck = null
@@ -39,19 +38,18 @@ export const getDeck = async (callback, deck) => {
             newDeck = docSnap.data()
             newDeck.id = docSnap.id
         }
-    if (newDeck) console.debug("end getDeck playerId=" + deck.playerId + ", newDeck:" + newDeck.id)
-    else console.debug("end getDeck playerId=" + deck.playerId + ", newDeck:" + newDeck)
+    if (newDeck) console.debug("end getDeck playerId=" + payload.playerId + ", newDeck:" + newDeck.id)
+    else console.debug("end getDeck playerId=" + payload.playerId + ", newDeck:" + newDeck)
     callback(newDeck)
 };
 
-export const sendDeck = async (deck) => {
-    if (!deck) return null
-    console.debug("start sendDeck id=" + deck.id + ", playerId:" + deck.playerId)
-    const deckRef = doc(db, "games/" + deck.gameId + "/decks", new String(deck.id))
+export const sendDeck = async (payload) => {
+    console.debug("start sendDeck id=" + payload.deck.id + ", playerId:" + payload.deck.playerId)
+    const deckRef = doc(db, "games/" + payload.gameId + "/decks", new String(payload.deck.id))
     await updateDoc(deckRef, {
         updateTime: Timestamp.fromDate(new Date()),
-        playerId: deck.playerId
+        playerId: payload.deck.playerId
     })
-    console.debug("end sendDeck id=" + deck.id + ", playerId:" + deck.playerId)
+    console.debug("end sendDeck id=" + payload.deck.id + ", playerId:" + payload.deck.playerId)
 };
 
