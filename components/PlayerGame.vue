@@ -19,7 +19,7 @@
           <label for="newIdea" v-else-if="ended">{{$t('playerGameEnded')}}</label>
           <label for="newIdea" v-else>{{$t('playerGameNewIdea')}}</label>
           <b-form-input id="newIdea" :disabled="disable" autofocus v-model="newIdea" @keydown.enter="addNewIdea"
-            maxlength="140" trim class="mb-0" :state="newIdeaState"></b-form-input>
+            maxlength="140" trim class="mb-0"></b-form-input>
         </b-form-group>
       </b-card-text>
       <b-container class="text-center">
@@ -34,12 +34,6 @@
             <b-avatar id="avatar" variant="secondary" icon="arrow-counterclockwise" :badge="String(round+1)">
             </b-avatar>
             <b-tooltip target="avatar" triggers="hover">{{$t('playerGameRound')}} {{round+1}}</b-tooltip>
-          </b-col>
-          <b-col>
-            <b-button id="skipButton" :disabled="disable" @click="skipRound">
-              <b-icon icon="skip-end"></b-icon>
-            </b-button>
-            <b-tooltip target="skipButton" triggers="hover">{{ $t('playerGameSkip')}}</b-tooltip>
           </b-col>
         </b-row>
       </b-container>
@@ -76,24 +70,24 @@ export default {
       if(!this.started) return true;
       if(this.round==0) return false;
       if(this.lastIdea==null) return true;
-    },
-    newIdeaState() {
-      return (this.newIdea != null && this.newIdea != "") ? true : false
-    },
-
+    }
   },
 
   methods: {
     addNewIdea() {
-      if (this.newIdea != "") {
+      if (this.newIdea == "") {
+        this.$bvModal.msgBoxConfirm('Vous passez votre tour ?',  {
+            title: 'Skip idea',
+            centered: true
+          })
+            .then(value => {
+              if(value==true) this.$emit("addIdea", "")
+            })
+      } else {
         this.$emit("addIdea", this.newIdea)
-        this.newIdea=""
       }
-    },
-    skipRound() {
-        this.$emit("addIdea", "")
-        this.newIdea=""
-    },
+      this.newIdea=""
+    }
   },
 };
 </script>
