@@ -1,30 +1,14 @@
 <template>
-    <b-card>
+    <b-card class="text-center">
         <b-card-text>
-            <b-container fluid>
-                <b-row class="my-1">
-                    <b-col>
-                    <b-form-input id="email" placeholder="Email" v-model="form.email" type="email" :state="emailState"></b-form-input>
-                    </b-col>
-                </b-row>
-                <b-row class="my-2">
-                    <b-col>
-                    <b-form-input id="password" placeholder="Password" v-model="form.password" type="password" :state="passwordState"></b-form-input>
-                    </b-col>
-                </b-row>
-                <b-row class="my-2" align-h="center">
-                    <b-col>
-                        <b-button :disabled="disabledButton" block @click="emailLogin()">Connexion</b-button>
-                    </b-col>
-                </b-row>
-                <b-row class="my-3" align-h="center">
-                    <b-col>
-                        <p><nuxt-link to="/login/reset-password">J'ai oublié mon mot de passe :'(</nuxt-link></p>
-                        <!-- <p>Vous n'avez pas de compte ? Vous pouvez <nuxt-link to="/signup">en créer un</nuxt-link>.</p> -->
-                    </b-col>
-                </b-row>
-            </b-container>
+            <b-form class="my-1">
+                <b-form-input class="my-1" id="email" placeholder="Email" v-model="form.email" type="email" :state="emailState"></b-form-input>
+                <b-form-input class="my-1" id="password" placeholder="Password" v-model="form.password" type="password" :state="passwordState"></b-form-input>
+                <b-button class="my-1" :disabled="disabledButton" block @click="emailLogin()">Connexion</b-button>
+            </b-form>
         </b-card-text>
+        <p><nuxt-link to="/login/reset-password">J'ai oublié mon mot de passe :'(</nuxt-link></p>
+        <p>Vous n'avez pas de compte ? Vous pouvez <nuxt-link to="/signup">en créer un</nuxt-link>.</p>
     </b-card>
 </template>
 
