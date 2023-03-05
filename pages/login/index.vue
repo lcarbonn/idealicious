@@ -2,9 +2,25 @@
     <b-card class="text-center">
         <b-card-text>
             <b-form class="my-1">
-                <b-form-input class="my-1" id="email" placeholder="Email" v-model="form.email" type="email" :state="emailState"></b-form-input>
-                <b-form-input class="my-1" id="password" placeholder="Password" v-model="form.password" type="password" :state="passwordState"></b-form-input>
-                <b-button class="my-1" :disabled="disabledButton" block @click="emailLogin()">Connexion</b-button>
+                <b-form-input 
+                    class="my-1" 
+                    id="email" 
+                    placeholder="Email" 
+                    v-model="form.email" 
+                    type="email" 
+                    :state="emailState" />
+                <b-form-input 
+                    class="my-1" 
+                    id="password"
+                    placeholder="Password" 
+                    v-model="form.password" 
+                    type="password" 
+                    :state="passwordState"/>
+                <b-button 
+                    class="my-1" 
+                    :disabled="disabledButton" 
+                    block 
+                    @click="emailLogin()">Connexion</b-button>
             </b-form>
         </b-card-text>
         <p><nuxt-link to="/login/reset-password">J'ai oublié mon mot de passe :'(</nuxt-link></p>

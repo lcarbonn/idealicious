@@ -3,12 +3,12 @@
         <b-card-text>
             <b-form class="my-1">
                 <span class="my-1">C'est parti pour réinitialiser mon mot de passe !</span>
-                <b-form-input class="my-1" id="email" 
+                <b-form-input class="my-1" 
+                        id="email" 
                         v-model="form.email" 
                         type="email" 
                         :state="emailState" 
                         placeholder="Email"
-                        @keyup.enter="sendPasswordResetEmail()"
                         ></b-form-input>
                 <b-button class="my-1" :disabled="!emailState" block @click="sendPasswordResetEmail()">Envoyer un mail</b-button>
             </b-form>

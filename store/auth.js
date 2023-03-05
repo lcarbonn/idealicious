@@ -1,4 +1,4 @@
-import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
 
 export const state = () => ({
     authUser: {
@@ -92,5 +92,23 @@ export const actions = {
                 reject(error)
             });
         });
+    },
+    createUserWithEmailAndPassword({ commit, dispatch }, payload) {
+        return new Promise((resolve, reject) => {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, payload.email, payload.password)
+                .then((userCredential) => {
+                    // Signed up and in 
+                    const user = userCredential.user;
+                    commit('setUser', { user: { uid: user.uid, email: user.email, isAnonymous: user.isAnonymous } });
+                    dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
+                    resolve();
+                })
+                .catch((error) => {
+                    commit('setUser', { user: null });
+                    dispatch("snackbar/setSnackbarMessage", { message: "Not able to create new account : " + error.message }, { root: true });
+                    reject(error)
+                });
+            });
     }
 };
