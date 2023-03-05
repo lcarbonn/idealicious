@@ -1,4 +1,4 @@
-import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 
 export const state = () => ({
     authUser: {
@@ -63,7 +63,7 @@ export const actions = {
                 .catch((error) => {
                     commit('setUser', { user: null });
                     dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
-                    reject(e)
+                    reject(error)
                 });
         });
     },
@@ -77,7 +77,19 @@ export const actions = {
             }).catch((error) => {
                 commit('setUser', { user: { uid: null, email: null, isAnonymous: false } });
                 dispatch("snackbar/setSnackbarMessage", { message: "Erreur logout" + error.message }, { root: true });
-                reject(e)
+                reject(error)
+            });
+        });
+    },
+    sendPasswordResetEmail({ commit, dispatch}, email) {
+        return new Promise((resolve, reject) => {
+            const auth = getAuth();
+            sendPasswordResetEmail(auth, email).then(() => {
+                dispatch("snackbar/setSnackbarMessage", { message: "Email envoyé" }, { root: true });
+                resolve();
+            }).catch((error) => {
+                dispatch("snackbar/setSnackbarMessage", { message: "Erreur envoi email : " + error.message }, { root: true });
+                reject(error)
             });
         });
     }
