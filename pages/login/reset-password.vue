@@ -36,7 +36,7 @@ export default {
         sendPasswordResetEmail() {
             this.$store.dispatch('auth/sendPasswordResetEmail', this.form.email)
                 .then(res => {
-                    //this.$router.push(getNextPath());
+                    this.$router.push("/login");
                 })
                 .catch(e => {
                     console.error(e)
