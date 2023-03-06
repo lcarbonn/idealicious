@@ -2,19 +2,19 @@
     <b-card class="text-center">
         <b-card-text>
             <b-form class="my-1">
-                <span class="my-1">C'est parti pour réinitialiser mon mot de passe !</span>
+                <span class="my-1">{{$t('resetPassordTitle')}}</span>
                 <b-form-input class="my-1" 
                         id="email" 
                         v-model="form.email" 
                         type="email" 
                         :state="emailState" 
-                        placeholder="Email"
+                        :placeholder="$t('loginEmailPlaceHolder')"
                         ></b-form-input>
-                <b-button class="my-1" :disabled="!emailState" block @click="sendPasswordResetEmail()">Envoyer un mail</b-button>
+                <b-button class="my-1" :disabled="!emailState" block @click="sendPasswordResetEmail()">{{$t('resetPassordSendmail')}}</b-button>
             </b-form>
         </b-card-text>
-        <p><nuxt-link to="/login">Je me souviens de mon mot de passe ! :D</nuxt-link></p>
-        <p>Vous n'avez pas de compte ? Vous pouvez <nuxt-link to="/signup">en créer un</nuxt-link>.</p>
+        <p><nuxt-link to="/login">{{$t('resetPassordRemember')}}</nuxt-link></p>
+        <p>{{$t('loginSignupStart')}}<nuxt-link to="/signup">{{$t('loginSignupEnd')}}</nuxt-link>.</p>
     </b-card>
 </template>
 

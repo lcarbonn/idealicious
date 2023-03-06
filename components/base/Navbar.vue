@@ -26,7 +26,7 @@
               v-show="!isConnected || isAnonymous"
               href="/signup">{{$t('navbarSignup')}}</b-dropdown-item>
           <b-dropdown-item
-              v-show="isConnected && !isAnonymous"
+              v-show="isConnected && isAdmin"
                 href="/admin/gamelist">{{$t('navbarGameList')}}</b-dropdown-item>
           <b-dropdown-item 
               v-show="isConnected  && !isAnonymous" 
@@ -58,6 +58,9 @@ export default {
       },
       isAnonymous() {
         return this.$store.getters['auth/isAnonymous'];
+      },
+      isAdmin() {
+        return this.$store.getters['auth/isAdmin'];
       },
       isConnected() {
           return this.$store.getters['auth/isConnected'];

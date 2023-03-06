@@ -5,14 +5,14 @@
                 <b-form-input 
                     class="my-1" 
                     id="email" 
-                    placeholder="Email" 
+                    :placeholder="$t('loginEmailPlaceHolder')"
                     v-model="form.email" 
                     type="email" 
                     :state="emailState" />
                 <b-form-input 
                     class="my-1" 
                     id="password"
-                    placeholder="Password" 
+                    :placeholder="$t('loginPasswordPlaceHolder')"
                     v-model="form.password" 
                     type="password" 
                     :state="passwordState"/>
@@ -20,11 +20,11 @@
                     class="my-1" 
                     :disabled="disabledButton" 
                     block 
-                    @click="emailLogin()">Connexion</b-button>
+                    @click="emailLogin()">{{$t('loginLogin')}}</b-button>
             </b-form>
         </b-card-text>
-        <p><nuxt-link to="/login/reset-password">J'ai oublié mon mot de passe :'(</nuxt-link></p>
-        <p>Vous n'avez pas de compte ? Vous pouvez <nuxt-link to="/signup">en créer un</nuxt-link>.</p>
+        <p><nuxt-link to="/login/reset-password">{{$t('loginLostPassword')}}</nuxt-link></p>
+        <p>{{$t('loginSignupStart')}}<nuxt-link to="/signup">{{$t('loginSignupEnd')}}</nuxt-link>.</p>
     </b-card>
 </template>
 

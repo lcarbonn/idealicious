@@ -2,32 +2,32 @@
     <b-card class="text-center">
         <b-card-text>
             <b-form class="my-1">
-                <span class="my-1">C'est parti pour créer un nouveau compte !</span>
+                <span class="my-1">{{$t('signupTitle')}}</span>
                 <b-form-input class="my-1" 
                     v-model="form.email"
                     type="text"
-                    placeholder="Email"
+                    :placeholder="$t('loginEmailPlaceHolder')"
                     :state="emailState"/>
 
                 <b-form-input class="my-1" 
                     v-model="form.password"
                     type="password"
-                    placeholder="Mot de passe"
+                    :placeholder="$t('loginPasswordPlaceHolder')"
                     :state="passwordState" />
 
                 <b-form-input class="my-1" 
                     v-model="form.passwordCheck"
                     type="password"
-                    placeholder="Confirmation du mot de passe"
+                    :placeholder="$t('signupPasswordConfirmPlaceHolder')"
                     :state="passwordCheckState" />
 
                 <b-button class="my-1"
                     block
                     :disabled="disabledButton" 
-                    @click="emailSignIn()">Inscription</b-button>
+                    @click="emailSignIn()">{{$t('signupSignup')}}</b-button>
             </b-form>
         </b-card-text>
-        <p>Ou revenir à la <nuxt-link to="/login">page de connexion</nuxt-link>.</p>
+        <p>{{$t('signupBacktoLoginStart')}}<nuxt-link to="/login">{{$t('signupBacktoLoginEnd')}}</nuxt-link>.</p>
     </b-card>
 </template>
 
