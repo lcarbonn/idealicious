@@ -11,30 +11,24 @@ export const getNextPath = () => {
 };
 
 export default {
-    beforeCreate() {
+    mounted() {
         // Redirect to login if user not connected trying to access authenticated pages
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            const path = this.$router.currentRoute.path
-            console.debug("user="+user)
-            console.debug("currentRoute:"+path)
-            if (user) {
-                console.debug("user anonymous="+user.isAnonymous)
-                console.debug("user email="+user.email)
-                // User is signed in
-                this.$store.dispatch('auth/setActiveUser', user)
-                // User is anonymous and want go to admin, redirect to login
-                if(user.isAnonymous && path.indexOf('/admin')!=-1) {
-                    console.debug("go to login")
-                    this.$store.dispatch('auth/setActiveUser', { user: null })
-                    route.nextRoute = this.$router.currentRoute;
-                    this.$router.push('/login')
-                }
-            } else {
-                // if no user, login anonymously
-                console.debug("signInAnonymous")
-                this.$store.dispatch("auth/signInAnonymous")
+        const path = this.$router.currentRoute.path
+        console.debug("currentRoute:"+path)
+        if(this.$store.getters['auth/isConnected']) {
+            const user = this.$store.getters['auth/authUser']
+            console.debug("user anonymous="+user.isAnonymous)
+            console.debug("user email="+user.email)
+            if(!user.isAnonymous && !user.isAdmin && path.indexOf('/admin')!=-1) {
+                console.debug("go to home")
+                route.nextRoute = this.$router.currentRoute;
+                this.$router.push('/')
             }
-        });
+            if(user.isAnonymous && path.indexOf('/admin')!=-1) {
+                console.debug("go to home")
+                route.nextRoute = this.$router.currentRoute;
+                this.$router.push('/login')
+            }
+        }
     }
 };
