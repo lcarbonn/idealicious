@@ -5,10 +5,11 @@
 </template>
 
 <script>
+import authentasadmin from '~/mixins/authentasadmin.js';
 
 export default {
     name: 'AdminPage',
-
+    mixins: [authentasadmin],
     mounted () {
         this.$store.dispatch("games/getGame", this.id);
         this.$store.dispatch("players/getPlayers", this.id);

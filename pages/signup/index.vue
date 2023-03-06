@@ -24,7 +24,7 @@
                 <b-button class="my-1"
                     block
                     :disabled="disabledButton" 
-                    @click="emailSignIn()">{{$t('signupSignup')}}</b-button>
+                    @click="emailSignUp()">{{$t('signupSignup')}}</b-button>
             </b-form>
         </b-card-text>
         <p>{{$t('signupBacktoLoginStart')}}<nuxt-link to="/login">{{$t('signupBacktoLoginEnd')}}</nuxt-link>.</p>
@@ -59,7 +59,7 @@ export default {
     },
 
     methods: {
-        emailSignIn() {
+        emailSignUp() {
             this.$store
                 .dispatch('auth/createUserWithEmailAndPassword', {
                     email: this.form.email,
