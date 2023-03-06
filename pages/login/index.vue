@@ -61,7 +61,11 @@ export default {
                     password: this.form.password
                 })
                 .then(res => {
-                    this.$router.push(getNextPath());
+                    if(this.$store.getters['auth/isAdmin']) {
+                        this.$router.push(getNextPath());
+                    } else {
+                        this.$router.push("/");
+                    }
                 })
                 .catch(e => {
                     console.error(e)

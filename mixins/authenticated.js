@@ -1,11 +1,13 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 export const route = () => ({
-    nextRoute: null
+    path: null
 });
 
+export const setPath = (path) => {
+    if(path!="/login") route.path = path
+}
+
 export const getNextPath = () => {
-    let path = route.nextRoute ? route.nextRoute.path : "/"
+    let path = route.path ? route.path : "/"
     path = path != "/login" ? path : "/"
     return path
 };
@@ -14,6 +16,7 @@ export default {
     mounted() {
         // Redirect to login if user not connected trying to access authenticated pages
         const path = this.$router.currentRoute.path
+        setPath(path)
         console.debug("currentRoute:"+path)
         if(this.$store.getters['auth/isConnected']) {
             const user = this.$store.getters['auth/authUser']
@@ -21,12 +24,10 @@ export default {
             console.debug("user email="+user.email)
             if(!user.isAnonymous && !user.isAdmin && path.indexOf('/admin')!=-1) {
                 console.debug("go to home")
-                route.nextRoute = this.$router.currentRoute;
                 this.$router.push('/')
             }
             if(user.isAnonymous && path.indexOf('/admin')!=-1) {
-                console.debug("go to home")
-                route.nextRoute = this.$router.currentRoute;
+                console.debug("go to login")
                 this.$router.push('/login')
             }
         }
