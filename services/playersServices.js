@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc, orderBy } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, getDocs, query, onSnapshot, updateDoc, orderBy, setDoc } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addPlayer = async (payload) => {
@@ -7,8 +7,8 @@ export const addPlayer = async (payload) => {
     const q = query(playersRef);
     const listOfPlayers = await getDocs(q);
     payload.player.playerId = listOfPlayers.docs.length
-    const ref = await addDoc(playersRef, payload.player)
-    payload.player.id = ref.id
+    const docRef = doc(db, "games/" + payload.gameId + "/players", payload.player.id)
+    await setDoc(docRef, payload.player);
     console.debug("end addPlayer id=" + payload.player.id)
     return payload.player
 };

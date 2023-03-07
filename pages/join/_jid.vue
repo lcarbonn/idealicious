@@ -25,6 +25,7 @@ export default {
     joinGame(player) {
       if (player != null) {
         const newPlayer = {
+          id: this.$store.getters['auth/getUserUid'],
           name: player,
           playerId: null,
           round:0
