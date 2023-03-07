@@ -57,6 +57,7 @@ export const actions = {
                     });
                 } else {
                     commit('setUser', { user: payload.user });
+                    resolve()
                 }
         });
     },

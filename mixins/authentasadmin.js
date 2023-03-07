@@ -1,12 +1,13 @@
 export default {
     beforeCreate() {
         // Redirect to home if user not admin
-        const user = this.$store.getters['auth/authUser']
-        if(user.email && !user.isAdmin) {
+        const isAnomymous = this.$store.getters['auth/isAnonymous']
+        const isAdmin = this.$store.getters['auth/isAdmin']
+        if(!isAnomymous && !isAdmin) {
                 this.$router.push('/')
         }
         // Redirect to login if user anonymous
-        if(!user.email) {
+        if(isAnomymous) {
             this.$router.push('/login')
     }
 }

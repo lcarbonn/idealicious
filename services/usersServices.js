@@ -12,7 +12,7 @@ export const findUser = (uid) => {
                     user = docSnap.data()
                     user.id = docSnap.id
                 }
-                console.debug("end findUser =" + uid)
+                console.debug("end findUser =" + user)
                 resolve(user)
             })
             .catch(e => {

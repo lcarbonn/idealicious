@@ -3,7 +3,7 @@ export const route = () => ({
 });
 
 export const setPath = (path) => {
-    if(path!="/login") route.path = path
+    if(path!="/login" && path!="/signup") route.path = path
 }
 
 export const getNextPath = () => {
