@@ -1,4 +1,4 @@
-import { addGame, getGame, listenGame, updateGameStatus, getGames, deleteGame } from '~/services/gamesServices'
+import { addGame, getGame, listenGame, updateGameStatus, getGames, deleteGame, getUserGames } from '~/services/gamesServices'
 
 export const state = () => ({
     game: null,
@@ -70,6 +70,13 @@ export const actions = {
             commit("setGames", games);
         }
         getGames(callback);
+    },
+
+    getUserGames({ commit, dispatch }, uid) {
+        const callback = games => {
+            commit("setGames", games);
+        }
+        getUserGames(callback, uid);
     },
 
     async deleteGame({ commit, dispatch }, id) {

@@ -22,6 +22,9 @@ export const getters = {
     getUserEmail: state => {
         return state.authUser?.email
     },
+    getUserUid: state => {
+        return state.authUser?.uid
+    },
     isAdmin: state  => {
         return state.authUser?.isAdmin
     },

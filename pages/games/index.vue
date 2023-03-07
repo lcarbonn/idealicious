@@ -1,17 +1,15 @@
 <template>
     <div>
-        <AdminGamesList :games="games" @deleteGame="deleteGame"></AdminGamesList>
+        <AdminGamesList path="games" :games="games" @deleteGame="deleteGame"></AdminGamesList>
     </div>
 </template>
 
 <script>
-import authentasadmin from '~/mixins/authentasadmin.js';
-
 export default {
-    name: 'AdminPage',
-    mixins: [authentasadmin],
+    name: 'GamesPage',
     mounted () {
-        this.$store.dispatch("games/getGames")
+        const uid = this.$store.getters["auth/getUserUid"]
+        this.$store.dispatch("games/getUserGames", uid)
     },
     computed: {
         games() {

@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { setPath } from '~/mixins/authenticated.js';
-
 export default {
   name: "IndexPage",
 
@@ -29,8 +27,8 @@ export default {
   methods: {
     addGame(game) {
       if (game != null) {
+        game.userUid = this.$store.getters['auth/getUserUid']
         this.$store.dispatch("games/addGame", game).then(() => {
-          setPath("/game/" + game.id)
           this.$router.push("/game/" + game.id)
           this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('addGameSnack') })
         });

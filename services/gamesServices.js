@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, updateDoc, onSnapshot, query, deleteDoc } from "firebase/firestore"
+import { collection, doc, addDoc, getDoc, updateDoc, onSnapshot, query, deleteDoc, where } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const addGame = async (game) => {
@@ -67,4 +67,20 @@ export const deleteGame = async (id) => {
     console.debug("start deleteGame id="+id)
     await deleteDoc(doc(db, "games", id));
     console.debug("end  deleteGame id="+id)
+};
+
+export const getUserGames = async (callback, uid) => {
+    console.debug("start getUserGames uid="+uid)
+    const gamesRef = collection(db, "games")
+    const q = query(gamesRef, where("userUid", "==", uid));
+    onSnapshot(q, (gamesSnapshot) => {
+        const games = []
+        gamesSnapshot.forEach((gameSnap) => {
+            let game = gameSnap.data()
+            game.id = gameSnap.id
+            games.push(game)
+        })
+        console.debug("end  getUserGames: nb games="+games.length)
+        callback(games)
+    });
 };

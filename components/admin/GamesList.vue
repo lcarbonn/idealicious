@@ -9,7 +9,7 @@
     >
       <template #cell(id)="data">
         <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
-        <b-button :href="'/admin/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
+        <b-button :href="path+'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
         <b-button @click="deleteGame(data.value)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
       </template>
     </b-table>
@@ -32,6 +32,10 @@ export default {
   },
 
   props: {
+    path:{
+            type: String,
+            default: "games"
+        },
     games:{
             type: Array,
             default: null
@@ -45,6 +49,11 @@ export default {
             label: 'Title',
             sortable: true,
           },
+          {
+            key: 'userUid',
+            label: 'User Uid',
+            sortable: true
+           },
           {
             key: 'started',
             sortable: true,

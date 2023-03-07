@@ -20,14 +20,16 @@
             <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
           </template>
           <b-dropdown-item
+              v-show="isConnected && isAdmin"
+                href="/admin">{{$t('navbarGameList')}}</b-dropdown-item>
+          <b-dropdown-item
+                href="/games">{{$t('navbarMyGameList')}}</b-dropdown-item>
+          <b-dropdown-item
               v-show="!isConnected || isAnonymous"
               href="/login">{{$t('navbarLogin')}}</b-dropdown-item>
-              <b-dropdown-item
+          <b-dropdown-item
               v-show="!isConnected || isAnonymous"
               href="/signup">{{$t('navbarSignup')}}</b-dropdown-item>
-          <b-dropdown-item
-              v-show="isConnected && isAdmin"
-                href="/admin/gamelist">{{$t('navbarGameList')}}</b-dropdown-item>
           <b-dropdown-item 
               v-show="isConnected  && !isAnonymous" 
               @click="logout()">{{$t('navbarLogout')}}</b-dropdown-item>
