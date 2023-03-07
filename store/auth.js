@@ -1,11 +1,10 @@
 import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
-import { getUser } from '~/services/usersServices'
+import { saveNewUser, findUser } from '~/services/usersServices'
 
 export const state = () => ({
     authUser: {
         uid: null,
         email: null,
-        isAnonymous:false,
         isAdmin:false
     }
 });
@@ -15,7 +14,7 @@ export const getters = {
         return state.authUser
     },
     isAnonymous: state => {
-        return state.authUser.isAnonymous
+        return !state.authUser.email
     },
     isConnected: state => {
         return !!state.authUser?.uid
@@ -33,12 +32,10 @@ export const mutations = {
         if(payload.user) {
             state.authUser.uid = payload.user.uid
             state.authUser.email = payload.user.email
-            state.authUser.isAnonymous = payload.user.isAnonymous
-            state.authUser.isAdmin = payload.isAdmin
+            state.authUser.isAdmin = payload.user.isAdmin?payload.user.isAdmin:false
         } else {
             state.authUser.uid = null
             state.authUser.email = null
-            state.authUser.isAnonymous = false
             state.authUser.isAdmin = false
         }
     }
@@ -48,19 +45,18 @@ export const actions = {
     setActiveUser({ commit }, payload) {
         return new Promise((resolve, reject) => {
             if(!payload.user.isAnonymous) {
-                getUser(payload.user.email)
-                    .then(userData => {
-                        const isAdmin = userData?true:false
-                        commit('setUser', { user: payload.user, isAdmin:isAdmin })
+                findUser(payload.user.uid)
+                    .then(user => {
+                        commit('setUser', { user: user })
                         resolve()
                     })
                     .catch(e => {
+                        commit('setUser', { user: null })
                         console.log('reject set active user')
                         reject(e)
                     });
                 } else {
-                    commit('setUser', { user: payload.user, isAdmin:false })
-                    resolve()
+                    commit('setUser', { user: payload.user });
                 }
         });
     },
@@ -73,7 +69,7 @@ export const actions = {
                 commit('setUser', { user: user });
             })
             .catch((error) => {
-                commit('setUser', null);
+                commit('setUser', { user: null });
             });        
     },
     signInWithEmailAndPassword({ commit, dispatch }, payload) {
@@ -84,22 +80,21 @@ export const actions = {
                     // Signed in 
                     const user = userCredential.user;
                     // is a admin user ?
-                    getUser(payload.email)
+                    findUser(user.uid)
                         .then(userData => {
-                            const isAdmin = userData?true:false
-                            commit('setUser', { user: user, isAdmin:isAdmin });
-                            // dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
+                            commit('setUser', { user: userData });
+                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
                             resolve();
                         })
                         .catch((error) => {
                             commit('setUser', { user: null });
-                            // dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
+                            dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
                             reject(error)
                         });
                 })
                 .catch((error) => {
                     commit('setUser', { user: null });
-                    // dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
+                    dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
                     reject(error)
                 });
         });
@@ -135,11 +130,17 @@ export const actions = {
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
-                    // Signed up and in 
+                    // Signed up and in
                     const user = userCredential.user;
-                    commit('setUser', { user: user });
-                    dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
-                    resolve();
+                    saveNewUser(user)
+                        .then(savedUser => {
+                            commit('setUser', {
+                                user: savedUser
+                            });
+                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
+                            resolve();
+                        })
+                        .catch(e => reject(e));
                 })
                 .catch((error) => {
                     commit('setUser', { user: null });
