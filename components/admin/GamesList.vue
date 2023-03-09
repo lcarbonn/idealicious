@@ -49,11 +49,11 @@ export default {
             label: 'Title',
             sortable: true,
           },
-          {
-            key: 'userUid',
-            label: 'User Uid',
-            sortable: true
-           },
+          // {
+          //   key: 'userUid',
+          //   label: 'User Uid',
+          //   sortable: true
+          //  },
           {
             key: 'started',
             sortable: true,

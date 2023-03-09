@@ -40,11 +40,11 @@ export default {
             label: 'Nom',
             sortable: true,
           },
-          {
-            key: 'id',
-            label: 'Uid',
-            sortable: true,
-          },
+          // {
+          //   key: 'id',
+          //   label: 'Uid',
+          //   sortable: true,
+          // },
           {
             key: 'round',
             label: 'Round',
