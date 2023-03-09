@@ -93,7 +93,7 @@ export const actions = {
                     findUser(user.uid)
                         .then(userData => {
                             commit('setUser', { user: userData });
-                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
+                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + userData.name }, { root: true });
                             resolve();
                         })
                         .catch((error) => {
@@ -127,7 +127,7 @@ export const actions = {
         return new Promise((resolve, reject) => {
             const auth = getAuth();
             sendPasswordResetEmail(auth, email).then(() => {
-                dispatch("snackbar/setSnackbarMessage", { message: "Email envoyé" }, { root: true });
+                dispatch("snackbar/setSnackbarMessage", { message: "Email envoyé à " +email }, { root: true });
                 resolve();
             }).catch((error) => {
                 dispatch("snackbar/setSnackbarMessage", { message: "Erreur envoi email : " + error.message }, { root: true });
