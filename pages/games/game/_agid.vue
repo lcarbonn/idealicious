@@ -1,13 +1,13 @@
 <template>
     <div>
-        <AdminPlayersList :game="game" :players="players"></AdminPlayersList>
+        <ListPlayersList :game="game" :players="players"></ListPlayersList>
     </div>
 </template>
 
 <script>
 
 export default {
-    name: 'AdminPage',
+    name: 'GamePlayersList',
     mounted () {
         this.$store.dispatch("games/getGame", this.id);
         this.$store.dispatch("players/getPlayers", this.id);

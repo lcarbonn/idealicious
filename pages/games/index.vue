@@ -1,12 +1,12 @@
 <template>
     <div>
-        <AdminGamesList path="/games" :games="games" @deleteGame="deleteGame"></AdminGamesList>
+        <ListGamesList path="/games" :games="games" @deleteGame="deleteGame"></ListGamesList>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'GamesPage',
+    name: 'GamesList',
     mounted () {
         const uid = this.$store.getters["auth/getUserUid"]
         this.$store.dispatch("games/getUserGames", uid)

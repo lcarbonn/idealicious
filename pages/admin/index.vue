@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AdminGamesList path="/admin" :games="games" @deleteGame="deleteGame"></AdminGamesList>
+        <ListGamesList path="/admin" :games="games" @deleteGame="deleteGame"></ListGamesList>
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import authentasadmin from '~/mixins/authentasadmin.js';
 
 export default {
-    name: 'AdminPage',
+    name: 'AdminGamesList',
     mixins: [authentasadmin],
     mounted () {
         this.$store.dispatch("games/getGames")
