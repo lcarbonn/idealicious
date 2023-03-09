@@ -13,17 +13,17 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
+        <b-nav-item
+              v-show="isConnected && isAdmin"
+                href="/admin">{{$t('navbarGameList')}}</b-nav-item>
+          <b-nav-item
+                href="/games">{{$t('navbarMyGameList')}}</b-nav-item>
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
             <em v-if="!userEmail"><b-icon icon="person"></b-icon></em>
             <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
           </template>
-          <b-dropdown-item
-              v-show="isConnected && isAdmin"
-                href="/admin">{{$t('navbarGameList')}}</b-dropdown-item>
-          <b-dropdown-item
-                href="/games">{{$t('navbarMyGameList')}}</b-dropdown-item>
           <b-dropdown-item
               v-show="!isConnected || isAnonymous"
               href="/login">{{$t('navbarLogin')}}</b-dropdown-item>

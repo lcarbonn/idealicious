@@ -41,6 +41,11 @@ export default {
             sortable: true,
           },
           {
+            key: 'id',
+            label: 'Uid',
+            sortable: true,
+          },
+          {
             key: 'round',
             label: 'Round',
             sortable: true,
