@@ -16,6 +16,8 @@ export default {
     adminGameStart: 'Lancer le jeu',
     adminGameEnd: 'Arrêter le jeu',
     adminGameResetLoves: 'Remise à zéro des votes',
+    adminGameResetLovesQuestion: 'Voulez-vous annuler les votes ?',
+    adminGameResetLovesTitle: 'Votes',
     adminGameCopyDone: 'Lien copié dans le presse-papier',
     adminGameCopyError: 'Erreur de copie dans le presse-papier',
     adminGameExportIdeas: 'Exporter les idées vers un fichier csv',

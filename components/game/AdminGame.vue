@@ -115,7 +115,13 @@ export default {
       }
     },
     resetLoves() {
-      this.$emit("resetLoves")
+      this.$bvModal.msgBoxConfirm(this.$i18n.t('adminGameResetLovesQuestion'),  {
+            title: this.$i18n.t('adminGameResetLovesTitle'),
+            centered: true
+          })
+          .then(value => {
+            if(value==true) this.$emit("resetLoves")
+          })
     },
     exportIdeas() {
       this.$emit("exportIdeas")

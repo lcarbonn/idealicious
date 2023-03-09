@@ -16,6 +16,8 @@ export default {
     adminGameStart: 'Start the game',
     adminGameEnd: 'End the game',
     adminGameResetLoves: 'Reset loves',
+    adminGameResetLovesQuestion: 'Do you really want to reset loves ?',
+    adminGameResetLovesTitle: 'Loves',
     adminGameCopyDone: 'Copy to clipboard done',
     adminGameCopyError: 'Copy to clipboard error',
     adminGameExportIdeas: 'Export ideas to csv file',
