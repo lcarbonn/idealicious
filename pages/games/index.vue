@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ListGamesList path="/games" :games="games" @deleteGame="deleteGame"></ListGamesList>
+        <ListGamesList :games="games" @deleteGame="deleteGame"></ListGamesList>
     </div>
 </template>
 

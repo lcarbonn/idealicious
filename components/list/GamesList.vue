@@ -7,6 +7,9 @@
       :fields="fields"
       :items="games"
     >
+      <template #cell(userUid)="data">
+        {{ getUserEmail(data.value) }}
+      </template>
       <template #cell(id)="data">
         <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
         <b-button :href="path+'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
@@ -22,7 +25,7 @@ import { BIcon, BIconPen, BIconTrash, BIconPlay, BIconPeople } from 'bootstrap-v
 
 export default {
   name: 'GamesListComp',
-  // mixins: [global],
+
   components: {
     BIcon,
     BIconPen,
@@ -32,28 +35,38 @@ export default {
   },
 
   props: {
-    path:{
-            type: String,
-            default: "games"
-        },
+    isAdmin: {
+            type: Boolean,
+            default: false
+    },
     games:{
+            type: Array,
+            default: null
+        },
+    users:{
             type: Array,
             default: null
         }
   },
 
-  data: () => ({
-      fields: [
+   computed: {
+      path() {
+        if (this.isAdmin) return "/admin"
+        else return "/games"
+      },
+      fields() {
+        if (this.isAdmin) {
+          return [
           {
             key: 'title',
             label: 'Title',
             sortable: true,
           },
-          // {
-          //   key: 'userUid',
-          //   label: 'User Uid',
-          //   sortable: true
-          //  },
+          {
+            key: 'userUid',
+            label: 'User',
+            sortable: true
+           },
           {
             key: 'started',
             sortable: true,
@@ -67,8 +80,32 @@ export default {
             label: 'Id Game',
             sortable: true
            }
-      ],
-    }),
+          ]
+        } else {
+          return [
+          {
+            key: 'title',
+            label: 'Title',
+            sortable: true,
+          },
+          {
+            key: 'started',
+            sortable: true,
+          },
+          {
+            key:'ended',
+            sortable: true
+           },
+           {
+            key: 'id',
+            label: 'Id Game',
+            sortable: true
+           }
+          ]
+        }
+      }
+    },
+
     methods: {
       deleteGame(id) {
           this.$bvModal.msgBoxConfirm('Vraiment ?',  {
@@ -78,6 +115,17 @@ export default {
             .then(value => {
               if(value==true) this.$emit("deleteGame", id)
             })
+      },
+      getUserEmail(uid){
+        if(this.users) {
+          let name = "Anonymous"
+          this.users.forEach(user => {
+            if(user.uid == uid) {
+              name = user.name
+            }
+          });
+          return name
+        }
       }
   }
 }

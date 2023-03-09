@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const findUser = (uid) => {
@@ -34,3 +34,19 @@ export const saveNewUser = async (user) => {
     console.debug("end saveNewUser user" + user.uid)
     return newUser;
 }
+
+export const getUsers = async (callback) => {
+    console.debug("start getUsers")
+    const usersRef = collection(db, "users")
+    const q = query(usersRef);
+    const unsubd = onSnapshot(q, (usersSnapshot) => {
+        const users = []
+        usersSnapshot.forEach((userSnap) => {
+            let user = userSnap.data()
+            user.id = userSnap.id
+            users.push(user)
+        })
+        console.debug("end  getUsers: nb games="+users.length)
+        callback(users)
+    });
+};
