@@ -65,6 +65,7 @@ export default {
     signupSignup: "Sign up",
     signupBacktoLoginStart: "Or get back ",
     signupBacktoLoginEnd: "to login",
+    loginNamePlaceHolder: "Name",
     loginEmailPlaceHolder: "Email",
     loginPasswordPlaceHolder: "Password",
     signupPasswordConfirmPlaceHolder: "Confirm your password",

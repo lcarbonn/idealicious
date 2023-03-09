@@ -4,6 +4,7 @@ import { saveNewUser, findUser } from '~/services/usersServices'
 export const state = () => ({
     authUser: {
         uid: null,
+        name: null,
         email: null,
         isAdmin:false
     }
@@ -34,10 +35,12 @@ export const mutations = {
     setUser(state, payload) {
         if(payload.user) {
             state.authUser.uid = payload.user.uid
+            state.authUser.name = payload.user.name
             state.authUser.email = payload.user.email
             state.authUser.isAdmin = payload.user.isAdmin?payload.user.isAdmin:false
         } else {
             state.authUser.uid = null
+            state.authUser.name = null
             state.authUser.email = null
             state.authUser.isAdmin = false
         }
@@ -135,13 +138,14 @@ export const actions = {
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed up and in
-                    const user = userCredential.user;
+                    let user = userCredential.user;
+                    user.name = payload.name
                     saveNewUser(user)
                         .then(savedUser => {
                             commit('setUser', {
                                 user: savedUser
                             });
-                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.email }, { root: true });
+                            dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.name }, { root: true });
                             resolve();
                         })
                         .catch(e => reject(e));

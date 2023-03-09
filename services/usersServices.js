@@ -26,6 +26,7 @@ export const saveNewUser = async (user) => {
     const docRef = doc(db, "users", user.uid)
     const newUser = {
         uid: user.uid,
+        name: user.name,
         email: user.email,
         isAdmin: false
     };

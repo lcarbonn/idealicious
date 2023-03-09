@@ -65,6 +65,7 @@ export default {
     signupSignup: "Inscription",
     signupBacktoLoginStart: "Ou revenir à la ",
     signupBacktoLoginEnd: "page de conenxion",
+    loginNamePlaceHolder: "Nom",
     loginEmailPlaceHolder: "Email",
     loginPasswordPlaceHolder: "Mot de passe",
     signupPasswordConfirmPlaceHolder: "Confirmation du mot de passe",
