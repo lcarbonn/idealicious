@@ -21,9 +21,13 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em v-if="!userEmail"><b-icon icon="person"></b-icon></em>
-            <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
+            <em v-if="!userName"><b-icon icon="person"></b-icon></em>
+            <em v-if="userName">{{userName}} <b-icon icon="person"></b-icon></em>
           </template>
+          <b-dropdown-item
+              v-show="userEmail"
+              disabled
+              >{{userEmail}}</b-dropdown-item>
           <b-dropdown-item
               v-show="!isConnected || isAnonymous"
               href="/login">{{$t('navbarLogin')}}</b-dropdown-item>
@@ -69,6 +73,9 @@ export default {
       },
       userEmail() {
         return this.$store.getters['auth/getUserEmail'];
+      },
+      userName() {
+        return this.$store.getters['auth/getUserName'];
       }
 
   },

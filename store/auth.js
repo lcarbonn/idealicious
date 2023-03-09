@@ -23,6 +23,9 @@ export const getters = {
     getUserEmail: state => {
         return state.authUser?.email
     },
+    getUserName: state => {
+        return state.authUser?.name
+    },
     getUserUid: state => {
         return state.authUser?.uid
     },
