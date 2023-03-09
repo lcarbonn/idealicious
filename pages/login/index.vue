@@ -61,6 +61,7 @@ export default {
                     password: this.form.password
                 })
                 .then(res => {
+                    console.debug("getNextPath="+getNextPath())
                     this.$router.push(getNextPath());
                 })
                 .catch(e => {
