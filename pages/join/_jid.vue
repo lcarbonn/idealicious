@@ -12,7 +12,11 @@ export default {
   name: "JoinPage",
 
   created() {
-    this.$store.dispatch("games/listenGame", this.gameId);
+    //if user connected, get direct to join
+    const userName = this.$store.getters['auth/getUserName']
+    if(userName) {
+      this.joinGame(userName)
+    }
   },
   
   computed: {
@@ -22,11 +26,11 @@ export default {
   },
 
   methods: {
-    joinGame(player) {
-      if (player != null) {
+    joinGame(playerName) {
+      if (playerName != null) {
         const newPlayer = {
           id: this.$store.getters['auth/getUserUid'],
-          name: player,
+          name: playerName,
           playerId: null,
           round:0
         };
@@ -46,7 +50,7 @@ export default {
           // then create his deck
           this.$store.dispatch("decks/addDeck", {gameId:this.gameId, deck:newDeck})
           console.debug("newPlayer playerId:" + storePlayer.playerId);
-          this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('jidWelcomePlayer', {player: player}) });
+          this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('jidWelcomePlayer', {player: playerName}) });
           this.$router.push("/game/"+this.gameId+"/player/" + storePlayer.id);
         });
       }
