@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ListGamesList :isAdmin="true" :games="games" :users="users" @deleteGame="deleteGame"></ListGamesList>
+        <ListGamesList :isAdmin="true" :games="games" @deleteGame="deleteGame"></ListGamesList>
     </div>
 </template>
 
@@ -12,14 +12,10 @@ export default {
     mixins: [authentasadmin],
     mounted () {
         this.$store.dispatch("games/getGames")
-        this.$store.dispatch("users/getUsers")
     },
     computed: {
         games() {
             return this.$store.getters["games/games"];
-        },
-        users() {
-            return this.$store.getters["users/users"];
         }
     },
     methods: {

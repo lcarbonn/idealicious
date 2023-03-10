@@ -1,4 +1,5 @@
 import { addGame, getGame, listenGame, updateGameStatus, getGames, deleteGame, getUserGames } from '~/services/gamesServices'
+import { findUser } from '~/services/usersServices'
 
 export const state = () => ({
     game: null,
@@ -66,10 +67,20 @@ export const actions = {
     },
 
     getGames({ commit, dispatch }) {
-        const callback = games => {
-            commit("setGames", games);
-        }
-        getGames(callback);
+        return new Promise((resolve, reject) => {
+            getGames()
+            .then((games) => {
+                games.forEach(game => {
+                    findUser(game.userUid)
+                    .then((user) => {
+                        game.user = user
+                        commit("setGames", games);
+                    })
+                    .catch(e => reject(e));
+                });
+            })
+            .catch(e => reject(e));
+        })
     },
 
     getUserGames({ commit, dispatch }, uid) {

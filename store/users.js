@@ -19,10 +19,13 @@ export const mutations = {
 export const actions = {
 
     getUsers({ commit, dispatch }) {
-        const callback = users => {
-            commit("setUsers", users);
-        }
-        getUsers(callback);
-    },
+        return new Promise((resolve, reject) => {
+            getUsers()
+            .then((users) => {
+                commit("setUsers", users)
+            })
+            .catch(e => reject(e))
+        })
+    }
 
-};
+}

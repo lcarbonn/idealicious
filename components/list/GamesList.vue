@@ -7,8 +7,13 @@
       :fields="fields"
       :items="games"
     >
-      <template #cell(userUid)="data">
-        {{ getUserEmail(data.value) }}
+      <template #cell(user.name)="data">
+        <span v-if="data.value">{{data.value}}</span>
+        <span v-else>Anonymous</span>
+      </template>
+      <template #cell(user.email)="data">
+        <span v-if="data.value">{{data.value}}</span>
+        <span v-else>Anonymous</span>
       </template>
       <template #cell(id)="data">
         <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
@@ -42,10 +47,6 @@ export default {
     games:{
             type: Array,
             default: null
-        },
-    users:{
-            type: Array,
-            default: null
         }
   },
 
@@ -63,8 +64,13 @@ export default {
             sortable: true,
           },
           {
-            key: 'userUid',
+            key: 'user.name',
             label: 'User',
+            sortable: true
+           },
+           {
+            key: 'user.email',
+            label: 'Email',
             sortable: true
            },
           {
@@ -115,17 +121,6 @@ export default {
             .then(value => {
               if(value==true) this.$emit("deleteGame", id)
             })
-      },
-      getUserEmail(uid){
-        if(this.users) {
-          let name = "Anonymous"
-          this.users.forEach(user => {
-            if(user.uid == uid) {
-              name = user.name
-            }
-          });
-          return name
-        }
       }
   }
 }

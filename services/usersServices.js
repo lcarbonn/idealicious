@@ -1,24 +1,17 @@
-import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore"
+import { collection, doc, getDoc, setDoc, onSnapshot, query } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-export const findUser = (uid) => {
-    return new Promise((resolve, reject) => {
-        console.debug("start findUser =" + uid)
-        const docRef = doc(db, "users", uid)
-        getDoc(docRef)
-            .then(docSnap => {
-                let user = null
-                if (docSnap.exists()) {
-                    user = docSnap.data()
-                    user.id = docSnap.id
-                }
-                console.debug("end findUser =" + user)
-                resolve(user)
-            })
-            .catch(e => {
-                reject(e);
-            });
-    })
+export const findUser = async (uid) => {
+    console.debug("start findUser =" + uid)
+    const docRef = doc(db, "users", uid)
+    const docSnap = await getDoc(docRef)
+    let user = null
+    if (docSnap.exists()) {
+        user = docSnap.data()
+        user.id = docSnap.id
+    }
+    console.debug("end findUser =" + user)
+    return user
 };
 
 export const saveNewUser = async (user) => {
@@ -35,18 +28,17 @@ export const saveNewUser = async (user) => {
     return newUser;
 }
 
-export const getUsers = async (callback) => {
+export const getUsers = async () => {
     console.debug("start getUsers")
-    const usersRef = collection(db, "users")
-    const q = query(usersRef);
-    const unsubd = onSnapshot(q, (usersSnapshot) => {
-        const users = []
-        usersSnapshot.forEach((userSnap) => {
-            let user = userSnap.data()
-            user.id = userSnap.id
-            users.push(user)
-        })
-        console.debug("end  getUsers: nb games="+users.length)
-        callback(users)
-    });
-};
+    const ref = collection(db, "users")
+    const q = query(ref);
+    const snapShot = await getDocs(q)
+    const users = []
+    snapShot.forEach((doc) => {
+        let user = doc.data()
+        user.id = doc.id
+        users.push(user)
+    })
+    console.debug("end  getUsers: nb users="+users.length)
+    return (users)
+}
