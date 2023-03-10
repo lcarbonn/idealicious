@@ -10,7 +10,8 @@ export const findUser = async (uid) => {
         user = docSnap.data()
         user.id = docSnap.id
     }
-    console.debug("end findUser =" + user)
+    const message = user?user.email:user
+    console.debug("end findUser =" + message)
     return user
 };
 

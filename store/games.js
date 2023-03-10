@@ -21,7 +21,17 @@ export const mutations = {
     },
     setGames(state, payload) {
         state.games = payload
-    }
+    },
+    changeGame(state, payload) {
+        let newGames = []
+        state.games.forEach(game => {
+          if(game.id == payload.id) {
+            game = payload
+          }
+          newGames.push(game)
+          state.games = newGames
+        })
+    },
 };
 
 export const actions = {
@@ -73,13 +83,17 @@ export const actions = {
                 games.forEach(game => {
                     findUser(game.userUid)
                     .then((user) => {
-                        game.user = user
-                        commit("setGames", games);
+                        if(user) {
+                            game.user = user
+                            commit("changeGame", game)
+                        }
                     })
-                    .catch(e => reject(e));
+                    .catch(e => reject(e))
                 });
+                commit("setGames", games)
+                resolve()
             })
-            .catch(e => reject(e));
+            .catch(e => reject(e))
         })
     },
 
