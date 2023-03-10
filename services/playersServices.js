@@ -7,9 +7,9 @@ export const addPlayer = async (payload) => {
     const q = query(playersRef);
     const listOfPlayers = await getDocs(q);
     payload.player.playerId = listOfPlayers.docs.length
-    const docRef = doc(db, "games/" + payload.gameId + "/players", payload.player.id)
+    const docRef = doc(db, "games/" + payload.gameId + "/players", payload.player.uid)
     await setDoc(docRef, payload.player);
-    console.debug("end addPlayer id=" + payload.player.id)
+    console.debug("end addPlayer id=" + payload.player.uid)
     return payload.player
 };
 
