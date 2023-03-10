@@ -22,6 +22,11 @@ export default {
         deleteGame(gameId) {
             console.debug("deleteGame :" + gameId)
             this.$store.dispatch("games/deleteGame", gameId)
+            .then(() => {
+                this.$store.dispatch("games/getGames")
+                }
+            )
+
         }
     }
 }    
