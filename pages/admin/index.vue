@@ -26,7 +26,6 @@ export default {
                 this.$store.dispatch("games/getGames")
                 }
             )
-
         }
     }
 }    

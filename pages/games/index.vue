@@ -8,18 +8,24 @@
 export default {
     name: 'GamesList',
     mounted () {
-        const uid = this.$store.getters["auth/getUserUid"]
-        this.$store.dispatch("games/getUserGames", uid)
+        this.$store.dispatch("games/getUserGames", this.uid)
     },
     computed: {
         games() {
             return this.$store.getters["games/games"];
+        },
+        uid() {
+            return this.$store.getters["auth/getUserUid"]
         }
     },
     methods: {
         deleteGame(gameId) {
             console.debug("deleteGame :" + gameId)
             this.$store.dispatch("games/deleteGame", gameId)
+            .then(() => {
+                this.$store.dispatch("games/getUserGames", this.uid)
+                }
+            )
         }
     }
 }    
