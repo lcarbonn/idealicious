@@ -1,4 +1,5 @@
 import { addPlayer, getPlayer, listenNbPlayers, updatePlayerRound, getNbPlayers, getPlayers } from '~/services/playersServices'
+import { findUser } from '~/services/usersServices'
 
 export const state = () => ({
     player: null,
@@ -80,10 +81,20 @@ export const actions = {
     },
 
     getPlayers({ commit }, gameId) {
-        const callback = players => {
-            commit("setPlayers", players);
-        }
-        getPlayers(callback, gameId);
+        return new Promise((resolve, reject) => {
+            getPlayers(gameId)
+            .then((players) => {
+                players.forEach(player => {
+                    findUser(player.id)
+                    .then((user) => {
+                        player.user = user
+                        commit("setPlayers", players);
+                    })
+                    .catch(e => reject(e));
+                });
+            })
+            .catch(e => reject(e));
+        })
     },
 
 };

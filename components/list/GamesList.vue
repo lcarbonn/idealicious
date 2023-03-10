@@ -13,7 +13,6 @@
       </template>
       <template #cell(user.email)="data">
         <span v-if="data.value">{{data.value}}</span>
-        <span v-else>Anonymous</span>
       </template>
       <template #cell(id)="data">
         <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
@@ -67,12 +66,12 @@ export default {
             key: 'user.name',
             label: 'User',
             sortable: true
-           },
-           {
+          },
+          {
             key: 'user.email',
             label: 'Email',
             sortable: true
-           },
+          },
           {
             key: 'started',
             sortable: true,

@@ -7,6 +7,14 @@
       :fields="fields"
       :items="players"
     >
+      <template #cell(user.name)="data">
+        <span v-if="data.value">{{data.value}}</span>
+        <span v-else>Anonymous</span>
+      </template>
+      <template #cell(user.email)="data">
+        <span v-if="data.value">{{data.value}}</span>
+      </template>
+
     </b-table>
   </div>
 </template>
@@ -47,20 +55,25 @@ export default {
               sortable: true,
             },
             {
-              key: 'id',
-              label: 'User ID',
-              sortable: true,
+            key: 'user.name',
+            label: 'User',
+            sortable: true
             },
             {
-              key: 'round',
-              label: 'Round',
-              sortable: true,
+              key: 'user.email',
+              label: 'Email',
+              sortable: true
             },
             {
               key: 'playerId',
               label: 'Id Player',
               sortable: true
-            }
+            },
+            {
+              key: 'round',
+              label: 'Round',
+              sortable: false,
+            },
           ]
         } else {
           return [
@@ -70,15 +83,15 @@ export default {
               sortable: true,
             },
             {
-              key: 'round',
-              label: 'Round',
-              sortable: true,
-            },
-            {
               key: 'playerId',
               label: 'Id Player',
               sortable: true
-            }
+            },
+            {
+              key: 'round',
+              label: 'Round',
+              sortable: false,
+            },
           ]
         }
       }
