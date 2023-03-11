@@ -2,9 +2,11 @@
   <b-navbar toggleable="lg" type="dark" variant="info" class="sticky-top">
     <b-navbar-brand href="/">
       <b-avatar variant="primary" rounded src="~/static/icon.png"></b-avatar>
+      Idealicious
     </b-navbar-brand>
 
     <b-navbar-nav>
+      <b-nav-item v-if="title">{{ title }}</b-nav-item>
       <b-nav-item v-if="game">{{$t('game')}} : {{ game.title }}</b-nav-item>
       <b-nav-item v-if="player">{{$t('player')}} : {{player.name}}</b-nav-item>
     </b-navbar-nav>
@@ -56,6 +58,9 @@ export default {
   },
 
   computed: {
+      title() {
+        return this.$store.getters["navbar/title"];
+      },
       player() {
         return this.$store.getters["players/player"];
       },

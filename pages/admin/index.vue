@@ -12,6 +12,7 @@ export default {
     mixins: [authentasadmin],
     mounted () {
         this.$store.dispatch("games/getGames")
+        this.$store.dispatch("navbar/setTitle", this.$i18n.t('navbarGameListTitle'))
     },
     computed: {
         games() {

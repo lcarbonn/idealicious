@@ -70,5 +70,4 @@ export default {
     loginEmailPlaceHolder: "Email",
     loginPasswordPlaceHolder: "Password",
     signupPasswordConfirmPlaceHolder: "Confirm your password",
-
 }

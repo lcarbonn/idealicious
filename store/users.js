@@ -27,5 +27,4 @@ export const actions = {
             .catch(e => reject(e))
         })
     }
-
 }

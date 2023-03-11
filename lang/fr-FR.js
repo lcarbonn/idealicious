@@ -55,6 +55,8 @@ export default {
     navbarLogout: "Me deconnecter",
     navbarGameList: "Tous les Challenges",
     navbarMyGameList: "Mes Challenges",
+    navbarGameListTitle: "Les Challenges",
+    navbarMyGameListTitle: "Mes Challenges",
     loginLogin: "Connexion",
     loginLostPassword: "J'ai oublié mon mot de passe :-(",
     loginSignupStart: "Voulez-vous jouer gratuitement ? Vous pouvez ",

@@ -9,6 +9,7 @@ export default {
     name: 'GamesList',
     mounted () {
         this.$store.dispatch("games/getUserGames", this.uid)
+        this.$store.dispatch("navbar/setTitle", this.$i18n.t('navbarMyGameListTitle'))
     },
     computed: {
         games() {
