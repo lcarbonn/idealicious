@@ -4,26 +4,41 @@
       hover
       stacked="lg"
       :fields="fields"
-      :items="games"
+      :items="copiedGames"
     >
       <template #cell(user.name)="data">
         <span v-if="data.value">{{data.value}}</span>
         <span v-else>Anonymous</span>
       </template>
-      <template #cell(user.email)="data">
-        <span v-if="data.value">{{data.value}}</span>
+      <template #cell(show_details)="row">
+          <b-button @click="row.toggleDetails" size="sm" v-b-tooltip.hover :title="$t('gamelistDetail')"><b-icon icon="toggles"/></b-button>
+          <b-button :href="'/game/'+row.item.id" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
+          <b-button :href="path+'/game/'+row.item.id" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
+          <b-button @click="deleteGame(row.item.id)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
       </template>
-      <template #cell(id)="data">
-        <b-button :href="'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
-        <b-button :href="path+'/game/'+data.value" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
-        <b-button @click="deleteGame(data.value)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
-      </template>
+
+      <template #row-details="row">
+        <b-card>
+          <b-row v-if="row.item.user">
+            <b-col class="text-sm-right"><b>Email:</b></b-col>
+            <b-col>{{ row.item.user.email }}</b-col>
+          </b-row>
+          <b-row>
+            <b-col class="text-sm-right"><b>Started:</b></b-col>
+            <b-col>{{ booleanFormatter(row.item.started)}}</b-col>
+          </b-row>
+          <b-row>
+            <b-col class="text-sm-right"><b>Ended:</b></b-col>
+            <b-col>{{ booleanFormatter(row.item.ended)}}</b-col>
+          </b-row>
+        </b-card>
+      </template>      
     </b-table>
 </template>
 
 <script>
 
-import { BIcon, BIconPen, BIconTrash, BIconPlay, BIconPeople } from 'bootstrap-vue'
+import { BIcon, BIconPen, BIconTrash, BIconPlay, BIconPeople, BIconToggles } from 'bootstrap-vue'
 import { dateFormatter } from '~/scripts/common.js'
 
 export default {
@@ -34,7 +49,8 @@ export default {
     BIconPen,
     BIconPlay,
     BIconPeople,
-    BIconTrash
+    BIconTrash,
+    BIconToggles
   },
 
   props: {
@@ -53,100 +69,76 @@ export default {
         if (this.isAdmin) return "/admin"
         else return "/games"
       },
+      copiedGames() {
+        const cg = []
+        if(this.games) {
+          this.games.forEach(game => {
+            const ngame = {}
+            Object.assign(ngame, game)
+            cg.push(ngame)
+          })
+        }
+        return cg
+      },
       fields() {
-        if (this.isAdmin) {
-          return [
+        let fields = []
+        fields.push (
           {
             key: 'title',
             label: 'Title',
             sortable: true,
           },
-          {
+        )
+        if (this.isAdmin) {
+          fields.push (
+            {
             key: 'user.name',
             label: 'User',
             sortable: true
-          },
-          {
-            key: 'user.email',
-            label: 'Email',
-            sortable: true
-          },
-          {
-            key: 'createdAt',
-            label: 'Created',
-            sortable: true,
-            formatter: 'dateFormat'
-          },
-          {
-            key: 'updatedAt',
-            label: 'Updated',
-            sortable: true,
-            formatter: 'dateFormat'
-          },
-          {
-            key: 'started',
-            label: 'Started',
-            formatter: (value) => {
-              return value ? 'Yes' : 'No'
             },
-            sortable: true,
-          },
-          {
-            key:'ended',
-            label: 'Ended',
-            formatter: (value) => {
-              return value ? 'Yes' : 'No'
-            },
-            sortable: true
-           },
-           {
-            key: 'id',
-            label: 'Id Game',
-            sortable: true
-           }
-          ]
-        } else {
-          return [
-          {
-            key: 'title',
-            label: 'Title',
-            sortable: true,
-          },
-          {
-            key: 'createdAt',
-            label: 'Created',
-            sortable: true,
-            formatter: 'dateFormat'
-          },
-          {
-            key: 'updatedAt',
-            label: 'Updated',
-            sortable: true,
-            formatter: 'dateFormat'
-          },
-          {
-            key: 'started',
-            label: 'Started',
-            formatter: (value) => {
-              return value ? 'Yes' : 'No'
-            },
-            sortable: true,
-          },
-          {
-            key:'ended',
-            label: 'Ended',
-            formatter: (value) => {
-              return value ? 'Yes' : 'No'
-            },
-            sortable: true
-           },
-           {
-            key: 'id',
-            label: 'Id Game',
-            sortable: true
-           }
-          ]
+            // {
+            //   key: 'user.email',
+            //   label: 'Email',
+            //   sortable: true
+            // },
+          )
         }
+
+        fields.push (        
+          {
+            key: 'createdAt',
+            label: 'Created',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          {
+            key: 'updatedAt',
+            label: 'Updated',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          // {
+          //   key: 'started',
+          //   label: 'Started',
+          //   formatter: 'booleanFormatter',
+          //   sortable: true,
+          // },
+          // {
+          //   key:'ended',
+          //   label: 'Ended',
+          //   formatter: 'booleanFormatter',
+          //   sortable: true
+          //  },
+           {
+            key: 'show_details',
+            label: 'Actions',
+           },
+          //  {
+          //   key: 'id',
+          //   label: 'Actions'
+          //  }
+        )
+        return fields
       }
     },
 
@@ -162,6 +154,9 @@ export default {
       },
       dateFormat(date) {
         return dateFormatter(date)
+      },
+      booleanFormatter(value) {
+        return value ? 'Yes' : 'No'
       }
   }
 }

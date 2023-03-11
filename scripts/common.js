@@ -38,8 +38,8 @@ export const exportCSVFile = (ideas, fileTitle, separator) => {
     }
 }
 
-export const dateFormatter= (date) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric' }
-    const d = new Date(date).toLocaleDateString("en-US", options)
-    return d
+export const dateFormatter = (date) => {
+    if(!date) return null
+    const d = new Date(date)
+    return d.toLocaleDateString() +" "+ d.toLocaleTimeString()
 }

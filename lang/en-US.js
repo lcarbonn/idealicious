@@ -49,6 +49,7 @@ export default {
     gamelistPlay: "Play the Game",
     gamelistDelete: "Delete the Game",
     gamelistPeople: "Players List",
+    gamelistDetail: "Detail",
     navbarLogin: "Sign-in",
     navbarSignup: "Sign-up",
     navbarLogout: "Logout",

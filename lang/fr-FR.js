@@ -49,6 +49,7 @@ export default {
     gamelistPlay: "Jouer le Challenge",
     gamelistDelete: "Supprimer",
     gamelistPeople: "Liste des Joueurs",
+    gamelistDetail: "Détail",
     navbarLogin: "Me connecter",
     navbarSignup: "M'inscrire",
     navbarLogout: "Me deconnecter",
