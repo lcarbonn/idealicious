@@ -1,9 +1,8 @@
 <template>
-  <div>
     <b-table 
       striped
       hover
-      stacked="md"
+      stacked="lg"
       :fields="fields"
       :items="games"
     >
@@ -20,12 +19,12 @@
         <b-button @click="deleteGame(data.value)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
       </template>
     </b-table>
-  </div>
 </template>
 
 <script>
 
 import { BIcon, BIconPen, BIconTrash, BIconPlay, BIconPeople } from 'bootstrap-vue'
+import { dateFormatter } from '~/scripts/common.js'
 
 export default {
   name: 'GamesListComp',
@@ -73,11 +72,31 @@ export default {
             sortable: true
           },
           {
+            key: 'createdAt',
+            label: 'Created',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          {
+            key: 'updatedAt',
+            label: 'Updated',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          {
             key: 'started',
+            label: 'Started',
+            formatter: (value) => {
+              return value ? 'Yes' : 'No'
+            },
             sortable: true,
           },
           {
             key:'ended',
+            label: 'Ended',
+            formatter: (value) => {
+              return value ? 'Yes' : 'No'
+            },
             sortable: true
            },
            {
@@ -94,11 +113,31 @@ export default {
             sortable: true,
           },
           {
+            key: 'createdAt',
+            label: 'Created',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          {
+            key: 'updatedAt',
+            label: 'Updated',
+            sortable: true,
+            formatter: 'dateFormat'
+          },
+          {
             key: 'started',
+            label: 'Started',
+            formatter: (value) => {
+              return value ? 'Yes' : 'No'
+            },
             sortable: true,
           },
           {
             key:'ended',
+            label: 'Ended',
+            formatter: (value) => {
+              return value ? 'Yes' : 'No'
+            },
             sortable: true
            },
            {
@@ -120,6 +159,9 @@ export default {
             .then(value => {
               if(value==true) this.$emit("deleteGame", id)
             })
+      },
+      dateFormat(date) {
+        return dateFormatter(date)
       }
   }
 }

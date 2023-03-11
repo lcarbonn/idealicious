@@ -4,6 +4,7 @@ import { db } from '@/plugins/firebase.js'
 export const addGame = async (game) => {
     if (!game) return null
     console.debug("start addGame title=" + game.title)
+    game.createdAt=new Date().getTime()
     const ref = await addDoc(collection(db, "games"), game)
     game.id = ref.id
     console.debug("end addGame id=" + game.id)
@@ -39,10 +40,12 @@ export const listenGame = async (callback, id) => {
 export const updateGameStatus = async (game) => {
     if(!game) return null
     console.debug("start updateGameStatus id=" + game.id + ", started:" + game.started + ", ended:"+game.ended)
+    game.updatedAt = new Date().getTime()
     const gameRef = doc(db, "games", game.id)
     await updateDoc(gameRef, {
         started: game.started,
-        ended:game.ended
+        ended:game.ended,
+        updatedAt:game.updatedAt
     })
     console.debug("end updateGameStatus id=" + game.id + ", started:" + game.started + ", ended:" + game.ended)
 };
