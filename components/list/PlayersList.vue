@@ -7,13 +7,10 @@
       :fields="fields"
       :items="players"
     >
-      <template #cell(user.name)="data">
-        <span v-if="data.value">{{data.value}}</span>
-        <span v-else>Anonymous</span>
-      </template>
-      <template #cell(user.email)="data">
-        <span v-if="data.value">{{data.value}}</span>
-      </template>
+    <template #cell(isAdmin)="data">
+      <b-form-checkbox v-model="data.value" switch disabled>
+      </b-form-checkbox>
+    </template>
 
     </b-table>
   </div>
@@ -22,6 +19,7 @@
 <script>
 
 import { BIcon, BIconPen, BIconTrash, BIconPlay } from 'bootstrap-vue'
+import { dateFormatter } from '~/scripts/common.js'
 
 export default {
   name: 'PlayersListComp',
@@ -34,11 +32,6 @@ export default {
   },
 
   props: {
-    isAdmin: {
-            type: Boolean,
-            default: false
-        },
-    game: Object,
     players:{
             type: Array,
             default: null
@@ -47,7 +40,6 @@ export default {
 
   computed: {
       fields() {
-        if (this.isAdmin) {
           return [
             {
               key: 'name',
@@ -55,46 +47,38 @@ export default {
               sortable: true,
             },
             {
-            key: 'user.name',
-            label: 'User',
-            sortable: true
-            },
-            {
-              key: 'user.email',
+              key: 'email',
               label: 'Email',
               sortable: true
             },
             {
-              key: 'playerId',
-              label: 'Id Player',
+              key: 'isAdmin',
+              label: 'isAdmin',
               sortable: true
             },
             {
-              key: 'round',
-              label: 'Round',
-              sortable: false,
+              key: 'createdAt',
+              label: 'Created',
+              formatter: 'dateFormat',
+              sortable: true
             },
-          ]
-        } else {
-          return [
             {
-              key: 'name',
-              label: 'Nom',
+              key: 'updatedAt',
+              label: 'Updated',
+              formatter: 'dateFormat',
               sortable: true,
             },
-            {
-              key: 'playerId',
-              label: 'Id Player',
-              sortable: true
-            },
-            {
-              key: 'round',
-              label: 'Round',
-              sortable: false,
-            },
           ]
-        }
       }
-    }
+    },
+
+  methods: {
+      dateFormat(date) {
+        return dateFormatter(date)
+      },
+      booleanFormatter(value) {
+        return value ? 'Yes' : 'No'
+      }
+  }
 }
 </script>

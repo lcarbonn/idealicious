@@ -18,6 +18,9 @@
         <b-nav-item
               v-show="isConnected && isAdmin"
                 href="/admin">{{$t('navbarGameList')}}</b-nav-item>
+        <b-nav-item
+              v-show="isConnected && isAdmin"
+                href="/admin/users">{{$t('navbarUserList')}}</b-nav-item>
           <b-nav-item
                 href="/games">{{$t('navbarMyGameList')}}</b-nav-item>
         <b-nav-item-dropdown right>

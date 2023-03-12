@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ListPlayersList :isAdmin="true" :game="game" :players="players"></ListPlayersList>
+        <ListGamePlayersList :isAdmin="true" :game="game" :players="players"></ListGamePlayersList>
     </div>
 </template>
 

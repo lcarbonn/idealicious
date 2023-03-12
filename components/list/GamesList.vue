@@ -25,11 +25,11 @@
           </b-row>
           <b-row>
             <b-col class="text-sm-right"><b>Started:</b></b-col>
-            <b-col>{{ booleanFormatter(row.item.started)}}</b-col>
+            <b-col><b-form-checkbox v-model="row.item.started" switch disabled/></b-col>
           </b-row>
           <b-row>
             <b-col class="text-sm-right"><b>Ended:</b></b-col>
-            <b-col>{{ booleanFormatter(row.item.ended)}}</b-col>
+            <b-col><b-form-checkbox v-model="row.item.ended" switch disabled/></b-col>
           </b-row>
         </b-card>
       </template>      
@@ -96,14 +96,8 @@ export default {
             label: 'User',
             sortable: true
             },
-            // {
-            //   key: 'user.email',
-            //   label: 'Email',
-            //   sortable: true
-            // },
           )
         }
-
         fields.push (        
           {
             key: 'createdAt',
@@ -117,26 +111,10 @@ export default {
             sortable: true,
             formatter: 'dateFormat'
           },
-          // {
-          //   key: 'started',
-          //   label: 'Started',
-          //   formatter: 'booleanFormatter',
-          //   sortable: true,
-          // },
-          // {
-          //   key:'ended',
-          //   label: 'Ended',
-          //   formatter: 'booleanFormatter',
-          //   sortable: true
-          //  },
            {
             key: 'show_details',
             label: 'Actions',
            },
-          //  {
-          //   key: 'id',
-          //   label: 'Actions'
-          //  }
         )
         return fields
       }

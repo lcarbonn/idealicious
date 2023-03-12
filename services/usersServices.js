@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc, updateDoc, query } from "firebase/firestore"
+import { collection, doc, getDoc, setDoc, getDocs, updateDoc, query } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const findUser = async (uid) => {
