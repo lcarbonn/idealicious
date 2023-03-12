@@ -51,7 +51,7 @@ export default {
     lazy: true,
     langDir: 'lang/',
     strategy: 'no_prefix',
-    defaultLocale: 'en',
+    defaultLocale: 'fr',
     locales: [
       {
         code: 'en',

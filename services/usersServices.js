@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc, onSnapshot, query } from "firebase/firestore"
+import { collection, doc, getDoc, setDoc, updateDoc, query } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
 export const findUser = async (uid) => {
@@ -9,6 +9,10 @@ export const findUser = async (uid) => {
     if (docSnap.exists()) {
         user = docSnap.data()
         user.id = docSnap.id
+        user.updatedAt = new Date().getTime()
+        await updateDoc(docRef, {
+            updatedAt: user.updatedAt
+        })
     }
     const message = user?user.email:user
     console.debug("end findUser =" + message)
@@ -22,7 +26,8 @@ export const saveNewUser = async (user) => {
         uid: user.uid,
         name: user.name,
         email: user.email,
-        isAdmin: false
+        isAdmin: false,
+        createdAt: new Date().getTime()
     };
     await setDoc(docRef, newUser, { merge: true });
     console.debug("end saveNewUser user" + user.uid)
