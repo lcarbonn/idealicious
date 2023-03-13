@@ -1,4 +1,4 @@
-import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword, linkWithCredential, EmailAuthProvider } from "firebase/auth";
 import { saveNewUser, findUser } from '~/services/usersServices'
 
 export const state = () => ({
@@ -84,7 +84,7 @@ export const actions = {
     },
     signInWithEmailAndPassword({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
-            const auth = getAuth();
+            const auth = getAuth()
             signInWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed in 
@@ -138,6 +138,37 @@ export const actions = {
     createUserWithEmailAndPassword({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             const auth = getAuth();
+            const oldUser = auth.currentUser
+            if(oldUser.isAnonymous) {
+                const credential = EmailAuthProvider.credential(payload.email, payload.password);
+                linkWithCredential(oldUser, credential)
+                .then((usercred) => {
+                const user = usercred.user;
+                console.log("Anonymous account successfully upgraded", user);
+                signInWithEmailAndPassword(auth, payload.email, payload.password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        let user = userCredential.user;
+                        user.name = payload.name
+                        saveNewUser(user)
+                            .then(savedUser => {
+                                commit('setUser', {
+                                    user: savedUser
+                                });
+                                dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + user.name }, { root: true });
+                                resolve();
+                            })
+                            .catch(e => reject(e));
+                    })
+                    .catch((error) => {
+                        commit('setUser', { user: null });
+                        dispatch("snackbar/setSnackbarMessage", { message: "Not able to log, check your account" }, { root: true });
+                        reject(error)
+                    });
+                }).catch((error) => {
+                console.log("Error upgrading anonymous account", error);
+                });
+            } else {
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed up and in
@@ -158,6 +189,7 @@ export const actions = {
                     dispatch("snackbar/setSnackbarMessage", { message: "Not able to create new account : " + error.message }, { root: true });
                     reject(error)
                 });
-            });
+            }
+        });
     }
 }
