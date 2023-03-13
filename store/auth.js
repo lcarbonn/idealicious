@@ -140,6 +140,7 @@ export const actions = {
             const auth = getAuth();
             const oldUser = auth.currentUser
             if(oldUser.isAnonymous) {
+                //convert anonymous user to permanent user with email & password
                 const credential = EmailAuthProvider.credential(payload.email, payload.password);
                 linkWithCredential(oldUser, credential)
                 .then((usercred) => {
@@ -169,6 +170,7 @@ export const actions = {
                 console.log("Error upgrading anonymous account", error);
                 });
             } else {
+                //or create complete new user
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed up and in

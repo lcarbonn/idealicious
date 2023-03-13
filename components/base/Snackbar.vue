@@ -6,7 +6,7 @@
       style="z-index: 2000;"
       variant="info"
       dismissible
-      @dismissed="coutnDown=0"
+      @dismissed="countDown=0"
       @dismiss-count-down="countDownChanged"
     >
     <div class="d-flex flex-wrap justify-content-md-center">{{snackbarMessage}}</div>
@@ -19,7 +19,7 @@ export default {
     name: 'Snackbar',
 
     data: () => ({
-        dismissSecs: 4,
+        dismissSecs: 5,
         dismissCountDown: 0
     }),
 
