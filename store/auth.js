@@ -54,7 +54,7 @@ export const actions = {
     setActiveUser({ commit }, payload) {
         return new Promise((resolve, reject) => {
             if(!payload.user.isAnonymous) {
-                findUser(payload.user.uid)
+                findUser(payload.user)
                     .then(user => {
                         commit('setUser', { user: user })
                         resolve()
@@ -90,7 +90,7 @@ export const actions = {
                     // Signed in 
                     const user = userCredential.user;
                     // is a admin user ?
-                    findUser(user.uid)
+                    findUser(user)
                         .then(userData => {
                             commit('setUser', { user: userData });
                             dispatch("snackbar/setSnackbarMessage", { message: "Bienvenue " + userData.name }, { root: true });

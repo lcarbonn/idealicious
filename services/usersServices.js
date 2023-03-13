@@ -1,15 +1,15 @@
 import { collection, doc, getDoc, setDoc, getDocs, updateDoc, query } from "firebase/firestore"
 import { db } from '@/plugins/firebase.js'
 
-export const findUser = async (uid) => {
-    console.debug("start findUser =" + uid)
-    const docRef = doc(db, "users", uid)
+export const findUser = async (authUser) => {
+    console.debug("start findUser =" + authUser.uid)
+    const docRef = doc(db, "users", authUser.uid)
     const docSnap = await getDoc(docRef)
     let user = null
     if (docSnap.exists()) {
         user = docSnap.data()
         user.id = docSnap.id
-        user.updatedAt = new Date().getTime()
+        user.updatedAt = new Date(authUser.metadata.lastSignInTime).getTime()
         await updateDoc(docRef, {
             updatedAt: user.updatedAt
         })
@@ -41,7 +41,7 @@ export const saveNewUser = async (user) => {
         name: user.name,
         email: user.email,
         isAdmin: false,
-        createdAt: new Date().getTime()
+        createdAt: new Date(user.metadata.creationTime).getTime()
     };
     await setDoc(docRef, newUser, { merge: true });
     console.debug("end saveNewUser user" + user.uid)
