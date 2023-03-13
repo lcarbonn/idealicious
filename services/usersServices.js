@@ -19,7 +19,7 @@ export const findUser = async (uid) => {
     return user
 };
 
-export const getdUser = async (uid) => {
+export const getUser = async (uid) => {
     console.debug("start getUser =" + uid)
     const docRef = doc(db, "users", uid)
     const docSnap = await getDoc(docRef)
