@@ -19,6 +19,20 @@ export const findUser = async (uid) => {
     return user
 };
 
+export const getdUser = async (uid) => {
+    console.debug("start getUser =" + uid)
+    const docRef = doc(db, "users", uid)
+    const docSnap = await getDoc(docRef)
+    let user = null
+    if (docSnap.exists()) {
+        user = docSnap.data()
+        user.id = docSnap.id
+    }
+    const message = user?user.email:user
+    console.debug("end getUser =" + message)
+    return user
+};
+
 export const saveNewUser = async (user) => {
     console.debug("start saveNewUser user=" + user.uid)
     const docRef = doc(db, "users", user.uid)

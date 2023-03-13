@@ -1,5 +1,5 @@
 import { addGame, getGame, listenGame, updateGameStatus, getGames, deleteGame, getUserGames } from '~/services/gamesServices'
-import { findUser } from '~/services/usersServices'
+import { getUser } from '~/services/usersServices'
 
 export const state = () => ({
     game: null,
@@ -81,7 +81,7 @@ export const actions = {
             getGames()
             .then((games) => {
                 games.forEach(game => {
-                    findUser(game.userUid)
+                    getUser(game.userUid)
                     .then((user) => {
                         if(user) {
                             game.user = user
