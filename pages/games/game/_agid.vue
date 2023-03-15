@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ListPlayersList :game="game" :players="players"></ListPlayersList>
+        <ListGamePlayersList :game="game" :players="players"></ListGamePlayersList>
     </div>
 </template>
 

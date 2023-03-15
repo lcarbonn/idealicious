@@ -7,14 +7,10 @@
       :fields="fields"
       :items="players"
     >
-      <template #cell(user.name)="data">
+    <template v-if="isAdmin" #cell(user.email)="data">
         <span v-if="data.value">{{data.value}}</span>
-        <span v-else>Anonymous</span>
+        <span v-else>Anonyme</span>
       </template>
-      <template #cell(user.email)="data">
-        <span v-if="data.value">{{data.value}}</span>
-      </template>
-
     </b-table>
   </div>
 </template>
@@ -47,53 +43,45 @@ export default {
 
   computed: {
       fields() {
+        let fields = []
+        fields.push (
+          {
+              key: 'name',
+              label: 'Nom',
+              sortable: true,
+            },
+        )
         if (this.isAdmin) {
-          return [
+          fields.push (
             {
-              key: 'name',
-              label: 'Nom',
-              sortable: true,
-            },
-            {
-            key: 'user.name',
-            label: 'User',
-            sortable: true
-            },
-            {
-              key: 'user.email',
-              label: 'Email',
-              sortable: true
-            },
-            {
-              key: 'playerId',
-              label: 'Id Player',
-              sortable: true
-            },
-            {
-              key: 'round',
-              label: 'Round',
-              sortable: false,
-            },
-          ]
-        } else {
-          return [
-            {
-              key: 'name',
-              label: 'Nom',
-              sortable: true,
-            },
-            {
-              key: 'playerId',
-              label: 'Id Player',
-              sortable: true
-            },
-            {
-              key: 'round',
-              label: 'Round',
-              sortable: false,
-            },
-          ]
+                key: 'user.email',
+                label: 'Email',
+                sortable: true
+              },
+          )
         }
+        fields.push (
+          {
+              key: 'playerId',
+              label: 'Id Player',
+              sortable: true
+            },
+        )
+        fields.push (
+          {
+              key: 'round',
+              label: 'Round',
+              sortable: false,
+            },
+        )
+        fields.push (
+          {
+              key: 'round',
+              label: 'Round',
+              sortable: false,
+            },
+        )
+        return fields
       }
     }
 }
