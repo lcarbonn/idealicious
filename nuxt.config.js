@@ -39,12 +39,33 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/i18n',
     // https://go.nuxtjs.dev/bootstrap
-    ['bootstrap-vue/nuxt',
-      {
-        icon: true
-      }
-    ],    
+    'bootstrap-vue/nuxt'
   ],
+
+  bootstrapVue: {
+    icons: false
+  },
+  
+  bootstrapVueIcons: [
+    'BIconBoxArrowInRight',
+    'BIconPlusCircleFill',
+    'BIconArrowCounterclockwise',
+    'BIconSkipEnd',
+    'BIconHouse',
+    'BIconPerson',
+    'BIconPlayCircle',
+    'BIconClipboard',
+    'BIconStopCircle',
+    'BIconDownload',
+    'BIconHeart',
+    'BIconCardList',
+    'BIconPen',
+    'BIconPlay',
+    'BIconTrash',
+    'BIconPeople',
+    'BIconToggles'
+  ],
+
 
   i18n: {
     /* module options */
