@@ -11,13 +11,16 @@
           </b-row>
           <b-row>
             <b-col>
-              <NuxtLink v-if="game" :to="'/join/' + game.id" target="_blank">{{gamePath}}</NuxtLink>
+              <NuxtLink v-if="game" :to="gamePath" target="_blank">{{gameUrl}}</NuxtLink>
             </b-col>
             <b-col>
               <b-button id="clipboard" variant="secondary" @click="copyToClipboard">
                 <b-icon icon="clipboard"></b-icon>
               </b-button>
               <b-tooltip target="clipboard" triggers="hover">{{ $t('adminGameClipboard')}}</b-tooltip>
+            </b-col>
+            <b-col>
+                <qrcode-vue :value="gameUrl" size="100"/>
             </b-col>
           </b-row>
           <b-row>
@@ -67,6 +70,7 @@
 
 <script>
 import { BIcon, BIconPlayCircle, BIconClipboard, BIconStopCircle, BIconArrowCounterclockwise, BIconDownload } from 'bootstrap-vue'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
   
@@ -78,7 +82,8 @@ export default {
     BIconClipboard,
     BIconStopCircle,
     BIconArrowCounterclockwise,
-    BIconDownload
+    BIconDownload,
+    QrcodeVue
   },
 
   props: {
@@ -87,8 +92,12 @@ export default {
   },
 
   computed: {
+    gameUrl() {
+      if(this.game) return window.location.origin + this.gamePath
+      else return ""
+    },
     gamePath() {
-      if(this.game) return window.location.origin + '/join/' + this.game.id
+      if(this.game) return '/join/' + this.game.id
       else return ""
     },
     started() {
@@ -107,7 +116,7 @@ export default {
     },
     async copyToClipboard() {
       try {
-        await navigator.clipboard.writeText(this.gamePath);
+        await navigator.clipboard.writeText(this.gameUrl);
         console.debug(this.$i18n.locale +" " +this.$i18n.t('adminGameCopyDone'))
         this.$store.dispatch("snackbar/setSnackbarMessage", { message: this.$i18n.t('adminGameCopyDone') });
       } catch($e) {

@@ -10,7 +10,7 @@ export default {
     addGameLabel: 'Enter the game challenge',
     addGameButton: 'Add new game',
     addGameSnack: 'Game added',
-    adminGameCopyLink: 'Copy the link and share it to players to join the game',
+    adminGameCopyLink: 'Copy the link and share it to players to join the game, or scan the QRCode',
     adminGameClipboard: 'Copy to clipboard',
     adminGameNbPlayers: 'Players in the game',
     adminGameStart: 'Start the game',
