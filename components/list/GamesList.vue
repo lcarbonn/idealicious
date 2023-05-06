@@ -14,7 +14,7 @@
           <b-button @click="row.toggleDetails" size="sm" v-b-tooltip.hover :title="$t('gamelistDetail')"><b-icon icon="toggles"/></b-button>
           <b-button :href="'/game/'+row.item.id" size="sm" v-b-tooltip.hover :title="$t('gamelistPlay')"><b-icon icon="play"/></b-button>
           <b-button :href="path+'/game/'+row.item.id" size="sm" v-b-tooltip.hover :title="$t('gamelistPeople')"><b-icon icon="people"/></b-button>
-          <b-button @click="deleteGame(row.item.id)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
+          <b-button @click="deleteGame(row.item.id, row.item.title)" size="sm" v-b-tooltip.hover :title="$t('gamelistDelete')"><b-icon icon="trash"/></b-button>
       </template>
 
       <template #row-details="row">
@@ -121,9 +121,9 @@ export default {
     },
 
     methods: {
-      deleteGame(id) {
+      deleteGame(id, title) {
           this.$bvModal.msgBoxConfirm('Vraiment ?',  {
-            title: 'Delete Game',
+            title: 'Delete Game : ' + title,
             centered: true
           })
             .then(value => {
