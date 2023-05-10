@@ -12,6 +12,8 @@ export default {
   name: "JoinPage",
 
   created() {
+    console.debug("game:"+this.gameId)
+    this.$store.dispatch("games/listenGame", this.gameId);
    //check if user already joint
     const userUid = this.$store.getters['auth/getUserUid']
     this.$store.dispatch("players/getPlayer", 
