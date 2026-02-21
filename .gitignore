@@ -5,8 +5,6 @@
 .nitro
 .cache
 dist
-.firebase
-.firebaserc
 package-lock.json
 
 # Node dependencies
