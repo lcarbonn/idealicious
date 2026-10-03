@@ -1,20 +1,20 @@
 export default {
-    copyright: "Copyright © 2025 - Agilized in Toulouse, France",
+    copyright: "Copyright © 2026 - Agilized in Toulouse, France",
     game: 'Game',
     player: 'Player',
     exportSeparator: ',',
     legalNotices: "Legal Notices",
     home: {
         welcome: 'Welcome to Idealicious',
-        welcome2: 'Idealicious is a collaborative ideation game',
-        welcome3: 'It helps you create ideas to solve a problem',
+        welcome2: 'One idea leads to another...',
+        welcome3: 'Create a game and invite yours friends',
         welcome4: 'Enter a question, for exemple : "How to go to Mars ?"',
         welcome5: 'Then share the join link to other players',
     },
     addGame:{
-        label: 'Enter the game question :',
+        label: 'Create a new game :',
         placeholder : 'How to go to Mars ?',
-        button: 'Done',
+        button: 'New game',
         added: 'Game added',
     },
     adminGame: {

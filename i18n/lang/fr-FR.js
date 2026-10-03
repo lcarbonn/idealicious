@@ -1,20 +1,20 @@
 export default {
-    copyright: "Copyright © 2025 - Agilisé à Toulouse, France",
+    copyright: "Copyright © 2026 - Agilisé à Toulouse, France",
     game: 'Jeu',
     player: 'Joueur',
     exportSeparator: ';',
     legalNotices: "Mentions Légales",
     home: {
         welcome: 'Bienvenue sur Idealicious',
-        welcome2: 'C\'est un jeu d\'idéation collaborative',
-        welcome3: 'Il vous permet de créer des idées pour résoudre un problème',
+        welcome2: 'Une idée en appelle une autre...',
+        welcome3: 'Créer une partie et inviter vos amis',
         welcome4: 'Saisissez une question, par exemple : "Comment aller sur Mars ?"',
         welcome5: 'Puis partagez le lien de participation aux autres joueurs',
     },
     addGame:{
-        label: 'Saisissez la question du jeu :',
+        label: 'Créer une nouvelle partie :',
         placeholder : 'Comment aller sur Mars ?',
-        button: 'Valider',
+        button: 'Nouvelle partie',
         added: 'Jeu ajouté',
     },
     adminGame: {

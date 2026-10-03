@@ -10,9 +10,9 @@
           </BFormGroup>
         </BCol>
       </BRow>
-      <BRow align-h="center">
+      <BRow align-h="center"  class="mt-2">
         <BCol cols="auto">
-          <BButton id="addButton" variant="secondary" @click="addNewGame" :disabled="!gameState">
+          <BButton pill id="addButton" variant="secondary" @click="addNewGame" :disabled="!gameState">
             <PlusCircleFill/> {{t('addGame.button')}}
           </BButton>
           <BTooltip target="addButton" triggers="hover">{{t('addGame.button')}}</BTooltip>

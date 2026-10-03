@@ -1,9 +1,9 @@
 <template>
   <client-only>
-  <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
+  <BNavbar :toggleable="true" variant="dark" sticky='top' v-b-color-mode="'dark'">
     <BNavbarBrand>
-      <BLink to="/" class="navbar-brand">
-      <BAvatar variant="primary" rounded
+      <BLink to="/" class="navbar-brand" style="font-weight: 800;">
+      <BAvatar variant="dark" rounded
                   src="/icon.png"></BAvatar> Idealicious
                 </BLink>
     </BNavbarBrand>
@@ -59,7 +59,6 @@
           <BDropdownItem @click="changeColor('light')" variant="primary"><Sun/> light</BDropdownItem>
           <BDropdownItem @click="changeColor('dark')" variant="primary"><Moon/> dark</BDropdownItem>
           <BDropdownItem @click="changeColor('auto')" variant="primary"><Auto/> auto</BDropdownItem>
-          <BDropdownItem @click="changeColor('blue')" variant="primary"><Auto/> blue</BDropdownItem>
         </BNavItemDropdown>
         <BNavItem @click="showMenu=!showMenu"
           to="/mentions-legales">{{$t('legalNotices')}}</BNavItem>
