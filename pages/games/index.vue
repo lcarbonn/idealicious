@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-3">
       <BaseTitle :title="t('pageTitle.myGamesList')"></BaseTitle>
       <ListGamesList :games="games" @deleteGame="askDeleteGame"></ListGamesList>
     </div>

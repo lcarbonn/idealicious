@@ -1,17 +1,17 @@
 <!-- Join page -->
 <template>
-    <BContainer fluid>
+    <BContainer fluid >
         <BRow>
           <BCol>
-            <BFormGroup :label="t('joinGame.label')" label-for="joinGame" description="" class="mb-0">
+            <BFormGroup :label="t('joinGame.label')" label-for="joinGame" description="">
               <BFormInput autofocus id="joinGame" v-model="playerName" :state="nameState" @keydown.enter="joinGame"
                 maxlength="10" trim class="mb-0"></BFormInput>
             </BFormGroup>
           </BCol>
         </BRow>
-        <BRow align-h="center">
-          <BCol md="auto">
-            <BButton id="join" variant="secondary" @click="joinGame" :disabled="!nameState">
+        <BRow align-h="center" class="mt-1">
+          <BCol>
+            <BButton pill id="join" variant="secondary" @click="joinGame" :disabled="!nameState">
               <PlusCircleFill/> {{ t('joinGame.button')}}
             </BButton>
             <b-tooltip target="join" triggers="hover">{{ t('joinGame.button')}}</b-tooltip>

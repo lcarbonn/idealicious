@@ -1,18 +1,20 @@
 <template>
     <div>
+      <!-- <BCard style="border-radius: 1.25rem;" class="text-center"> -->
       <BaseTitle :title="gameTitle"></BaseTitle>
-      <GamePlayers :players="players"/>
+      <GamePlayers :players="players" class="mt-3 mb-3"/>
       <LogicPlayerGame v-if="!ended" :gameId="gameId" :uid="uid"/>
       <BCard v-if="ended && !showGameIdeas" :title="t('playerGame.ended')">
           <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeas"/>
           <BCardText class="text-center" align-h="around">
-            <BButton @click="validateVotes">{{t('playerGame.validateVotes')}}</BButton>
+            <BButton pill @click="validateVotes">{{t('playerGame.validateVotes')}}</BButton>
           </BCardText>
       </BCard>
       <BCard v-if="ended && showGameIdeas" :title="t('adminGame.allIdeas')">
           <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeasSorted" disabled/>
           <!-- possible add change votes button -->
       </BCard>                
+      <!-- </BCard> -->
     </div>
   </template>
 

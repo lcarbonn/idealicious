@@ -10,7 +10,7 @@
                 :md="modulo(maxMdDecks, decksWithIdeas.length)" 
                 v-for="(deck, index) in decksWithIdeas" :id="'deck'+index">
                 <BContainer class="text-center">
-                    <BRow class="mb-1">
+                    <BRow class="mb-3">
                         <BCol>
                             <BAvatar variant="info"><CardList/></BAvatar>
                             <span>&nbsp;{{t('idea.chainDeck')}} {{index+1}}</span>
@@ -19,7 +19,7 @@
                     <BRow>
                         <BCol v-if="deck.length==0">{{t('idea.deckEmpty')}}</BCol>
                         <BCol v-else>
-                            <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :deckId= "index" :idea="(idea as Idea)" :uid="uid" :disabled="disabled"/>
+                            <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :deckId= "index" :idea="(idea as Idea)" :uid="uid" :disabled="disabled" class="mb-3"/>
                         </BCol>
                     </BRow>
                 </BContainer>

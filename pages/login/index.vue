@@ -17,6 +17,7 @@
                     type="password" 
                     :state="passwordState"/>
                 <BButton 
+                    pill
                     class="my-1" 
                     :disabled="disabledButton" 
                     block 

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div v-if="game && (isMyGame || isAdmin)">
-      <GameMenuBar :game="game"/>
+        <GameMenuBar :game="game"/>
     </div>
     <div class="d-flex flex-column justify-content-end">
       <br/><br/><br/>

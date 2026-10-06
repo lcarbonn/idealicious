@@ -13,7 +13,7 @@
           </BRow>
           <BRow>
               <BCol>
-                  <BButton id="clipboard" variant="secondary" @click="copyToClipboard">
+                  <BButton pill id="clipboard" variant="secondary" @click="copyToClipboard">
                     <Clipboard/> {{ t('adminGame.clipboard')}}
                   </BButton>
                   <b-tooltip target="clipboard" triggers="hover">{{ t('adminGame.clipboard')}}</b-tooltip>

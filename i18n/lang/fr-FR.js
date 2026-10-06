@@ -57,7 +57,7 @@ export default {
         waitingStart: 'Merci d\'attendre que le jeu démarre...',
         firstIdea: 'Le jeu est lancé, écrivez votre 1ère idée...',
         ended: 'Votez pour les idées que vous aimez, puis validez',
-        newIdea: 'Ça vous insipre une nouvelle idée ?...',
+        newIdea: 'Ça vous inspire une nouvelle idée ?...',
         addIdea: 'Valider l\'idée',
         round: 'Tour',
         skipTitle: "Pas d'idée",

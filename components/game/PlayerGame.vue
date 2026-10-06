@@ -1,14 +1,14 @@
 <!-- Player page -->
 <template>
-  <div>
+  <div class="mb-3" >
     <BaseTimer v-if="deckReceived" :max="maxTime" :restart="restart" @timer-completed="timerCompleted"></BaseTimer>
-    <!-- Crad for the last idea -->
-    <BCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" text-variant="dark">
+    <!-- Card for the last idea -->
+    <BCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText>
         <BSpinner variant="primary"/> {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
       </BCardText>
     </BCard>
-    <BCard v-if="round>0 && deckReceived" :class="getColor(deckId)" text-variant="dark">
+    <BCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText  v-if="lastIdea?.message">
         <BFormGroup class="mb-0">
           <label for="lastIdea">{{t('playerGame.previousIdea')}}</label>
@@ -20,7 +20,7 @@
       </BCardText>
     </BCard>
     <!-- Card for player idea -->
-    <BCard v-if="deckReceived" :class="getColor(deckId)" text-variant="dark">
+    <BCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText>
         <BContainer>
           <BRow>
@@ -33,9 +33,9 @@
               </BFormGroup>
             </BCol>
           </BRow>
-          <BRow class="text-center" align-h="around">
+          <BRow class="text-center mt-1" align-h="around">
             <BCol>
-              <BButton id="addButton" @click="addNewIdea">
+              <BButton pill id="addButton" @click="addNewIdea">
                 <PlusCircleFill/> {{ t('playerGame.addIdea')}}
               </BButton>
               <b-tooltip target="addButton" triggers="hover">{{ t('playerGame.addIdea')}}</b-tooltip>

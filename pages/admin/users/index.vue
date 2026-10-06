@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-3">
         <BaseTitle :title="t('pageTitle.usersList')"></BaseTitle>
         <ListUsersList :users="users" @deleteUser="delUser" @changeIsAdmin="changeIsAdmin"></ListUsersList>
     </div>

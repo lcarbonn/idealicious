@@ -1,5 +1,6 @@
 <template>
     <BContainer v-if='game' fluid>
+        <!-- <BCard style="border-radius: 1.25rem;" class="text-center"> -->
         <BRow>
             <BCol>
                 <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
@@ -7,17 +8,17 @@
         </BRow>
         <BRow>
             <BCol>
-                <GamePlayers :players="players"/>
-            </BCol>
-        </BRow>
-        <BRow>
-            <BCol>
-                <BAccordion v-if="!ended" >
+                <BAccordion v-if="!ended">
                     <BAccordionItem :title="getTitle" :model-value="showGameInfo" visible>
                         <GameAdminGame v-if="!ended" :game="game"/>
                     </BAccordionItem>
                 </BAccordion>
                 <BCard v-else :title="getTitle"></BCard>
+            </BCol>
+        </BRow>
+        <BRow>
+            <BCol>
+                <GamePlayers :players="players" class="mt-3 mb-3" />
             </BCol>
         </BRow>
         <BRow>
@@ -28,7 +29,7 @@
                 <BCard v-if="ended && !showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
                     <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas"/>
                     <BCardText class="text-center" align-h="around">
-                        <BButton @click="valideVotes">{{t('playerGame.validateVotes')}}</BButton>
+                        <BButton pill @click="valideVotes">{{t('playerGame.validateVotes')}}</BButton>
                     </BCardText>
                 </BCard>
                 <BCard v-if="ended && (showGameIdeas || !isKnowPlayer)" :title="t('adminGame.allIdeas')">
@@ -37,6 +38,7 @@
                 </BCard>                
             </BCol>
         </BRow>
+        <!-- </BCard> -->
     </BContainer>
 </template>
 

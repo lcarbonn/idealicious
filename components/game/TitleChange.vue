@@ -1,6 +1,6 @@
 <template>
   <div>
-      <BCard id="titleCard" variant="info">
+      <BCard id="titleCard" bg-variant="primary" text-variant="light">
         <BCardTitle>
           <BLink v-if="!changeAsked" variant="light" class="nodecoLink" @click="changeName()">{{title}}</BLink>
           <BInputGroup v-if="changeAsked">

@@ -10,7 +10,7 @@
                         :state="emailState" 
                         :placeholder="t('login.emailPlaceHolder')"
                         ></BFormInput>
-                <BButton class="my-1" :disabled="!emailState" block type="submit">{{t('login.resetPassordSendmail')}}</BButton>
+                <BButton pill class="my-1" :disabled="!emailState" block type="submit">{{t('login.resetPassordSendmail')}}</BButton>
             </BForm>
         </BCardText>
         <p><nuxt-link to="/login">{{t('login.resetPassordRemember')}}</nuxt-link></p>

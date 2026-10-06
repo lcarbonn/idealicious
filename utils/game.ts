@@ -61,7 +61,7 @@ export class Game implements IGame {
         this.ended = false
     }
     public stopGame() {
-        this.ended = false
+        this.ended = true
     }
     public restartGame() {
         this.started = false

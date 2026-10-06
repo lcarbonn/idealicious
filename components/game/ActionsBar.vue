@@ -14,10 +14,10 @@
             <b-tooltip target="stop" triggers="hover">{{ t('actionBar.end')}}</b-tooltip>
           </BCol>
           <BCol cols="auto" v-if="ended">
-            <BButton id="stop" variant="secondary" @click="newGame">
+            <BButton id="new" variant="secondary" @click="newGame">
               <PlayBtn/> {{ t('actionBar.newGame')}}
             </BButton>
-            <b-tooltip target="stop" triggers="hover">{{ t('actionBar.newGame')}}</b-tooltip>
+            <b-tooltip target="new" triggers="hover">{{ t('actionBar.newGame')}}</b-tooltip>
           </BCol>
         </BRow>
       </BContainer>

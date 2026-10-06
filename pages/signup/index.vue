@@ -29,7 +29,7 @@
                         :placeholder="t('login.signupPasswordConfirmPlaceHolder')"
                         :state="passwordCheckState" />
 
-                    <BButton class="my-1"
+                    <BButton pill class="my-1"
                         block
                         :disabled="disabledButton" 
                         type="submit">{{t('login.signupSignup')}}</BButton>

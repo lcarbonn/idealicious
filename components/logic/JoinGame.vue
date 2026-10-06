@@ -1,7 +1,7 @@
 <!-- Main page -->
 <template>
 
-    <div class="text-center" >
+    <div class="text-center">
       <GameJoinGame v-if="showForm" @joinGame="joinGame"/>
       <BSpinner v-else variant="primary" label="Spinning"/>
     </div>
