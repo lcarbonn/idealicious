@@ -1,8 +1,7 @@
 <template>
     <div>
-      <!-- <BCard style="border-radius: 1.25rem;" class="text-center"> -->
       <BaseTitle :title="gameTitle"></BaseTitle>
-      <GamePlayers :players="players" class="mt-3 mb-3"/>
+      <GamePlayers :players="players" class="mt-3 mb-2"/>
       <LogicPlayerGame v-if="!ended" :gameId="gameId" :uid="uid"/>
       <BCard v-if="ended && !showGameIdeas" :title="t('playerGame.ended')">
           <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeas"/>
@@ -14,7 +13,6 @@
           <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeasSorted" disabled/>
           <!-- possible add change votes button -->
       </BCard>                
-      <!-- </BCard> -->
     </div>
   </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <BCard bg-variant="primary" text-variant="light">
+      <BCard bg-variant="primary" text-variant="light" class="mt-3">
         <BLink
               v-if="link"
                 :to="link" variant="light" class="nodecoLink">{{title}}</BLink>

@@ -1,19 +1,18 @@
 <template>
     <BContainer v-if='game' fluid>
-        <!-- <BCard style="border-radius: 1.25rem;" class="text-center"> -->
-        <BRow>
+        <BRow  class="mt-3">
             <BCol>
                 <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
             </BCol>
         </BRow>
         <BRow>
             <BCol>
-                <BAccordion v-if="!ended">
+                <BAccordion v-if="notStarted" class="mt-3">
                     <BAccordionItem :title="getTitle" :model-value="showGameInfo" visible>
                         <GameAdminGame v-if="!ended" :game="game"/>
                     </BAccordionItem>
                 </BAccordion>
-                <BCard v-else :title="getTitle"></BCard>
+                <!-- <BCard v-else :title="getTitle"></BCard> -->
             </BCol>
         </BRow>
         <BRow>
@@ -38,7 +37,6 @@
                 </BCard>                
             </BCol>
         </BRow>
-        <!-- </BCard> -->
     </BContainer>
 </template>
 
@@ -103,6 +101,10 @@
     // game ended ?
     const ended = computed(() => {
         return game.value?.isEnded()
+    })
+
+    const notStarted = computed(() => {
+        return game.value?.isNotYetStarted()
     })
 
     // mise à jour du titre du jeu
