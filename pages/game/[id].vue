@@ -12,7 +12,6 @@
                         <GameAdminGame v-if="!ended" :game="game"/>
                     </BAccordionItem>
                 </BAccordion>
-                <!-- <BCard v-else :title="getTitle"></BCard> -->
             </BCol>
         </BRow>
         <BRow>

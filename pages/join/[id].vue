@@ -1,7 +1,7 @@
 <!-- Main page -->
 <template>
     <div class="mt-3">
-      <BaseTitle :title="gameTitle"></BaseTitle>
+      <GameTitle :title="gameTitle"></GameTitle>
       <LogicJoinGame :gameId="gameId" @playerJoined="playerJoined"/>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <BaseTitle :title="gameTitle"></BaseTitle>
+      <GameTitle :title="gameTitle"></GameTitle>
       <GamePlayers :players="players" class="mt-3 mb-2"/>
       <LogicPlayerGame v-if="!ended" :gameId="gameId" :uid="uid"/>
       <BCard v-if="ended && !showGameIdeas" :title="t('playerGame.ended')">

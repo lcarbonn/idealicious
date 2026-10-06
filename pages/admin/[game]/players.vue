@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3">
-      <BaseTitle :title="t('pageTitle.playersList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></BaseTitle>
+      <GameTitle :title="t('pageTitle.playersList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
       <ListGamePlayersList :isAdmin="true" :players="players"></ListGamePlayersList>
     </div>
 </template>

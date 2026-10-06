@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3">
-      <BaseTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></BaseTitle>
+      <GameTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
       <BCard>
         <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser.uid" disabled/>
       </BCard>

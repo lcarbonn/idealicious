@@ -1,10 +1,12 @@
 <template>
   <div>
       <BCard bg-variant="primary" text-variant="light" class="mt-3">
-        <BLink
-              v-if="link"
-                :to="link" variant="light" class="nodecoLink">{{title}}</BLink>
-        <span v-else>{{title}}</span>
+        <BCardTitle>
+          <BLink
+                v-if="link"
+                  :to="link" variant="light" class="nodecoLink">{{title}}</BLink>
+          <span v-else>{{title}}</span>
+        </BCardTitle>
       </BCard>
   </div>
 </template>

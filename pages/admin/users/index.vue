@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3">
-        <BaseTitle :title="t('pageTitle.usersList')"></BaseTitle>
+        <GameTitle :title="t('pageTitle.usersList')"></GameTitle>
         <ListUsersList :users="users" @deleteUser="delUser" @changeIsAdmin="changeIsAdmin"></ListUsersList>
     </div>
 </template>
