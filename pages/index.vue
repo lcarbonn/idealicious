@@ -4,9 +4,6 @@
       <BCard :title="t('home.welcome')" bg-variant="primary" text-variant="light" style="border-radius: 1.25rem;" class="text-center">
         <BAvatar variant="primary" size="lg" rounded src="/icon.png"></BAvatar>
         <BCardText>{{t('home.welcome2')}}</BCardText>
-        <BCardText>{{t('home.welcome3')}}</BCardText>
-        <!-- <BCardText>{{t('home.welcome4')}}</BCardText>
-        <BCardText>{{t('home.welcome5')}}</BCardText> -->
       </BCard>
     </div>
     <BCard bg-variant="primary" text-variant="light" style="border-radius: 1.25rem;">

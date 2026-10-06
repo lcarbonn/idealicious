@@ -7,12 +7,9 @@ export default {
     home: {
         welcome: 'Bienvenue sur Idealicious',
         welcome2: 'Une idée en appelle une autre...',
-        welcome3: 'Créer une partie et inviter vos amis',
-        welcome4: 'Saisissez une question, par exemple : "Comment aller sur Mars ?"',
-        welcome5: 'Puis partagez le lien de participation aux autres joueurs',
     },
     addGame:{
-        label: 'Créer une nouvelle partie :',
+        label: 'Créer une partie et inviter vos amis',
         placeholder : 'Comment aller sur Mars ?',
         button: 'Nouvelle partie',
         added: 'Jeu ajouté',

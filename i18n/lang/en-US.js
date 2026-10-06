@@ -7,12 +7,9 @@ export default {
     home: {
         welcome: 'Welcome to Idealicious',
         welcome2: 'One idea leads to another...',
-        welcome3: 'Create a game and invite yours friends',
-        welcome4: 'Enter a question, for exemple : "How to go to Mars ?"',
-        welcome5: 'Then share the join link to other players',
     },
     addGame:{
-        label: 'Create a new game :',
+        label: 'Create a game and invite yours friends',
         placeholder : 'How to go to Mars ?',
         button: 'New game',
         added: 'Game added',
