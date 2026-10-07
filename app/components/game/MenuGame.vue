@@ -1,14 +1,13 @@
 <template>
-    <BContainer class="position-fixed fixed-bottom"
-               style="z-index: 1000;"
-               >
+    <BContainer>
         <BRow>
             <BCol>
-                <BCard variant="primary">
+                <!-- <BCard variant="primary"> -->
                     <GameActionsBar :game="game"
                         @start-game="startGame"
-                        @end-game="endGame"/>
-                </BCard>
+                        @end-game="endGame"
+                        @restart-game="restartGame"/>
+                <!-- </BCard> -->
             </BCol>
         </BRow>
     </BContainer>
@@ -46,5 +45,16 @@
             messageToSnack(t('adminGame.endGame'))
         }
     }
-  </script>
+
+    // restart the game
+    const restartGame = () => {
+        console.log("restart the game")
+        if(props.game) {
+            props.game.restartGame()
+            updateGame(props.game)
+            messageToSnack(t('adminGame.gameStarted'))
+        }
+    }
+
+</script>
   

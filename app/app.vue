@@ -1,4 +1,5 @@
 <template>
+  <BApp>
   <div class="d-flex flex-column justify-content-between min-vh-100">
     <VitePwaManifest />
     <div>
@@ -14,19 +15,20 @@
       </div>
     </div>
     <div v-if="game && (isMyGame || isAdmin)">
-        <GameMenuBar :game="game"/>
+        <!-- <GameMenuBar :game="game"/> -->
     </div>
     <div class="d-flex flex-column justify-content-end">
       <br/><br/><br/>
-      <BaseFooter v-if="!game" :appVersion="version"></BaseFooter>
+      <BaseFooter :appVersion="version"></BaseFooter>
     </div>
   </div>
+  </BApp>
 </template>
 
 <script setup lang="ts">
 
   // imports
-  import { version } from '~/package.json';
+  import { version } from '../package.json';
 
   console.debug("appVersion:",version)
 

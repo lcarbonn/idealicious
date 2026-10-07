@@ -2,22 +2,22 @@
       <BContainer fluid v-if="game">
         <BRow align-h="evenly">
           <BCol cols="auto" v-if="notYetStarted">
-            <BButton id="start" variant="secondary" @click="startGame">
+            <BButton pill id="start" variant="secondary" @click="startGame">
               <PlayCircle/> {{ t('actionBar.start')}}
             </BButton>
             <b-tooltip target="start" triggers="hover">{{ t('actionBar.start')}}</b-tooltip>
           </BCol>
           <BCol cols="auto" v-if="started">
-            <BButton id="stop" variant="secondary" @click="endGame">
+            <BButton pill id="stop" variant="secondary" @click="endGame">
               <StopCircle/> {{ t('actionBar.end')}}
             </BButton>
             <b-tooltip target="stop" triggers="hover">{{ t('actionBar.end')}}</b-tooltip>
           </BCol>
           <BCol cols="auto" v-if="ended">
-            <BButton id="new" variant="secondary" @click="newGame">
-              <PlayBtn/> {{ t('actionBar.newGame')}}
+            <BButton pill id="new" variant="secondary" @click="restartGame">
+              <PlayBtn/> {{ t('actionBar.restart')}}
             </BButton>
-            <b-tooltip target="new" triggers="hover">{{ t('actionBar.newGame')}}</b-tooltip>
+            <b-tooltip target="new" triggers="hover">{{ t('actionBar.restart')}}</b-tooltip>
           </BCol>
         </BRow>
       </BContainer>
@@ -53,7 +53,7 @@
     })
 
     // emits declaration
-    const emit = defineEmits(['startGame', 'endGame'])
+    const emit = defineEmits(['startGame', 'endGame', 'restartGame'])
 
     // emits méthods
     const startGame = () => {
@@ -62,7 +62,7 @@
     const endGame = () => {
         emit('endGame')
     }
-    const newGame = () => {
-        navigateTo('/')
+    const restartGame = () => {
+        emit('restartGame')
     }
 </script>

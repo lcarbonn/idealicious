@@ -16,6 +16,11 @@
         </BRow>
         <BRow>
             <BCol>
+                <GameMenuGame :game="game" class="mt-3"/>
+            </BCol>
+        </BRow>
+        <BRow>
+            <BCol>
                 <GamePlayers :players="players" class="mt-3 mb-3" />
             </BCol>
         </BRow>

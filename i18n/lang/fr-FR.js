@@ -37,9 +37,9 @@ export default {
         exportButton: 'Exporter les idées',
         exportIdeas: 'Exporter les idées vers un fichier csv',
         resetLoves: 'Annuler les votes',
-        start: 'Démarrer',
-        end: 'Arrêter',
-        restart: 'Redémarrer',
+        start: 'Lancer le jeu',
+        end: 'Arrêter le jeu',
+        restart: 'Relancer le jeu',
         newGame: 'Nouveau jeu'
     },
     joinGame: {
