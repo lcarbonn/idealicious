@@ -48,7 +48,7 @@ export default {
         welcomePlayer: 'Hello, bienvenue {player} ;-)',
     },
     playerGame: {
-        previousIdea: 'Idée précédente',
+        previousIdea: '{player} a écrit',
         noIdeaYet: 'Pas encore d\'idée',
         waitingIdea: '{player} est en train d\'écrire...',
         waitingStart: 'Merci d\'attendre que le jeu démarre...',

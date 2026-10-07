@@ -48,7 +48,7 @@ export default {
         welcomePlayer: 'Hey welcome {player} ;-)',
     },
     playerGame: {
-        previousIdea: 'Previous player\'s idea...',
+        previousIdea: '{player} has written',
         noIdeaYet: 'No ideas yet',
         waitingIdea: 'Please wait, {player} is writing...',
         waitingStart: 'Please, wait for the game to start...',

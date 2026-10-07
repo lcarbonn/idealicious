@@ -11,8 +11,8 @@
     <BCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText  v-if="lastIdea?.message">
         <BFormGroup class="mb-0">
-          <label for="lastIdea">{{t('playerGame.previousIdea')}}</label>
-          <BFormInput id="lastIdea" disabled v-model="lastIdea.message">{{ lastIdea.message }}></BFormInput>
+          <label for="lastIdea">{{t('playerGame.previousIdea', {player: previousPlayerName})}}</label>
+          <BFormInput id="lastIdea" disabled v-model="lastIdea.message"></BFormInput>
         </BFormGroup>
       </BCardText>
       <BCardText v-else>
