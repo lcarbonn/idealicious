@@ -154,4 +154,7 @@ export default {
         signInOk: "Hello ",
         signOutOk: "Bye bye",
     },
+    players: {
+        number: " joueur(s) connecté(s)"
+    }
 }

@@ -1,5 +1,5 @@
 <template>
-    <BCard>
+    <BCard :title="nbPlayers">
         <BContainer>
             <BRow class="text-center" align-h="around">
                 <BCol v-for="player in players">
@@ -17,8 +17,9 @@
 <script setup lang="ts">
 
     // icons
-    import People from '~icons/bi/people'
     import Person from '~icons/twemoji/person'
+    // const
+    const { t } = useI18n()
 
     const authUser = useAuthUser()
 
@@ -29,10 +30,12 @@
             },
     })
 
+    const nbPlayers = computed(() => {
+        return props.players?.length + t('players.number')
+    })
+
     const variant = (player:IPlayer) => {
         if(authUser.value?.uid == player.uid) return "danger"
     }
 
 </script>
-<style lang="css">
-</style>
