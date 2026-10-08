@@ -26,7 +26,7 @@
           <b-tooltip target="trash" triggers="hover">{{ t('gamesList.delete')}}</b-tooltip>
       </template>
 
-      <template #row-expension="row">
+      <template #row-expansion="row">
         <BCard>
           <BRow v-if="row.item.user">
             <BCol class="text-sm-right"><b>Owner:</b></BCol>
