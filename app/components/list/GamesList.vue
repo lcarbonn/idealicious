@@ -4,17 +4,17 @@
       striped
       hover
       stacked="lg"
-      :fields="(fields as TableField[])"
+      :fields="fields"
       :items="games"
       show-empty
       :empty-text="t('gamesList.empty')"
     >
-      <template #cell(user.name)="data">
+      <template #cell(name)="data">
         <span v-if="data.value">{{data.value}}</span>
         <span v-else>Anonymous</span>
       </template>
       <template #cell(show_details)="row">
-          <BButton id="detail" class="mx-1" @click="row.toggleDetails" size="sm"><IconToggles/></BButton>
+          <BButton id="detail" class="mx-1" @click="row.toggleExpansion" size="sm"><IconToggles/></BButton>
           <b-tooltip target="detail" triggers="hover">{{ t('gamesList.detail')}}</b-tooltip>
           <BButton id="play" class="mx-1" :to="'/game/'+row.item.id" size="sm"><IconPlay/></BButton>
           <b-tooltip target="play" triggers="hover">{{ t('gamesList.play')}}</b-tooltip>
@@ -26,7 +26,7 @@
           <b-tooltip target="trash" triggers="hover">{{ t('gamesList.delete')}}</b-tooltip>
       </template>
 
-      <template #row-details="row">
+      <template #row-expension="row">
         <BCard>
           <BRow v-if="row.item.user">
             <BCol class="text-sm-right"><b>Owner:</b></BCol>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { TableField, TableFieldRaw } from 'bootstrap-vue-next';
+    import type { TableFieldRaw } from 'bootstrap-vue-next';
     
     // icons
     import IconTrash from '~icons/bi/trash'
@@ -87,7 +87,8 @@
         if (props.isAdmin) {
           fields.push (
             {
-            key: 'user.name',
+            key: 'name',
+            accessor: (item) => item.user?.name,
             label: t('gamesList.table.user'),
             sortable: true
             },
@@ -98,17 +99,13 @@
             key: 'createdAt',
             label: t('gamesList.table.created'),
             sortable: true,
-            formatter: (value) => {
-                return dateFormatter(value)
-            },
+            formatter: ( {value}) => (dateFormatter(value)),
           },
           {
             key: 'updatedAt',
             label: t('gamesList.table.updated'),
             sortable: true,
-            formatter: (value) => {
-                return dateFormatter(value)
-            },
+            formatter: ( {value}) => (dateFormatter(value)),
           },
            {
             key: 'show_details',
