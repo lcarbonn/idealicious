@@ -75,14 +75,14 @@ export const signOutUserFirebase = () :Promise<void> => {
 export const initUserFirebase = (callback:any) => {
   const auth = getAuth()
   onAuthStateChanged(auth, (user) => {
-    console.log("onAuthStateChanged user:"+user)
+    // console.log("onAuthStateChanged user:"+user)
     if (user) {
       useFirebaseUser().value = user
       const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
       callback(authUser)
     } else {
       //if signed out sign in anonymous
-      console.log("onAuthStateChanged signing anonymous")
+      // console.log("onAuthStateChanged signing anonymous")
       signInAnonymousFirebase().then((authUser)=>{
         if(authUser) callback(authUser)
       })
@@ -104,7 +104,7 @@ export const signUpFirebase = (email:string, password:string) :Promise<IAuthUser
       linkWithCredential(oldUser, credential)
       .then((usercred) => {
         // sign the user as non anonymous
-        console.log("Anonymous account successfully upgraded", usercred?.user);
+        // console.log("Anonymous account successfully upgraded", usercred?.user);
           signInUserFirebase(email, password)
           .then((authUSer) => {
             resolve(authUSer)

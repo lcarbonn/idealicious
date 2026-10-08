@@ -27,7 +27,7 @@
     // emited methods
     // start the game
     const startGame = () => {
-        console.log("start the game")
+        // console.log("start the game")
         if(props.game) {
             props.game.startGame()
             updateGame(props.game)

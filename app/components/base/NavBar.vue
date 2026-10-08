@@ -155,7 +155,7 @@
 
   // export ideas to csv file
   const exportIdeas = () => {
-    console.log("export ideas asked")
+    // console.log("export ideas asked")
     showMenu.value = false
     if(game?.value) {
       const gameId = game.value.id
@@ -173,7 +173,7 @@
 
     // reset loves
     const resetLoves = () => {
-      console.log("reset loves asked")
+      // console.log("reset loves asked")
       showMenu.value = false
       if(game?.value) {
         const gameId = game.value.id
