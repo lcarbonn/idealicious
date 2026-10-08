@@ -4,7 +4,7 @@
       striped
       hover
       stacked="md"
-      :fields="(fields as TableField[])"
+      :fields="fields"
       :items="users"
       show-empty
       :empty-text="t('usersList.empty')"
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { TableField, TableFieldRaw } from 'bootstrap-vue-next';
+    import type { TableFieldRaw } from 'bootstrap-vue-next';
     // icons
     import IconTrash from '~icons/bi/trash'
 
@@ -62,17 +62,13 @@
             {
               key: 'createdAt',
               label: t('usersList.table.created'),
-              formatter: (value) => {
-                return dateFormatter(value)
-              },
+              formatter: ( {value}) => (dateFormatter(value)),
               sortable: true
             },
             {
               key: 'updatedAt',
               label: t('usersList.table.updated'),
-              formatter: (value) => {
-                return dateFormatter(value)
-              },
+              formatter: ( {value}) => (dateFormatter(value)),
               sortable: true,
             },
             {
