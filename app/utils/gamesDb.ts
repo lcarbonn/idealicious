@@ -11,7 +11,7 @@ export const createGameDb = (game:IGame) :Promise<string> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
-        console.log("start createGameDb")
+        // console.log("start createGameDb")
         game.createdAt=new Date().getTime()
         const gamesRef = collection($db as Firestore, "games")
         addDoc(gamesRef, game)
@@ -19,7 +19,7 @@ export const createGameDb = (game:IGame) :Promise<string> => {
             resolve(doc.id)
         })
         .catch((error) => {
-            console.error("error createGameDb : ", error)
+            // console.error("error createGameDb : ", error)
             reject(error)
         });
     })
@@ -33,18 +33,18 @@ export const createGameDb = (game:IGame) :Promise<string> => {
  */
 export const getGameDb = (id:string) :Promise<IGame> => {
     return new Promise((resolve, reject) => {
-        console.log("start getGameDb id=" + id)
+        // console.log("start getGameDb id=" + id)
         const { $db } = useNuxtApp()
         const docRef = doc($db as Firestore, "games", id)
 
         getDoc(docRef)
         .then((doc) => {
             const game = new Game(doc)
-            console.log("end getGameDb id=" + game.id)
+            // console.log("end getGameDb id=" + game.id)
             resolve(game)
         })
         .catch((error) => {
-            console.error("error getGameDb : ", error)
+            // console.error("error getGameDb : ", error)
             reject(error)
         });
     })
@@ -57,7 +57,7 @@ export const getGameDb = (id:string) :Promise<IGame> => {
  * @returns a ref to the listener to unsubscribe it
  */
 export const listenGameDb = (id:string, callback:any) :Unsubscribe => {
-        console.log("start listenGameDb id=" + id)
+        // console.log("start listenGameDb id=" + id)
 
         const { $db } = useNuxtApp()
         const docRef = doc($db as Firestore, "games", id)
@@ -66,12 +66,12 @@ export const listenGameDb = (id:string, callback:any) :Unsubscribe => {
             (doc) => {
                 if(doc.exists()) {
                     const game = new Game(doc)
-                    console.log("receive listenGameDb id=" + game.id)
+                    // console.log("receive listenGameDb id=" + game.id)
                     callback(game)
                 }
             },
             (error) => {
-                console.error("error listenGameDb : ", error)
+                // console.error("error listenGameDb : ", error)
                 callback(null)
             })
             return unsub
@@ -84,7 +84,7 @@ export const listenGameDb = (id:string, callback:any) :Unsubscribe => {
  */
 export const updateGameDb = (game:IGame) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateGameDb id=" + game.id)
+        // console.log("start updateGameDb id=" + game.id)
 
         game.updatedAt = new Date().getTime()
 
@@ -100,7 +100,7 @@ export const updateGameDb = (game:IGame) :Promise<void> => {
             resolve()
         })
         .catch((error) => {
-            console.error("error updateGameDb : ", error)
+            // console.error("error updateGameDb : ", error)
             reject(error)
         });
 
@@ -115,7 +115,7 @@ export const updateGameDb = (game:IGame) :Promise<void> => {
  */
 export const getUserGamesDb = (uid:string) :Promise<IGame[]> => {
     return new Promise((resolve, reject) => {
-        console.log("start getUserGamesDb uid=" + uid)
+        // console.log("start getUserGamesDb uid=" + uid)
 
         const { $db } = useNuxtApp()
         const decksRef = collection($db as Firestore, "games")
@@ -127,11 +127,11 @@ export const getUserGamesDb = (uid:string) :Promise<IGame[]> => {
                 const game:IGame = new Game(gameDoc)
                 games.push(game)
             })
-            console.log("end getUserGamesDb uid=" + uid + ", nb games:" + games.length)
+            // console.log("end getUserGamesDb uid=" + uid + ", nb games:" + games.length)
             resolve(games)
         })
         .catch((error) => {
-            console.error("error getUserGamesDb : ", error)
+            // console.error("error getUserGamesDb : ", error)
             reject(error)
         });
     })
@@ -145,7 +145,7 @@ export const getUserGamesDb = (uid:string) :Promise<IGame[]> => {
  */
 export const deleteGameDb = async (gameId:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start deleteGame id:"+gameId)
+        // console.log("start deleteGame id:"+gameId)
 
         let erreur = null
 
@@ -161,7 +161,7 @@ export const deleteGameDb = async (gameId:string) :Promise<void> => {
             });
         })
         .catch((error) => {
-            console.error("error delete game : ", error)
+            // console.error("error delete game : ", error)
             erreur = error
         });
 
@@ -181,7 +181,7 @@ export const deleteGameDb = async (gameId:string) :Promise<void> => {
                     })
                 })
                 .catch((error) => {
-                    console.error("error delete game : ", error)
+                    // console.error("error delete game : ", error)
                     erreur = error
                 });
                 // console.log("deckRef:"+deckRef.path)
@@ -189,7 +189,7 @@ export const deleteGameDb = async (gameId:string) :Promise<void> => {
             })
         })
         .catch((error) => {
-            console.error("error delete game : ", error)
+            // console.error("error delete game : ", error)
             erreur = error
         });
 
@@ -197,11 +197,11 @@ export const deleteGameDb = async (gameId:string) :Promise<void> => {
         // console.log("gameRef:"+gameRef.path)
         deleteDoc(gameRef)
         .catch((error) => {
-            console.error("error delete game : ", error)
+            // console.error("error delete game : ", error)
             erreur = error
         });
 
-        console.log("end deleteGame id:"+gameId)
+        // console.log("end deleteGame id:"+gameId)
         if(erreur) reject (erreur)
         else resolve()
     })
@@ -215,7 +215,7 @@ export const deleteGameDb = async (gameId:string) :Promise<void> => {
  */
 export const getGamesDb = (callback:any) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start getGames")
+        // console.log("start getGames")
 
         const { $db } = useNuxtApp()
         const gamesRef = collection($db as Firestore, "games")
@@ -240,17 +240,17 @@ export const getGamesDb = (callback:any) :Promise<void> => {
                     })
                 })
                 .catch((error) => {
-                    console.log("error getGamesDb : " + error)
+                    // console.log("error getGamesDb : " + error)
                     reject(error)
                 });
                 games.push(game)
             })
             callback(games)
             resolve()
-            console.log("end getGames nb games:" + games.length)
+            // console.log("end getGames nb games:" + games.length)
         })
         .catch((error) => {
-            console.error("error getGamesDb : ", error)
+            // console.error("error getGamesDb : ", error)
             reject(error)
         });
     })
@@ -263,7 +263,7 @@ export const getGamesDb = (callback:any) :Promise<void> => {
  */
 export const updateGameTitleDb = (game:IGame) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateGameTitleDb id=" + game.id)
+        // console.log("start updateGameTitleDb id=" + game.id)
 
         game.updatedAt = new Date().getTime()
 
@@ -278,7 +278,7 @@ export const updateGameTitleDb = (game:IGame) :Promise<void> => {
             resolve()
         })
         .catch((error) => {
-            console.error("error updateGameTitleDb : ", error)
+            // console.error("error updateGameTitleDb : ", error)
             reject(error)
         });
     })

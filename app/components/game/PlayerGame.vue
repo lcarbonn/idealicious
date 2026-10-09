@@ -97,7 +97,7 @@
       if(newIdea.value == "") {
         modalAskSkip.value = true
       } else {
-        console.log('addNewIdea')
+        // console.log('addNewIdea')
         emit("addNewIdea", newIdea.value)
         newIdea.value=""
         restart.value = true
@@ -105,7 +105,7 @@
     }
 
     const skipIdea = () => {
-      console.log("skip idea")
+      // console.log("skip idea")
       emit("addNewIdea")
     }
 

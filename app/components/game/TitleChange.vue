@@ -38,7 +38,7 @@
   });
 
   const changeName = () => {
-    console.log("change name")
+    // console.log("change name")
     newTitle.value = props.title
     changeAsked.value = true
   }
@@ -58,7 +58,7 @@
     }
 
     const resetTitle = () => {
-      console.log("title reset")
+      // console.log("title reset")
       changeAsked.value = false
       newTitle.value = props.title
     }

@@ -79,7 +79,7 @@ export const getUsers = () :Promise<IUser[]> => {
  */
 export const updateUserIsAdmin = (user:IUser) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateUserIsAdmin uid=" + user.uid)
+        // console.log("start updateUserIsAdmin uid=" + user.uid)
         
         updateUserIsAdminDb(user).then(() => {
             resolve()
@@ -98,7 +98,7 @@ export const updateUserIsAdmin = (user:IUser) :Promise<void> => {
  */
 export const deleteUser = (uid:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start deleteUser uid=" + uid)
+        // console.log("start deleteUser uid=" + uid)
         
         deleteUserDb(uid).then(() => {
             deleteStatedUser(uid)

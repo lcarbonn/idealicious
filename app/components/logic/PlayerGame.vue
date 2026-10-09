@@ -77,7 +77,7 @@
 
   // methods
   const addNewIdea = (message:string) => {
-      console.log("add new idea : " + message + ", player:"+player.value?.name + ", deck:"+deck.value?.id)
+      // console.log("add new idea : " + message + ", player:"+player.value?.name + ", deck:"+deck.value?.id)
       if(deck.value && player.value) {
         if(message) {
           const newIdea = new Idea()

@@ -38,7 +38,7 @@
     // emit methods
     // join the game
     const joinGame = (name:string) => {
-        console.log("join the game name=" + name)
+        // console.log("join the game name=" + name)
         // add the player to the game
         addGamePlayer(props.gameId, authUser.value.uid, name)
         .then((player) => {

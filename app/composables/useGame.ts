@@ -22,7 +22,7 @@ const deleteStatedGame = (gameId:string) => {
  */
 export const createGame = (game:IGame) :Promise<string> => {
     return new Promise((resolve, reject) => {
-        console.log("start createGame game=" + game.title)
+        // console.log("start createGame game=" + game.title)
         // reset all previous stated
         useGame().value = undefined
         usePlayer().value = undefined
@@ -44,10 +44,10 @@ export const createGame = (game:IGame) :Promise<string> => {
  */
 export const getGame = (id:string) :Promise<IGame> => {
     return new Promise((resolve, reject) => {
-        console.log("start getGame id=" + id)
+        // console.log("start getGame id=" + id)
         getGameDb(id).then((game) => {
             useGame().value = game
-            console.log("end getGame id=" + game.id)
+            // console.log("end getGame id=" + game.id)
             resolve(game)
         })
         .catch((error) => {
@@ -63,10 +63,10 @@ export const getGame = (id:string) :Promise<IGame> => {
  */
 export const listenGame = (id:string) => {
     const setStateGame= (game:IGame) => {
-        console.log("use game changed=" + game?.id)
+        // console.log("use game changed=" + game?.id)
         useGame().value = game
     }    
-    console.log("start listenGame id=" + id)
+    // console.log("start listenGame id=" + id)
     listenGameDb(id, setStateGame)
 }
 
@@ -77,7 +77,7 @@ export const listenGame = (id:string) => {
  */
 export const updateGame = (game:IGame) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateGame id=" + game?.id)
+        // console.log("start updateGame id=" + game?.id)
         
         updateGameDb(game).then(() => {
             resolve()
@@ -97,12 +97,12 @@ export const updateGame = (game:IGame) :Promise<void> => {
  */
 export const getUserGames = (uid:string) :Promise<IGame[]> => {
     return new Promise((resolve, reject) => {
-        console.log("start getUserGames uid=" + uid)
+        // console.log("start getUserGames uid=" + uid)
 
         getUserGamesDb(uid)
         .then((games) => {
             useGames().value = games
-            console.log("end getUserGames uid=" + uid + ", nb games:" + games.length)
+            // console.log("end getUserGames uid=" + uid + ", nb games:" + games.length)
             resolve(games)
         })
         .catch((error) => {
@@ -120,7 +120,7 @@ export const getUserGames = (uid:string) :Promise<IGame[]> => {
  */
 export const deleteGame = async (gameId:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start deleteGame id:"+gameId)
+        // console.log("start deleteGame id:"+gameId)
         deleteGameDb(gameId)
         .then(() => {
             useGame().value = undefined
@@ -153,7 +153,7 @@ export const getGames = () => {
  */
 export const updateGameTitle = (game:IGame) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateGameTitle id=" + game?.id)
+        // console.log("start updateGameTitle id=" + game?.id)
         
         updateGameTitleDb(game).then(() => {
             resolve()

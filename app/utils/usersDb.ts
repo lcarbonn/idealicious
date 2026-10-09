@@ -10,7 +10,7 @@ import { type Firestore } from "firebase/firestore"
 export const createUserDb = (user:IUser) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
-        console.log("start create db user")
+        // console.log("start create db user")
         user.createdAt = new Date().getTime()
         const docRef = doc($db as Firestore, "users", user.uid)
         setDoc(docRef, user.toFirestore() , { merge: true })
@@ -18,7 +18,7 @@ export const createUserDb = (user:IUser) :Promise<void> => {
             resolve()
         })
         .catch((error) => {
-            console.error("error createUserDb :"+error)
+            // console.error("error createUserDb :"+error)
             reject(error)
         });
     })
@@ -34,22 +34,22 @@ export const getUserDb = (uid:string) :Promise<IUser|undefined> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
-        console.log("start get user db uid:"+uid)
+        // console.log("start get user db uid:"+uid)
 
         const docRef = doc($db as Firestore, "users", uid)
         getDoc(docRef)
         .then((doc) => {
             if(doc.exists()) {
                 const user:IUser = new User(doc)
-                console.log("end get user db uid: exists")
+                // console.log("end get user db uid: exists")
                 resolve(user)
             } else {
-                console.log("end get user db uid: dont exist")
+                // console.log("end get user db uid: dont exist")
                 resolve(undefined)
             }
         })
         .catch((error) => {
-            console.error("error getUser :"+error)
+            // console.error("error getUser :"+error)
             reject(error)
         });
     })
@@ -62,7 +62,7 @@ export const getUserDb = (uid:string) :Promise<IUser|undefined> => {
  */
 export const getUsersDb = () :Promise<IUser[]> => {
     return new Promise((resolve, reject) => {
-        console.log("start getUsers")
+        // console.log("start getUsers")
 
         const { $db } = useNuxtApp()
         const usersRef = collection($db as Firestore, "users")
@@ -73,11 +73,11 @@ export const getUsersDb = () :Promise<IUser[]> => {
                 const user:IUser = new User(userDoc)
                 users.push(user)
             })
-            console.log("end getUsers nb users:" + users.length)
+            // console.log("end getUsers nb users:" + users.length)
             resolve(users)
         })
         .catch((error) => {
-            console.error("error getUsers :"+error)
+            // console.error("error getUsers :"+error)
             reject(error)
         });
     })
@@ -90,7 +90,7 @@ export const getUsersDb = () :Promise<IUser[]> => {
  */
 export const updateUserIsAdminDb = (user:IUser) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateUserIsAdminDb uid=" + user.uid)
+        // console.log("start updateUserIsAdminDb uid=" + user.uid)
 
         const { $db } = useNuxtApp()
         const docRef = doc($db as Firestore, "users", user.uid)
@@ -102,7 +102,7 @@ export const updateUserIsAdminDb = (user:IUser) :Promise<void> => {
             resolve()
         })
         .catch((error) => {
-            console.error("error updateUserIsAdminDb : ", error)
+            // console.error("error updateUserIsAdminDb : ", error)
             reject(error)
         });
 
@@ -118,7 +118,7 @@ export const deleteUserDb = (uid:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
-        console.log("start deleteUserDb uid=" + uid)
+        // console.log("start deleteUserDb uid=" + uid)
 
         const docRef = doc($db as Firestore, "users", uid)
         deleteDoc(docRef)
@@ -126,9 +126,8 @@ export const deleteUserDb = (uid:string) :Promise<void> => {
             resolve()
         })
         .catch((error) => {
-            console.error("error deleteUserDb : ", error)
+            // console.error("error deleteUserDb : ", error)
             reject(error)
         });
     })
 };
-

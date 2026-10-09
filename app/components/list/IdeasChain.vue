@@ -59,7 +59,7 @@
 
   // love an idea
   const loveIdea = (param:any) => {
-      console.debug("pid love idea:" + param.ideaId)
+    //   console.debug("pid love idea:" + param.ideaId)
       updateIdeaLoves(props.gameId, props.uid, param.deckId, param.ideaId, param.isLoved)
   }
 

@@ -38,7 +38,7 @@
 
     // end the game
     const endGame = () => {
-        console.log("end the game")
+        // console.log("end the game")
         if(props.game) {
             props.game.stopGame()
             updateGame(props.game)
@@ -48,7 +48,7 @@
 
     // restart the game
     const restartGame = () => {
-        console.log("restart the game")
+        // console.log("restart the game")
         if(props.game) {
             props.game.restartGame()
             updateGame(props.game)

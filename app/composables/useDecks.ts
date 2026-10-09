@@ -122,9 +122,9 @@ export const listenDecksIdeasSorted = (gameId:string) => {
  * @param nbPlayers - the total number of players
  */
 export const sendDeckToNextPlayer = (gameId:string, deck:IDeck, player:IPlayer, nbPlayers:number) => {
-    console.log("send deck :"+deck.id+" to next player current is : " + deck.playerId)
+    // console.log("send deck :"+deck.id+" to next player current is : " + deck.playerId)
     const nextPlayerId = getNextPlayerId(deck.playerId, nbPlayers)
-    console.log("send deck :"+deck.id+" to next player next is : " + nextPlayerId)
+    // console.log("send deck :"+deck.id+" to next player next is : " + nextPlayerId)
     deck.playerId = nextPlayerId
     sendDeck(gameId, deck)
     .then(() => {

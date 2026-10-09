@@ -10,7 +10,7 @@ export const addIdeaDb = (gameId:string, deckId:number, idea:IIdea) :Promise<str
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
-        console.log("start create Idea ="+idea.message)
+        // console.log("start create Idea ="+idea.message)
         idea.createdAt=new Date().getTime()
       
         const ideasRef = collection($db as Firestore, "games/" + gameId + "/decks/" + deckId + "/ideas")
@@ -19,7 +19,7 @@ export const addIdeaDb = (gameId:string, deckId:number, idea:IIdea) :Promise<str
             resolve(doc.id)
         })
         .catch((error) => {
-            console.error("Error creating idea", error)
+            // console.error("Error creating idea", error)
             reject(error)
         });
     })
@@ -34,7 +34,7 @@ export const addIdeaDb = (gameId:string, deckId:number, idea:IIdea) :Promise<str
  */
 export const getLastIdeaDb = (gameId:string, deckId:number) :Promise<IIdea|undefined> => {
     return new Promise((resolve, reject) => {
-        console.log("start getLastIdea game=" + gameId + ", deckId="+deckId)
+        // console.log("start getLastIdea game=" + gameId + ", deckId="+deckId)
 
         const { $db } = useNuxtApp()
         const decksRef = collection($db as Firestore, "games/" + gameId + "/decks/" +deckId + "/ideas")
@@ -43,13 +43,13 @@ export const getLastIdeaDb = (gameId:string, deckId:number) :Promise<IIdea|undef
         .then((listIdeas) => {
             if(listIdeas.docs.length>0) {
                 const idea = new Idea(listIdeas.docs[0])
-                console.log("end getLastIdea message=" + idea.message)
+                // console.log("end getLastIdea message=" + idea.message)
                 resolve(idea)
             }
             else resolve(undefined)
         })
         .catch((error) => {
-            console.error("Error getting the last idea", error)
+            // console.error("Error getting the last idea", error)
             reject(error)
         });
     })
@@ -64,7 +64,7 @@ export const getLastIdeaDb = (gameId:string, deckId:number) :Promise<IIdea|undef
  * @param callback - the method to callback on snapshot updates
  */
 export const listenIdeasDeckDb = (gameId:string, deckId:number, sortByLove:boolean, calldecks:any, callback:any) => {
-        console.log("start listenIdeasDeck game=" + gameId + ", deckId="+deckId)
+        // console.log("start listenIdeasDeck game=" + gameId + ", deckId="+deckId)
 
         const { $db } = useNuxtApp()
         const decksRef = collection($db as Firestore, "games/" + gameId + "/decks/" +deckId + "/ideas")
@@ -72,7 +72,7 @@ export const listenIdeasDeckDb = (gameId:string, deckId:number, sortByLove:boole
         if (sortByLove) q = query(decksRef, orderBy("loved", "desc"), orderBy("createdAt","desc"));
         const unsub = onSnapshot(q,
             (querySnapshot) => {
-                console.log("changed listenIdeasDeck: gameId :" + gameId + ", deck:" + deckId + ", nb ideas received:" + querySnapshot.size)
+                // console.log("changed listenIdeasDeck: gameId :" + gameId + ", deck:" + deckId + ", nb ideas received:" + querySnapshot.size)
                 const ideas:IIdea[] = []
                 querySnapshot.forEach((doc) => {
                     let idea = new Idea(doc)
@@ -82,10 +82,10 @@ export const listenIdeasDeckDb = (gameId:string, deckId:number, sortByLove:boole
                 Object.assign(newDecksIdeas, calldecks())
                 Object.assign(newDecksIdeas[deckId], ideas)
                 callback(newDecksIdeas)
-                console.log("end listenIdeasDeck: gameId :" + gameId + ", deckId="+deckId + ", nb ideas:" + ideas.length)
+                // console.log("end listenIdeasDeck: gameId :" + gameId + ", deckId="+deckId + ", nb ideas:" + ideas.length)
             },
             (error) => {
-                console.error("Error listening game decks", error)
+                // console.error("Error listening game decks", error)
             })
 };
 
@@ -100,7 +100,7 @@ export const listenIdeasDeckDb = (gameId:string, deckId:number, sortByLove:boole
  */
 export const updateIdeaLovesDb = (gameId:string, uid:string, deckId:number, ideaId:string, isLoved:boolean) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.log("start updateIdeaLoves id=" + ideaId + ", isLoved:"+isLoved)
+        // console.log("start updateIdeaLoves id=" + ideaId + ", isLoved:"+isLoved)
 
         const { $db } = useNuxtApp()
         const ideaRef = doc($db as Firestore, "games/" + gameId + "/decks/" + deckId + "/ideas", ideaId)
@@ -118,7 +118,7 @@ export const updateIdeaLovesDb = (gameId:string, uid:string, deckId:number, idea
             resolve()
         })
         .catch((error) => {
-            console.error("Error updateIdeaLoves", error)
+            // console.error("Error updateIdeaLoves", error)
             reject(error)
         });
     })
@@ -131,7 +131,7 @@ export const updateIdeaLovesDb = (gameId:string, uid:string, deckId:number, idea
  */
 export const resetIdeasLovesDb = (gameId:string, ideas:IIdea[][]) :Promise<IIdea[][]> => {
     return new Promise((resolve, reject) => {
-        console.log("start resetIdeasLoves id=" + gameId)
+        // console.log("start resetIdeasLoves id=" + gameId)
 
         const { $db } = useNuxtApp()
         const batch = writeBatch($db as Firestore)
@@ -152,7 +152,7 @@ export const resetIdeasLovesDb = (gameId:string, ideas:IIdea[][]) :Promise<IIdea
             resolve(ideas)
         })
         .catch((error) => {
-            console.error("Error resetIdeasLoves", error)
+            // console.error("Error resetIdeasLoves", error)
             reject(error)
         });
    

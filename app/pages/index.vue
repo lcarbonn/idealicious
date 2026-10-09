@@ -19,7 +19,7 @@
   
   // methods
   const addGame = (game:IGame) => {
-    console.log("add game")
+    // console.log("add game")
     game.userUid = useAuthUser().value.uid
     createGame(game)
     .then((gameId) => {
