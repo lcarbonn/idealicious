@@ -30,13 +30,13 @@
                 <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
                 <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid"/>
                 <BCard v-if="ended && !showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
-                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas"/>
+                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players"/>
                     <BCardText class="text-center" align-h="around">
                         <BButton pill @click="valideVotes">{{t('playerGame.validateVotes')}}</BButton>
                     </BCardText>
                 </BCard>
                 <BCard v-if="ended && (showGameIdeas || !isKnowPlayer)" :title="t('adminGame.allIdeas')">
-                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" disabled/>
+                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
                     <!-- possible add change votes button -->
                 </BCard>                
             </BCol>

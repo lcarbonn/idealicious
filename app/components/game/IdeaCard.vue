@@ -2,21 +2,35 @@
 <template>
     <BCard v-if="idea" class="mb-1 shadow-sm" :class="getColor(deckId)">
       <BCardText>
-        {{idea.message}}
+            {{idea.message}}
       </BCardText>
-      <template v-if="disabled">
-        <BAvatar :id="idea.id" :variant="getLovedClass()">
-          <template #badge v-if="idea.loved>0">
-            {{idea.loved}}
-          </template>
-          <Heart/>
-        </BAvatar>
-        <b-tooltip :target="idea.id" triggers="hover" v-if="getLovedMessage()">{{ getLovedMessage() }}</b-tooltip>
-      </template>
-      <template v-else>
-        <BAvatar :id="idea.id" button :variant="getLovedClass()" @click="loveIdea()"><Heart/></BAvatar>
-        <b-tooltip :target="idea.id" triggers="hover">{{ t('idea.cardVote')}}</b-tooltip>
-      </template>
+      <BCardText>
+        <BRow>
+          <BCol>
+            <BAvatar
+                size="md"
+                :badge="playerName"
+                badge-placement="bottom"
+                :variant="variant(idea.playerId)"
+                badge-text-variant="white"><Person/></BAvatar>
+          </BCol>
+          <BCol>
+            <template v-if="disabled">
+              <BAvatar :id="idea.id" :variant="getLovedClass()">
+                <template #badge v-if="idea.loved>0">
+                  {{idea.loved}}
+                </template>
+                <Heart/>
+              </BAvatar>
+              <b-tooltip :target="idea.id" triggers="hover" v-if="getLovedMessage()">{{ getLovedMessage() }}</b-tooltip>
+            </template>
+            <template v-else>
+              <BAvatar :id="idea.id" button :variant="getLovedClass()" @click="loveIdea()"><Heart/></BAvatar>
+              <b-tooltip :target="idea.id" triggers="hover">{{ t('idea.cardVote')}}</b-tooltip>
+            </template>
+          </BCol>
+        </BRow>
+      </BCardText>
     </BCard>
   </template>
 
@@ -24,6 +38,8 @@
 
     // icons
     import Heart from '~icons/bi/heart'
+    import Person from '~icons/twemoji/person'
+
 
     // const
     const { t } = useI18n()
@@ -48,6 +64,10 @@
       deckId :{
         type:Number,
         default:0
+      },
+      playerName: {
+        type:String,
+        default:null
       }
     })
 
@@ -106,4 +126,9 @@
             messageToSnack(t('idea.cardLikeDisabled'))
         }
     }
+
+    const variant = (uid:string) => {
+        if(props.uid == uid) return "danger"
+    }
+
 </script>

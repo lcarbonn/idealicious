@@ -245,3 +245,13 @@ export const getPreviousPlayerName = (playerId:number, players:IPlayer[]) :strin
     // console.log("previous name:"+name)
     return name
 }
+
+export const getPlayerName = (playerUId:string, players:IPlayer[]) :string => {
+    let name = ""
+    players.forEach(player => {
+        if(player.uid == playerUId) name = player.name
+    });
+    // console.log("player name:"+playerUId+" : "+name)
+    return name
+}
+

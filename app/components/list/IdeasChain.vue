@@ -19,7 +19,13 @@
                     <BRow>
                         <BCol v-if="deck.length==0">{{t('idea.deckEmpty')}}</BCol>
                         <BCol v-else>
-                            <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" :deckId= "index" :idea="(idea as Idea)" :uid="uid" :disabled="disabled" class="mb-3"/>
+                            <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" 
+                                :deckId= "index" 
+                                :idea="(idea as Idea)" 
+                                :uid="uid" 
+                                :disabled="disabled" 
+                                :playerName="getName(idea.playerId)"
+                                class="mb-3"/>
                         </BCol>
                     </BRow>
                 </BContainer>
@@ -33,7 +39,6 @@
     // icons
     import type { ColsNumbers } from 'bootstrap-vue-next'
     import CardList from '~icons/bi/card-list'
-    import Heart from '~icons/bi/heart'    
 
     // const
     const { t } = useI18n()
@@ -54,7 +59,11 @@
         disabled: {
             type: Boolean,
             default:false
-        }
+        },
+        players: {
+            type: Array<IPlayer>,
+            default:null
+        },
     })
 
   // love an idea
@@ -76,5 +85,10 @@
     if(index > max ) i = max-(i%index)
     const r = 12/i
     return r as ColsNumbers
+  }
+
+  const getName = (playerId:string) => {
+    // console.log("playerId : "+playerId)
+    return getPlayerName(playerId, props.players)
   }
 </script>

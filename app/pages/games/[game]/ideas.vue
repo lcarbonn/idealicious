@@ -2,7 +2,7 @@
     <div class="mt-3">
       <GameTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
       <BCard>
-        <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser.uid" disabled/>
+        <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser.uid" :players="players" disabled/>
       </BCard>
     </div>
 </template>
@@ -23,12 +23,14 @@
   const game = useGame()
   const authUser = useAuthUser()
   const decksWithIdeasSorted = useDecksWithIdeasSorted()
+  const players = useGamePlayers()
 
   onMounted(() => {
     // get the game for the title
     getGame(gameId)
     // get the players list
     listenDecksIdeasSorted(gameId)
+    listenGamePlayers(gameId)
   })
 
   // computed properties

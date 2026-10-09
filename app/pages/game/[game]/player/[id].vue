@@ -4,13 +4,13 @@
       <GamePlayers :players="players" class="mt-3 mb-2"/>
       <LogicPlayerGame v-if="!ended" :gameId="gameId" :uid="uid"/>
       <BCard v-if="ended && !showGameIdeas" :title="t('playerGame.ended')">
-          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeas"/>
+          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeas" :players="players"/>
           <BCardText class="text-center" align-h="around">
             <BButton pill @click="validateVotes">{{t('playerGame.validateVotes')}}</BButton>
           </BCardText>
       </BCard>
       <BCard v-if="ended && showGameIdeas" :title="t('adminGame.allIdeas')">
-          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeasSorted" disabled/>
+          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
           <!-- possible add change votes button -->
       </BCard>                
     </div>
