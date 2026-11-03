@@ -1,10 +1,10 @@
 <template>
-    <BCard text-variant="danger">
-        <BCardText class="text-center" align-h="around">
+    <UCard text-variant="danger">
+        <template #default class="text-center" align-h="around">
             Il vous reste {{timerDisplay}} secondes
-        </BCardText>
-        <!-- <BCardFooter><BButton @click="restartTimer">Restart</BButton></BCardFooter> -->
-    </BCard>
+        </template>
+        <!-- <template #footer><BButton @click="restartTimer">Restart</BButton></template> -->
+    </UCard>
 </template>
 <script setup lang="ts">
 
