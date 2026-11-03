@@ -1,31 +1,24 @@
 <template>
-  <BApp>
-  <div class="d-flex flex-column justify-content-between min-vh-100">
+  <UApp :toaster="{ position: 'bottom-right' }" :locale="locales[locale]">
     <VitePwaManifest />
-    <div>
-      <BaseNavBar></BaseNavBar>
-      <BaseSnackToast></BaseSnackToast>
-      <BContainer v-if="authUser">
-        <NuxtLayout>
+    <BaseNavBar></BaseNavBar>
+    <BaseSnackToast></BaseSnackToast>
+    <UMain>
+      <NuxtLayout>
+        <UContainer>
           <NuxtPage />
-        </NuxtLayout>
-      </BContainer>
-      <div v-else class="text-center">
-        <BSpinner variant="primary" label="Spinning"/>
-      </div>
-    </div>
-    <div v-if="game && (isMyGame || isAdmin)">
-        <!-- <GameMenuBar :game="game"/> -->
-    </div>
-    <div class="d-flex flex-column justify-content-end">
-      <br/><br/><br/>
-      <BaseFooter :appVersion="version"></BaseFooter>
-    </div>
-  </div>
-  </BApp>
+        </UContainer>
+      </NuxtLayout>
+    </Umain>
+    <BaseFooter :appVersion="version"></BaseFooter>
+  </UApp>
 </template>
 
 <script setup lang="ts">
+
+  // for locale
+  import * as locales from '@nuxt/ui/locale'
+  const { locale } = useI18n()
 
   // imports
   import { version } from '../package.json';

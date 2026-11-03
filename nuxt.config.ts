@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxt/ui',
     '@bootstrap-vue-next/nuxt',
     'unplugin-icons/nuxt',
     '@vite-pwa/nuxt',
@@ -26,6 +27,7 @@ export default defineNuxtConfig({
   ],
 
   css: [
+    '~/assets/css/main.css',
     'bootstrap/dist/css/bootstrap.min.css',
     '~/assets/css/custom-theme.scss',
   ],
