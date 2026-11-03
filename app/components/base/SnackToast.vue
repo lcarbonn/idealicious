@@ -1,28 +1,29 @@
 <template>
-    <!-- BToastOrchestrator replaced by BApp in app.vue -->
+    <!-- to unable warning -->
+    <span hidden></span>
 </template>
 <script setup lang="ts">
 
-    const { create } = useToast()
+    const toast = useToast()
     const snackbarMessage = useSnackBarMessage()
 
     // watch the message
-    watch(() => snackbarMessage.value, async (newMessage) => {
+    watch(() => snackbarMessage.value, (newMessage) => {
       if(newMessage?.message != "") {
         if(newMessage.isError)
-            await create({
+            toast.add({
                 title:'Error',
-                body: ''+newMessage.message ,
+                description: ''+newMessage.message ,
                 color:'error',
-                modelValue: 3000,
-            }).show()
+                icon:'mdi:error'
+            })
         else
-            await create({
+            toast.add({
                 title:'Idealicious',
-                body: ''+newMessage.message,
-                color:'info',
-                modelValue: 3000,
-            }).show()
+                description: ''+newMessage.message,
+                color:'primary',
+                icon:'mdi:information'
+            })
       }
     })
 </script>
