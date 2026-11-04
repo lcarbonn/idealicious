@@ -21,19 +21,9 @@
   const { locale } = useI18n()
 
   // imports
-  import { version } from '../package.json';
+  import { name, version } from '../package.json';
 
-  console.debug("appVersion:",version)
-
-  const authUser = useAuthUser()
-  const user = useUser()
-  const game = useGame()
-
-  const isMyGame = computed(() => {
-    return game.value?.userUid == authUser.value.uid
-  })
-  const isAdmin = computed(() => {
-    return user.value?.isAdmin
-  })
+  // log starting app
+  console.log("starting app : "+name + ", appVersion:" +version)
 
 </script>

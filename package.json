@@ -14,8 +14,8 @@
     "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/icon.png"
   },
   "dependencies": {
-    "@bootstrap-vue-next/nuxt": "^1.0.0",
     "@nuxt/ui": "^4.12.0",
+    "@bootstrap-vue-next/nuxt": "^1.0.0",
     "@nuxtjs/i18n": "^9.3.1",
     "@vite-pwa/nuxt": "^1.1.0",
     "bootstrap": "^5.3.3",
@@ -23,7 +23,6 @@
     "firebase": "^12.19.0",
     "nuxt": "^4.3.0",
     "qrcode.vue": "^3.6.0",
-    "tailwindcss": "^4.3.4",
     "unplugin-icons": "^22.1.0",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"

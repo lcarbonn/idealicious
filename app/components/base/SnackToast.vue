@@ -3,7 +3,7 @@
     <span hidden></span>
 </template>
 <script setup lang="ts">
-
+    import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
     const toast = useToast()
     const snackbarMessage = useSnackBarMessage()
 
