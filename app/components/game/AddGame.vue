@@ -1,5 +1,6 @@
 <!-- Game page -->
 <template>
+  <UCard text-variant="light" style="border-radius: 1.25rem;" class="bg-primary">
     <BContainer fluid>
       <BRow>
         <BCol>
@@ -19,6 +20,7 @@
         </BCol>
       </BRow>
     </BContainer>
+    </UCard>
 </template>
 
 <script setup lang="ts">

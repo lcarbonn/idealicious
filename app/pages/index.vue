@@ -1,14 +1,7 @@
 <template>
   <div class="mt-3">
-    <div class="mb-3">
-      <BCard :title="t('home.welcome')" bg-variant="primary" text-variant="light" style="border-radius: 1.25rem;" class="text-center">
-        <BAvatar variant="primary" size="lg" rounded src="/icon.png"></BAvatar>
-        <BCardText>{{t('home.welcome2')}}</BCardText>
-      </BCard>
-    </div>
-    <BCard bg-variant="primary" text-variant="light" style="border-radius: 1.25rem;">
-    <GameAddGame @addGame="addGame" />
-    </BCard>
+      <BaseHome class="mb-3"/>
+      <GameAddGame @addGame="addGame" />
   </div>
 </template>
 
