@@ -20,16 +20,16 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/ui',
-    '@bootstrap-vue-next/nuxt',
-    'unplugin-icons/nuxt',
+    // '@bootstrap-vue-next/nuxt',
+    // 'unplugin-icons/nuxt',
     '@vite-pwa/nuxt',
     '@nuxtjs/i18n',    
   ],
 
   css: [
     '~/assets/css/main.css',
-    'bootstrap/dist/css/bootstrap.min.css',
-    '~/assets/css/custom-theme.scss',
+    // 'bootstrap/dist/css/bootstrap.min.css',
+    // '~/assets/css/custom-theme.scss',
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
