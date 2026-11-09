@@ -1,0 +1,61 @@
+<template>
+    <UPageCard>
+      <UAuthForm
+        :schema="schema"
+        title="Login"
+        description="Enter your credentials to access your account."
+        icon="streamline-color:user-circle-single-flat"
+        :fields="fields"
+        @submit="onSubmit">
+        <template #password-hint>
+          <ULink class="text-primary font-medium" tabindex="-1" to="/login/reset-password" target="_blank">{{t('login.lostPassword')}}</ULink>
+        </template>
+      </UAuthForm>
+    </UPageCard>
+</template>
+
+<script setup lang="ts">
+
+  import * as z from 'zod'
+  import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
+    // i18N
+    const { t } = useI18n()
+
+
+  const config = useRuntimeConfig()
+  const baseUrl = computed(() => {
+    return config.public.baseUrl
+  })
+
+  const fields: AuthFormField[] = [{
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: t('login.emailPlaceHolder'),
+    required: true
+  }, {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    placeholder: t('login.passwordPlaceHolder'),
+    required: true
+  }]
+
+
+  const schema = z.object({
+    email: z.email('Invalid email'),
+    password: z.string('Password is required').min(8, 'Must be at least 8 characters')
+  })
+
+  type Schema = z.output<typeof schema>
+
+  function onSubmit(payload: FormSubmitEvent<Schema>) {
+      signInUser(payload.data.email, payload.data.password)
+      .then((authUser) => {
+          if(authUser) {
+              messageToSnack(t('login.signInOk')+ authUser.email)
+              navigateTo('/')
+          }
+      })
+  }
+</script>

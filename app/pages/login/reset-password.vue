@@ -1,21 +1,23 @@
 <template>
-    <BCard class="text-center">
-        <BCardText>
-            <BForm class="my-1" @submit="onSubmit">
-                <span class="my-1">{{t('login.resetPassordTitle')}}</span>
-                <BFormInput class="my-1" 
-                        id="email" 
-                        v-model="form.email" 
-                        type="email" 
-                        :state="emailState" 
-                        :placeholder="t('login.emailPlaceHolder')"
-                        ></BFormInput>
-                <BButton pill class="my-1" :disabled="!emailState" block type="submit">{{t('login.resetPassordSendmail')}}</BButton>
-            </BForm>
-        </BCardText>
-        <p><nuxt-link to="/login">{{t('login.resetPassordRemember')}}</nuxt-link></p>
-        <p>{{$t('login.signupStart')}}<nuxt-link to="/signup">{{t('login.signupEnd')}}</nuxt-link>.</p>
-    </BCard>
+    <UCard class="text-center">
+        <template #header>
+            <span>{{t('login.resetPassordTitle')}}</span>
+        </template>
+        <UForm @submit="onSubmit">
+            <UInput 
+                    id="email" 
+                    v-model="form.email" 
+                    type="email" 
+                    :state="emailState" 
+                    :placeholder="t('login.emailPlaceHolder')"
+                    ></UInput>
+            <UButton class="mt-3" :disabled="!emailState" block type="submit">{{t('login.resetPassordSendmail')}}</UButton>
+        </UForm>
+        <template #footer>
+            <p><nuxt-link to="/login">{{t('login.resetPassordRemember')}}</nuxt-link></p>
+            <p>{{$t('login.signupStart')}}<nuxt-link to="/signup">{{t('login.signupEnd')}}</nuxt-link>.</p>
+        </template>
+    </UCard>
 </template>
 
 <script setup>
