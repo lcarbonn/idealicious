@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3">
-      <BaseHome class="mb-3"/>
+      <BaseHome/>
       <GameAddGame @addGame="addGame" />
   </div>
 </template>

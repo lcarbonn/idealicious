@@ -1,7 +1,27 @@
 <!-- Game page -->
 <template>
-  <UCard text-variant="light" style="border-radius: 1.25rem;" class="bg-primary">
-    <BContainer fluid>
+  <UCard style="border-radius: 1.25rem;">
+        <UFormField :label="t('addGame.label')" required :error="gameState">
+          <UInput id="gameTitle"
+            v-model="gameTitle" 
+            :placeholder="t('addGame.placeholder')"
+            maxlength="140" 
+            trim 
+            @keydown.enter="addNewGame"
+            class="mb-0 w-full"/>
+        </UFormField>
+        <UTooltip :text="t('addGame.button')">
+        <UButton
+            icon="i-lucide-plus"
+            size="sm"
+            variant="subtle"
+            :disabled="gameState"
+            @click="addNewGame"
+            :label="t('addGame.button')"
+            class="mt-2"
+          />
+          </UTooltip>
+    <!-- <BContainer fluid>
       <BRow>
         <BCol>
           <BFormGroup :label="t('addGame.label')" label-for="gameTitle" description="" class="mb-0">
@@ -19,7 +39,7 @@
           <BTooltip target="addButton" triggers="hover">{{t('addGame.button')}}</BTooltip>
         </BCol>
       </BRow>
-    </BContainer>
+    </BContainer> -->
     </UCard>
 </template>
 
@@ -39,7 +59,7 @@
 
     // computed properties
     const gameState = computed(() => {
-      return (gameTitle.value != null && gameTitle.value != "") ? true : false
+      return (gameTitle.value != null && gameTitle.value != "") ? false : true
     })
 
     // methods
