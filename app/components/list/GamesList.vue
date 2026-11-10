@@ -1,6 +1,32 @@
 <template>
   <div>
-    <BTable
+    <UTable
+      sticky
+      :data="games"
+      :columns="columns">
+      <template #action-cell="{ row }">
+        <ListGameButton
+          :row="row"
+          :isAdmin="isAdmin"
+          @expand-game="expandGame"
+          @ask-for-delete-game="askForDeleteGame"
+          />
+      </template>
+    <template #expanded="{ row }">
+        <UPageGrid v-if="row.original.user">
+          <span class="text-sm-right"><b>Owner:</b></span>
+          <span>{{ (row.original.user as IUser).email }}</span>
+        </UPageGrid>
+        <UFormField label="Started:">
+          <USwitch v-model="(row.original as IGame).started" switch disabled/>
+        </UFormField>
+        <UFormField label="Ended:">
+          <USwitch v-model="(row.original as IGame).ended" switch disabled/>
+        </UFormField>
+    </template>      
+    </UTable>
+
+    <!-- <BTable
       striped
       hover
       stacked="lg"
@@ -29,33 +55,27 @@
       <template #row-expansion="row">
         <BCard>
           <BRow v-if="row.item.user">
-            <BCol class="text-sm-right"><b>Owner:</b></BCol>
-            <BCol>{{ (row.item.user as IUser).email }}</BCol>
+            <span class="text-sm-right"><b>Owner:</b></span>
+            <span>{{ (row.item.user as IUser).email }}</span>
           </BRow>
           <BRow>
-            <BCol class="text-sm-right"><b>Started:</b></BCol>
-            <BCol><BFormCheckbox  v-model="(row.item as IGame).started" switch disabled/></BCol>
+            <span class="text-sm-right"><b>Started:</b></span>
+            <span><BFormCheckbox  v-model="(row.item as IGame).started" switch disabled/></span>
           </BRow>
           <BRow>
-            <BCol class="text-sm-right"><b>Ended:</b></BCol>
-            <BCol><BFormCheckbox  v-model="(row.item as IGame).ended" switch disabled/></BCol>
+            <span class="text-sm-right"><b>Ended:</b></span>
+            <span><BFormCheckbox  v-model="(row.item as IGame).ended" switch disabled/></span>
           </BRow>
         </BCard>
       </template>      
     </BTable>
-    <BModal v-model="modal" @ok="confirmDelete" centered  :title="t('gamesList.deleteGameTitle')"> {{t('gamesList.deleteGameMessage')}}</BModal>
+    <BModal v-model="modal" @ok="confirmDelete" centered  :title="t('gamesList.deleteGameTitle')"> {{t('gamesList.deleteGameMessage')}}</BModal> -->
   </div>
 </template>
 
 <script setup lang="ts">
-    import type { TableFieldRaw } from 'bootstrap-vue-next';
-    
-    // icons
-    import IconTrash from '~icons/bi/trash'
-    import IconPlay from '~icons/bi/play'
-    import IconPeople from '~icons/bi/people'
-    import IconToggles from '~icons/bi/toggles'
-    import IconLightbulb from '~icons/bi/lightbulb'
+  
+    import type { TableColumn, TableRow } from '@nuxt/ui';
     
     // for lang
     const { t } = useI18n()
@@ -75,60 +95,50 @@
         },
     })
 
-    // const fields for table
-    let fields:TableFieldRaw<IGame>[] = []
-    fields.push (
-          {
-            key: 'title',
-            label: t('gamesList.table.title'),
-            sortable: true,
-          },
-        )
-        if (props.isAdmin) {
-          fields.push (
-            {
-            key: 'name',
-            accessor: (item) => item.user?.name,
-            label: t('gamesList.table.user'),
-            sortable: true
-            },
-          )
-        }
-        fields.push (        
-          {
-            key: 'createdAt',
-            label: t('gamesList.table.created'),
-            sortable: true,
-            formatter: ( {value}) => (dateFormatter(value)),
-          },
-          {
-            key: 'updatedAt',
-            label: t('gamesList.table.updated'),
-            sortable: true,
-            formatter: ( {value}) => (dateFormatter(value)),
-          },
-           {
-            key: 'show_details',
-            label: t('gamesList.table.actions'),
-           },
-        )
-
-      // computed props
-    const path = computed(() => {
-        if (props.isAdmin) return "/admin"
-        else return "/games"
-    })
-
-    // emits declaration
-    const emit = defineEmits(['deleteGame'])
-
-    // methodes
-    const askForDeleteGame = (game:IGame) => {
-      selectedGame.value = game
-      modal.value = true
+  const columns: TableColumn<IGame>[] = [
+    {
+      accessorKey: 'title',
+      header: t('gamesList.table.title')
+    },
+    {
+      accessorKey: 'createdAt',
+      header: t('gamesList.table.created'),
+      cell: ({ row }) => {
+        return dateFormatter(row.original.createdAt)
+      }
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: t('gamesList.table.updated'),
+      cell: ({ row }) => {
+        return dateFormatter(row.original.updatedAt)
+      }
+    },
+    {
+      id: 'action'
     }
-    const confirmDelete = () => {
-      emit('deleteGame', selectedGame.value)
-    }
+  ]
+
+  // computed props
+  const path = computed(() => {
+      if (props.isAdmin) return "/admin"
+      else return "/games"
+  })
+
+  // emits declaration
+  const emit = defineEmits(['deleteGame'])
+
+  // methodes
+  const askForDeleteGame = (game:IGame) => {
+    selectedGame.value = game
+    modal.value = true
+  }
+  const confirmDelete = () => {
+    emit('deleteGame', selectedGame.value)
+  }
+
+  const expandGame = (row:TableRow<IGame>) => {
+    row.toggleExpanded()
+  }
 
 </script>
