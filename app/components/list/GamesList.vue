@@ -55,6 +55,7 @@
         },
     })
 
+    // properties of the games table
   const columns: TableColumn<IGame>[] = [
     {
       accessorKey: 'title',
@@ -89,14 +90,16 @@
   const emit = defineEmits(['deleteGame'])
 
   // methodes
+  // ask for game deletion, open modal
   const askForDeleteGame = (game:IGame) => {
     selectedGame.value = game
     modalDeleteLigne.value.show = !modalDeleteLigne.value.show;
   }
+  // delete confirmed
   const confirmDelete = () => {
     emit('deleteGame', selectedGame.value)
   }
-
+  // expand the line of the game to show details
   const expandGame = (row:TableRow<IGame>) => {
     row.toggleExpanded()
   }
