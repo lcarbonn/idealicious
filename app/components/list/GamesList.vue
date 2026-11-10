@@ -25,51 +25,11 @@
         </UFormField>
     </template>      
     </UTable>
-
-    <!-- <BTable
-      striped
-      hover
-      stacked="lg"
-      :fields="fields"
-      :items="games"
-      show-empty
-      :empty-text="t('gamesList.empty')"
-    >
-      <template #cell(name)="data">
-        <span v-if="data.value">{{data.value}}</span>
-        <span v-else>Anonymous</span>
-      </template>
-      <template #cell(show_details)="row">
-          <BButton id="detail" class="mx-1" @click="row.toggleExpansion" size="sm"><IconToggles/></BButton>
-          <b-tooltip target="detail" triggers="hover">{{ t('gamesList.detail')}}</b-tooltip>
-          <BButton id="play" class="mx-1" :to="'/game/'+row.item.id" size="sm"><IconPlay/></BButton>
-          <b-tooltip target="play" triggers="hover">{{ t('gamesList.play')}}</b-tooltip>
-          <BButton id="ideas" class="mx-1" :to="'/games/'+row.item.id+'/ideas/'" size="sm"><IconLightbulb/></BButton>
-          <b-tooltip target="ideas" triggers="hover">{{ t('gamesList.ideas')}}</b-tooltip>
-          <BButton id="people" class="mx-1" :to="path+'/'+row.item.id+'/players/'" size="sm"><IconPeople/></BButton>
-          <b-tooltip target="people" triggers="hover">{{ t('gamesList.people')}}</b-tooltip>
-          <BButton id="trash" class="mx-1" @click="askForDeleteGame(row.item as IGame)" size="sm"><IconTrash/></BButton>
-          <b-tooltip target="trash" triggers="hover">{{ t('gamesList.delete')}}</b-tooltip>
-      </template>
-
-      <template #row-expansion="row">
-        <BCard>
-          <BRow v-if="row.item.user">
-            <span class="text-sm-right"><b>Owner:</b></span>
-            <span>{{ (row.item.user as IUser).email }}</span>
-          </BRow>
-          <BRow>
-            <span class="text-sm-right"><b>Started:</b></span>
-            <span><BFormCheckbox  v-model="(row.item as IGame).started" switch disabled/></span>
-          </BRow>
-          <BRow>
-            <span class="text-sm-right"><b>Ended:</b></span>
-            <span><BFormCheckbox  v-model="(row.item as IGame).ended" switch disabled/></span>
-          </BRow>
-        </BCard>
-      </template>      
-    </BTable>
-    <BModal v-model="modal" @ok="confirmDelete" centered  :title="t('gamesList.deleteGameTitle')"> {{t('gamesList.deleteGameMessage')}}</BModal> -->
+    <UiSimpleModal
+      :open="modalDeleteLigne"
+      :title="t('gamesList.deleteGameTitle')"
+      :description="t('gamesList.deleteGameMessage')"
+      @on-ok="confirmDelete"/>
   </div>
 </template>
 
@@ -80,8 +40,8 @@
     // for lang
     const { t } = useI18n()
     //local ref
-    const modal = ref(false)
     const selectedGame = ref()
+    const modalDeleteLigne = ref(new ModalShow())
 
     // props
     const props = defineProps({
@@ -131,7 +91,7 @@
   // methodes
   const askForDeleteGame = (game:IGame) => {
     selectedGame.value = game
-    modal.value = true
+    modalDeleteLigne.value.show = !modalDeleteLigne.value.show;
   }
   const confirmDelete = () => {
     emit('deleteGame', selectedGame.value)

@@ -34,6 +34,7 @@ export default defineNuxtConfig({
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    registerType: 'autoUpdate',
     manifest: {
       name: 'Idealicious',
       short_name: 'Idealicious',
