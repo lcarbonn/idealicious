@@ -9,6 +9,7 @@
             :label="player.name"
             :color="variant(player)"
             icon="streamline-color:user-circle-single-flat"
+            class="font-bold rounded-full"
             />
         </UCard>
     </UPageColumns>
