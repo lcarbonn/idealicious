@@ -3,7 +3,7 @@
         <template #default class="text-center" align-h="around">
             Il vous reste {{timerDisplay}} secondes
         </template>
-        <!-- <template #footer><BButton @click="restartTimer">Restart</BButton></template> -->
+        <template #footer><UButton @click="restartTimer">Restart</UButton></template>
     </UCard>
 </template>
 <script setup lang="ts">

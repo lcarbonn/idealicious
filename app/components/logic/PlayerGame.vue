@@ -1,6 +1,6 @@
 <template>
     <div>
-      <!-- FOR DEBUG
+      FOR DEBUG
         <p v-if="player">
         <span> playerId :{{ player.playerId }}</span>
         <span> round :{{ player.round }}</span>
@@ -8,13 +8,11 @@
         <span> deck :{{ deck?.id??"null" }}</span>
         <span> nextPlayerId: {{ getNextPlayerId(player.playerId, nbPlayers) }}</span>
         <span> prevPlayerId: {{ getPreviousPlayerId(player.playerId, nbPlayers) }}</span>
-      </p> -->
+      </p>
       <!-- Card for game not yet started -->
-      <BCard v-if="deck && !started && !ended" :class="getColor(deck.id)" text-variant="dark">
-        <BCardText>
-          <span >{{t('playerGame.waitingStart')}}</span>
-        </BCardText>
-      </BCard>
+      <UCard v-if="deck && !started && !ended" :class="getColor(deck.id)" text-variant="dark">
+          <span>{{t('playerGame.waitingStart')}}</span>
+      </UCard>
       <GamePlayerGame v-if="player && started && !ended" 
         :round="player.round" 
         :lastIdea="(lastIdea as Idea)" 

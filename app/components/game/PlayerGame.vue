@@ -3,7 +3,21 @@
   <div class="mb-3" >
     <BaseTimer v-if="deckReceived" :max="maxTime" :restart="restart" @timer-completed="timerCompleted"></BaseTimer>
     <!-- Card for the last idea -->
-    <BCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+    <UCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+        {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
+    </UCard>
+    <UCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+      <template #default  v-if="lastIdea?.message">
+        <UFormField class="mb-0" :label="t('playerGame.previousIdea', {player: previousPlayerName})">
+          <UInput id="lastIdea" disabled v-model="lastIdea.message"></UInput>
+        </UFormField>
+      </template>
+      <template #default  v-else>
+        {{t('playerGame.noIdeaYet')}}
+      </template>
+    </UCard>
+
+    <!-- <BCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText>
         <BSpinner variant="primary"/> {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
       </BCardText>
@@ -18,9 +32,9 @@
       <BCardText v-else>
         {{t('playerGame.noIdeaYet')}}
       </BCardText>
-    </BCard>
+    </BCard> -->
     <!-- Card for player idea -->
-    <BCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+    <!-- <BCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <BCardText>
         <BContainer>
           <BRow>
@@ -43,16 +57,13 @@
           </BRow>
         </BContainer>
       </BCardText>
-    </BCard>
+    </BCard> -->
     <!-- modal for asking in case of skiping idea -->
-    <BModal v-model="modalAskSkip" @ok="skipIdea" centered  :title="t('playerGame.skipTitle')"> {{t('playerGame.skipQuestion')}}</BModal>
+    <!-- <BModal v-model="modalAskSkip" @ok="skipIdea" centered  :title="t('playerGame.skipTitle')"> {{t('playerGame.skipQuestion')}}</BModal> -->
   </div>
 </template>
 
 <script setup lang="ts">
-
-    // icons
-    import PlusCircleFill from '~icons/bi/plus-circle-fill'
 
     // const timer
     const maxTime = 20
