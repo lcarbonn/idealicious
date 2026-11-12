@@ -1,16 +1,8 @@
 <template>
-    <BContainer>
-        <BRow>
-            <BCol>
-                <!-- <BCard variant="primary"> -->
-                    <GameActionsBar :game="game"
-                        @start-game="startGame"
-                        @end-game="endGame"
-                        @restart-game="restartGame"/>
-                <!-- </BCard> -->
-            </BCol>
-        </BRow>
-    </BContainer>
+    <GameActionsBar :game="game"
+        @start-game="startGame"
+        @end-game="endGame"
+        @restart-game="restartGame"/>
 </template>
 <script setup lang="ts">
 

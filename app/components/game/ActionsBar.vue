@@ -1,34 +1,18 @@
 <template>
-      <BContainer fluid v-if="game">
-        <BRow align-h="evenly">
-          <BCol cols="auto" v-if="notYetStarted">
-            <BButton pill id="start" variant="secondary" @click="startGame">
-              <PlayCircle/> {{ t('actionBar.start')}}
-            </BButton>
-            <b-tooltip target="start" triggers="hover">{{ t('actionBar.start')}}</b-tooltip>
-          </BCol>
-          <BCol cols="auto" v-if="started">
-            <BButton pill id="stop" variant="secondary" @click="endGame">
-              <StopCircle/> {{ t('actionBar.end')}}
-            </BButton>
-            <b-tooltip target="stop" triggers="hover">{{ t('actionBar.end')}}</b-tooltip>
-          </BCol>
-          <BCol cols="auto" v-if="ended">
-            <BButton pill id="new" variant="secondary" @click="restartGame">
-              <PlayBtn/> {{ t('actionBar.restart')}}
-            </BButton>
-            <b-tooltip target="new" triggers="hover">{{ t('actionBar.restart')}}</b-tooltip>
-          </BCol>
-        </BRow>
-      </BContainer>
+    <UCard fluid class="text-center">
+      <UTooltip :text="t('actionBar.start')" v-if="notYetStarted">
+        <UButton :label="t('actionBar.start')" icon="streamline-color:button-play-flat" @click="startGame"></UButton>
+      </UTooltip>
+      <UTooltip :text="t('actionBar.end')" v-if="started">
+        <UButton :label="t('actionBar.end')" icon="streamline-color:button-stop-flat" @click="endGame"></UButton>
+      </UTooltip>
+      <UTooltip :text="t('actionBar.restart')" v-if="ended">
+        <UButton :label="t('actionBar.restart')" icon="streamline-color:button-play-flat" @click="restartGame"></UButton>
+      </UTooltip>
+    </UCard>
 </template>
 
 <script setup lang="ts">
-
-    // icons
-    import PlayCircle from '~icons/bi/play-circle'
-    import StopCircle from '~icons/bi/stop-circle'
-    import PlayBtn from '~icons/bi/play-btn'
 
     // const
     const { t } = useI18n()

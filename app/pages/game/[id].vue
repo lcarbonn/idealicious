@@ -1,16 +1,8 @@
 <template>
     <div v-if="game">
         <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
-        <UCollapsible v-if="notStarted">
-            <UButton
-            :label="getTitle"
-            trailing-icon="i-lucide-chevron-down"
-            block
-            />
-            <template #content>
-                <GameAdminGame v-if="!ended" :game="game"/>
-            </template>
-        </UCollapsible>        
+        <GameCollapseGame :game="game"/>
+        <GameMenuGame :game="game" class="mt-3"/>
     </div>
     <!-- <BContainer v-if='game' fluid>
         <BRow  class="mt-3">
