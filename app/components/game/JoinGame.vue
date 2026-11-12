@@ -1,29 +1,19 @@
 <!-- Join page -->
 <template>
-    <BContainer fluid >
-        <BRow>
-          <BCol>
-            <BFormGroup :label="t('joinGame.label')" label-for="joinGame" description="">
-              <BFormInput autofocus id="joinGame" v-model="playerName" :state="nameState" @keydown.enter="joinGame"
-                maxlength="10" trim class="mb-0"></BFormInput>
-            </BFormGroup>
-          </BCol>
-        </BRow>
-        <BRow align-h="center" class="mt-1">
-          <BCol>
-            <BButton pill id="join" variant="secondary" @click="joinGame" :disabled="!nameState">
-              <PlusCircleFill/> {{ t('joinGame.button')}}
-            </BButton>
-            <b-tooltip target="join" triggers="hover">{{ t('joinGame.button')}}</b-tooltip>
-          </BCol>
-        </BRow>
-    </BContainer>
+    <UCard fluid class="text-center" :title="t('playerGame.notInGame')">
+        <UFormField :label="t('joinGame.label')" :error="nameState" >
+          <UInput autofocus id="joinGame" v-model="playerName" @keydown.enter="joinGame"
+            maxlength="10" trim class="mb-0"></UInput>
+        </UFormField>
+      <template #footer>
+      <UTooltip :text="t('joinGame.button')">
+        <UButton :label="t('joinGame.button')" icon="streamline-color:add-1-flat" @click="joinGame" :disabled="nameState"></UButton>
+      </UTooltip>
+      </template>
+    </UCard>
 </template>
   
 <script setup lang="ts">
-
-    // icons
-    import PlusCircleFill from '~icons/bi/plus-circle-fill'
 
     // const
     const { t } = useI18n()
@@ -33,7 +23,7 @@
 
     // computed propertie
     const nameState = computed(() => {
-      return (playerName.value != null && playerName.value != "") ? true : false
+      return (playerName.value != null && playerName.value != "") ? false : true
     })
 
     // emits declaration

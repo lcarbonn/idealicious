@@ -3,7 +3,7 @@
 
     <div class="text-center">
       <GameJoinGame v-if="showForm" @joinGame="joinGame"/>
-      <BSpinner v-else variant="primary" label="Spinning"/>
+      <!-- <BSpinner v-else variant="primary" label="Spinning"/> -->
     </div>
   
 </template>

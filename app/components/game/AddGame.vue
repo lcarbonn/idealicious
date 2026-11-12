@@ -12,7 +12,7 @@
         </UFormField>
         <UTooltip :text="t('addGame.button')">
         <UButton
-            icon="i-lucide-plus"
+            icon="streamline-color:add-1-flat"
             size="sm"
             variant="subtle"
             :disabled="gameState"

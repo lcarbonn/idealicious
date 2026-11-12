@@ -4,6 +4,7 @@
         <GameCollapseGame :game="game"/>
         <GameMenuGame :game="game"  class="mb-3 mt-3"/>
         <GamePlayers :players="players"/>
+        <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
     </div>
     <!-- <BContainer v-if='game' fluid>
         <BRow  class="mt-3">
