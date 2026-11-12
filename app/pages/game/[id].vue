@@ -2,7 +2,8 @@
     <div v-if="game">
         <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
         <GameCollapseGame :game="game"/>
-        <GameMenuGame :game="game" class="mt-3"/>
+        <GameMenuGame :game="game"  class="mb-3 mt-3"/>
+        <GamePlayers :players="players"/>
     </div>
     <!-- <BContainer v-if='game' fluid>
         <BRow  class="mt-3">
