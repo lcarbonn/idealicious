@@ -1,6 +1,6 @@
 <template>
   <div>
-      <UCard bg-variant="primary" text-variant="light" class="mt-3">
+      <UCard bg-variant="primary" text-variant="light" class="mt-3 mb-3">
         <template #title>
           <ULink
                 v-if="link"
