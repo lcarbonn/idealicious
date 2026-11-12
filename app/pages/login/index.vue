@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <BaseAuthForm/>
-    </div>
+  <BaseAuthForm/>
 </template>
 
 <script setup lang="ts">

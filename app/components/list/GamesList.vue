@@ -55,7 +55,7 @@
         },
     })
 
-    // properties of the games table
+  // properties of the games table
   const columns: TableColumn<IGame>[] = [
     {
       accessorKey: 'title',

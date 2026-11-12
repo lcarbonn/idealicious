@@ -17,7 +17,6 @@
   const authUser = useAuthUser()
 
   onMounted(() => {
-    console.log("auth=", authUser.value)
     if(authUser.value) getUserGames(authUser.value.uid)
   })
 

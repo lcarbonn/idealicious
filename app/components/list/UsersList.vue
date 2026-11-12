@@ -1,37 +1,37 @@
 <template>
   <div>
-    <b-table
-      striped
-      hover
-      stacked="md"
-      :fields="fields"
-      :items="users"
-      show-empty
-      :empty-text="t('usersList.empty')"
-    >
-    <template #cell(isAdmin)="data">
-      <BFormCheckbox  v-model="(data.value as boolean)" switch @click="changeIsAdmin(data.item)">
-      </BFormCheckbox >
-    </template>
-    <template #cell(show_details)="row">
-          <BButton id="trash" class="mx-1" @click="askForDeleteUser(row.item as IUser)" size="sm"><IconTrash/></BButton>
-          <b-tooltip target="trash" triggers="hover">{{ t('usersList.delete')}}</b-tooltip>
+    <UTable
+      sticky
+      :data="users"
+      :columns="columns">
+      <template #isAdmin-cell="{ row }">
+        <UFormField label="Started:">
+          <USwitch v-model="(row.original as IUser).isAdmin" switch @click="changeIsAdmin(row.original)"/>
+        </UFormField>
       </template>
-    </b-table>
-    <BModal v-model="modal" @ok="confirmDelete" centered  :title="t('usersList.deleteUserTitle')"> {{t('usersList.deleteUserMessage')}}</BModal>
+      <template #action-cell="{ row }">
+        <UTooltip :text="t('usersList.delete')">
+          <UButton icon="streamline-color:recycle-bin-2-flat" @click="askForDeleteUser()" class="mr-1" size="sm"></UButton>
+        </UTooltip>
+      </template>
+    </UTable>
+    <UiSimpleModal
+      :open="modalDeleteLigne"
+      :title="t('usersList.deleteUserTitle')"
+      :description="t('usersList.deleteUserMessage')"
+      @on-ok="confirmDelete"/>
   </div>
 </template>
 
 <script setup lang="ts">
-    import type { TableFieldRaw } from 'bootstrap-vue-next';
-    // icons
-    import IconTrash from '~icons/bi/trash'
+
+import type { TableColumn } from '@nuxt/ui';
 
     // for lang
     const { t } = useI18n()
   
     //local ref
-    const modal = ref(false)
+    const modalDeleteLigne = ref(new ModalShow())
     const selectedUser = ref()
 
     // props
@@ -42,40 +42,42 @@
         },
     })
 
-    // const fields for table
-    let fields:TableFieldRaw<IUser>[] = [
-            {
-              key: 'name',
-              label: t('usersList.table.name'),
-              sortable: true,
-            },
-            {
-              key: 'email',
-              label: t('usersList.table.email'),
-              sortable: true
-            },
-            {
-              key: 'isAdmin',
-              label: t('usersList.table.isAdmin'),
-              sortable: true
-            },
-            {
-              key: 'createdAt',
-              label: t('usersList.table.created'),
-              formatter: ( {value}) => (dateFormatter(value)),
-              sortable: true
-            },
-            {
-              key: 'updatedAt',
-              label: t('usersList.table.updated'),
-              formatter: ( {value}) => (dateFormatter(value)),
-              sortable: true,
-            },
-            {
-              key: 'show_details',
-              label: t('usersList.table.actions'),
-            }
-          ]
+  // properties of the games table
+  const columns: TableColumn<IUser>[] = [
+    {
+      accessorKey: 'name',
+      header: t('usersList.table.name')
+    },
+    {
+      accessorKey: 'email',
+      header: t('usersList.table.email'),
+    },
+    {
+      accessorKey: 'isAdmin',
+      header: t('usersList.table.isAdmin'),
+    },
+    {
+      accessorKey: 'email',
+      header: t('usersList.table.email'),
+    },
+    {
+      accessorKey: 'createdAt',
+      header: t('usersList.table.created'),
+      cell: ({ row }) => {
+        return dateFormatter(row.original.createdAt)
+      }
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: t('usersList.table.updated'),
+      cell: ({ row }) => {
+        return dateFormatter(row.original.updatedAt)
+      }
+    },
+    {
+      id: 'action'
+    }
+  ]
 
   // emits declaration
   const emit = defineEmits(['deleteUser', 'changeIsAdmin'])
@@ -90,7 +92,7 @@
   // methodes
   const askForDeleteUser = (user:IUser) => {
     selectedUser.value = user
-    modal.value = true
+    modalDeleteLigne.value.show = !modalDeleteLigne.value.show;
   }
   const confirmDelete = () => {
     emit('deleteUser', selectedUser.value.uid)
