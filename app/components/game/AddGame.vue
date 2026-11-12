@@ -6,7 +6,7 @@
             v-model="gameTitle" 
             :placeholder="t('addGame.placeholder')"
             maxlength="140" 
-            trim 
+            trim
             @keydown.enter="addNewGame"
             class="mb-0 w-full"/>
         </UFormField>

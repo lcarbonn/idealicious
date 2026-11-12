@@ -1,30 +1,36 @@
 <template>
   <div>
-      <BCard id="titleCard" bg-variant="primary" text-variant="light">
-        <BCardTitle>
-          <BLink v-if="!changeAsked" variant="light" class="nodecoLink" @click="changeName()">{{title}}</BLink>
-          <BInputGroup v-if="changeAsked">
-            <BFormInput
-              id="gameTitle" 
-              autofocus 
-              v-model="newTitle" 
-              :state="gameState" 
-              @keydown.enter="changeTitle()"
-              @keydown.escape="resetTitle()"
-              maxlength="140" trim class="mb-0">
-            </BFormInput>
-            <BButton @click="resetTitle()"><X/></BButton>
-          </BInputGroup>
-        </BCardTitle>
-      </BCard>
-      <BTooltip target="titleCard" triggers="hover">{{$t('adminGame.titleTooltip')}}</BTooltip>
+      <UTooltip :text="t('adminGame.titleTooltip')">
+        <UCard class="mt-3">
+          <template #header>
+            <ULink v-if="!changeAsked" variant="light" class="nodecoLink" @click="changeName()">{{title}}</ULink>
+            <UFormField v-else required :error="gameState">
+              <UInput
+                id="gameTitle" 
+                autofocus 
+                v-model="newTitle" 
+                @keydown.enter="changeTitle()"
+                @keydown.escape="resetTitle()"
+                maxlength="140" trim class="mb-0" block>
+                <template #trailing>
+                  <UButton @click="resetTitle()" 
+                  icon="i-lucide-circle-x" 
+                  color="neutral"
+                  variant="link"></UButton>
+                </template>                
+              </UInput>
+            </UFormField>
+          </template>
+        </UCard>
+      </UTooltip>
   </div>
 </template>
 
 <script setup lang="ts">
-  // icon
-  import X from '~icons/bi/x'
-  
+
+    // for lang
+    const { t } = useI18n()
+
   // local ref
   const changeAsked = ref(false)
   const newTitle = ref()
@@ -45,7 +51,7 @@
 
     // computed properties
     const gameState = computed(() => {
-      return (newTitle.value != null && newTitle.value != "") ? true : false
+      return (newTitle.value != null && newTitle.value != "") ? false : true
     })
 
     // emits declaration
@@ -64,8 +70,3 @@
     }
 
 </script>
-<style scoped>
-.nodecoLink {
-  text-decoration: none !important;
-}
-</style>

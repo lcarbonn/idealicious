@@ -1,5 +1,8 @@
 <template>
-    <BContainer v-if='game' fluid>
+    <div v-if="game">
+        <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
+    </div>
+    <!-- <BContainer v-if='game' fluid>
         <BRow  class="mt-3">
             <BCol>
                 <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
@@ -37,11 +40,10 @@
                 </BCard>
                 <BCard v-if="ended && (showGameIdeas || !isKnowPlayer)" :title="t('adminGame.allIdeas')">
                     <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
-                    <!-- possible add change votes button -->
                 </BCard>                
             </BCol>
         </BRow>
-    </BContainer>
+    </BContainer> -->
 </template>
 
 <script setup lang="ts">
