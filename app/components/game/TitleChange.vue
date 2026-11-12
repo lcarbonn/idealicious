@@ -1,9 +1,9 @@
 <template>
   <div>
       <UTooltip :text="t('adminGame.titleTooltip')">
-        <UCard class="mt-3">
+        <UCard class="mt-3 mb-3">
           <template #header>
-            <ULink v-if="!changeAsked" variant="light" class="nodecoLink" @click="changeName()">{{title}}</ULink>
+            <ULink v-if="!changeAsked" class="nodecoLink" @click="changeName()">{{title}}</ULink>
             <UFormField v-else required :error="gameState">
               <UInput
                 id="gameTitle" 
@@ -11,7 +11,7 @@
                 v-model="newTitle" 
                 @keydown.enter="changeTitle()"
                 @keydown.escape="resetTitle()"
-                maxlength="140" trim class="mb-0" block>
+                maxlength="140" trim class="mb-0 w-full">
                 <template #trailing>
                   <UButton @click="resetTitle()" 
                   icon="i-lucide-circle-x" 
