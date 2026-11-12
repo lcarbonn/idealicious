@@ -79,6 +79,18 @@
       id: 'action'
     }
   ]
+  // ajouter nom de l'animateur si user est admin
+  if(props.isAdmin) {
+    columns.splice(1,0,
+      {
+        accessorKey: 'name',
+        header: t('gamesList.table.user'),
+        cell: ({ row }) => {
+          return row.original.user?.name
+        }
+      }
+    )
+  }
 
   // computed props
   const path = computed(() => {
