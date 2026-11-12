@@ -3,7 +3,7 @@
       <UTooltip :text="t('adminGame.titleTooltip')">
         <UCard class="mt-3 mb-3">
           <template #header>
-            <ULink v-if="!changeAsked" class="nodecoLink" @click="changeName()">{{title}}</ULink>
+            <ULink v-if="!changeAsked" @click="changeName()"><b>{{title}}</b></ULink>
             <UFormField v-else required :error="gameState">
               <UInput
                 id="gameTitle" 
