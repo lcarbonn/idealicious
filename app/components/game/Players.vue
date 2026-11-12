@@ -4,14 +4,13 @@
             {{ nbPlayers }}
         </template>
     <UPageColumns>
-        <UCard v-for="player in players">
-            <UBadge 
-            :label="player.name"
-            :color="variant(player)"
-            icon="streamline-color:user-circle-single-flat"
-            class="font-bold rounded-full"
+        <UUser v-for="player in players"
+            :name="player.name"
+            :avatar="{
+                icon:'streamline-color:user-circle-single-flat',
+                class:variant(player)
+            }"
             />
-        </UCard>
     </UPageColumns>
     </UPageCard>
 </template>
@@ -34,7 +33,7 @@
     })
 
     const variant = (player:IPlayer) => {
-        if(authUser.value?.uid == player.uid) return "success"
+        if(authUser.value?.uid == player.uid) return "bg-success"
     }
 
 </script>
