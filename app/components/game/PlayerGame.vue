@@ -35,8 +35,6 @@
             />
           </UTooltip>
       </template>
-      <template #footer>
-      </template>
     </UCard>
 
     <!-- modal for asking in case of skiping idea -->

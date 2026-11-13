@@ -1,7 +1,7 @@
 <template>
     <div>
-      FOR DEBUG
         <p v-if="player">
+        <b>FOR DEBUG </b>
         <span> playerId :{{ player.playerId }}</span>
         <span> round :{{ player.round }}</span>
         <span> nbplayers: {{ nbPlayers }}</span>
