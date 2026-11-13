@@ -1,9 +1,9 @@
 <template>
     <UCard text-variant="danger">
         <template #default class="text-center" align-h="around">
-            Il vous reste {{timerDisplay}} secondes
+            <span>Il vous reste {{timerDisplay}} secondes</span>
+            <UButton @click="restartTimer">Restart</UButton>
         </template>
-        <template #footer><UButton @click="restartTimer">Restart</UButton></template>
     </UCard>
 </template>
 <script setup lang="ts">
@@ -35,7 +35,7 @@
         startTimer()
     })
 
-    // watch the idea in case of love reset
+    // watch if restart is aked
     watch(() => props.restart, (restart) => {
         if (restart) restartTimer()
     })

@@ -8,7 +8,7 @@
     </UCard>
     <UCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
       <template #default  v-if="lastIdea?.message">
-        <UFormField class="mb-0" :label="t('playerGame.previousIdea', {player: previousPlayerName})">
+        <UFormField :label="t('playerGame.previousIdea', {player: previousPlayerName})">
           <UInput id="lastIdea" disabled v-model="lastIdea.message"></UInput>
         </UFormField>
       </template>
@@ -17,49 +17,32 @@
       </template>
     </UCard>
 
-    <!-- <BCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
-      <BCardText>
-        <BSpinner variant="primary"/> {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
-      </BCardText>
-    </BCard>
-    <BCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
-      <BCardText  v-if="lastIdea?.message">
-        <BFormGroup class="mb-0">
-          <label for="lastIdea">{{t('playerGame.previousIdea', {player: previousPlayerName})}}</label>
-          <BFormInput id="lastIdea" disabled v-model="lastIdea.message"></BFormInput>
-        </BFormGroup>
-      </BCardText>
-      <BCardText v-else>
-        {{t('playerGame.noIdeaYet')}}
-      </BCardText>
-    </BCard> -->
     <!-- Card for player idea -->
-    <!-- <BCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
-      <BCardText>
-        <BContainer>
-          <BRow>
-            <BCol>
-              <BFormGroup>
-                <label for="newIdea" v-if="round==0">{{t('playerGame.firstIdea')}}</label>
-                <label for="newIdea" v-else>{{t('playerGame.newIdea')}}</label>
-                <BFormInput id="newIdea" autofocus v-model="newIdea" @keydown.enter="addNewIdea"
-                  maxlength="140" trim class="mb-0"></BFormInput>
-              </BFormGroup>
-            </BCol>
-          </BRow>
-          <BRow class="text-center mt-1" align-h="around">
-            <BCol>
-              <BButton pill id="addButton" @click="addNewIdea">
-                <PlusCircleFill/> {{ t('playerGame.addIdea')}}
-              </BButton>
-              <b-tooltip target="addButton" triggers="hover">{{ t('playerGame.addIdea')}}</b-tooltip>
-            </BCol>
-          </BRow>
-        </BContainer>
-      </BCardText>
-    </BCard> -->
+    <UCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+      <template #default>
+        <UFormField :label="getLabel">
+          <UInput autofocus v-model="newIdea" @keydown.enter="addNewIdea"
+            maxlength="140" trim></UInput>
+        </UFormField>
+        <UTooltip :text="t('playerGame.addIdea')">
+          <UButton
+              icon="streamline-color:add-1-flat"
+              @click="addNewIdea"
+              :label="t('playerGame.addIdea')"
+              class="mt-2"
+            />
+          </UTooltip>
+      </template>
+      <template #footer>
+      </template>
+    </UCard>
+
     <!-- modal for asking in case of skiping idea -->
-    <!-- <BModal v-model="modalAskSkip" @ok="skipIdea" centered  :title="t('playerGame.skipTitle')"> {{t('playerGame.skipQuestion')}}</BModal> -->
+    <UiSimpleModal
+      :open="modalDeleteLigne"
+      :title="t('playerGame.skipTitle')"
+      :description="t('playerGame.skipQuestion')"
+      @on-ok="skipIdea"/>
   </div>
 </template>
 
@@ -73,8 +56,8 @@
 
     //local refs
     const newIdea = ref("")
-    const modalAskSkip = ref(false)
     const restart = ref(false)
+    const modalDeleteLigne = ref(new ModalShow())
 
     // props
     const props = defineProps({
@@ -100,13 +83,17 @@
       return (props.deckId!=null)
     })
 
+    const getLabel = computed(() => {
+      return (props.round==0?t('playerGame.firstIdea'):t('playerGame.newIdea'))
+    })
+
     // emits declaration
     const emit = defineEmits(['addNewIdea'])
 
     // emits méthods
     const addNewIdea = () => {
       if(newIdea.value == "") {
-        modalAskSkip.value = true
+        modalDeleteLigne.value.show = !modalDeleteLigne.value.show;
       } else {
         // console.log('addNewIdea')
         emit("addNewIdea", newIdea.value)
@@ -118,10 +105,11 @@
     const skipIdea = () => {
       // console.log("skip idea")
       emit("addNewIdea")
+      restart.value = true
     }
 
     const timerCompleted = () => {
       skipIdea()
-      restart.value = true
+      // restart.value = true
     }
 </script>

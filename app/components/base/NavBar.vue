@@ -9,19 +9,17 @@
     <UNavigationMenu
       :items="items"
       content-orientation="vertical"/>
-      <UiLocalePicker size="sm"/>
-
 
     <template #right>
+      <UiLocalePicker size="sm"/>
       <UiColorModePicker size="sm"/>
     </template>
-    
+      
     <template #body>
       <UNavigationMenu
         :items="items"
         orientation="vertical">
       </UNavigationMenu>
-      <UiLocalePicker size="sm"/>
     </template>    
 
   </UHeader>

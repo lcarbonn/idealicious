@@ -13,8 +13,6 @@
         <UTooltip :text="t('addGame.button')">
         <UButton
             icon="streamline-color:add-1-flat"
-            size="sm"
-            variant="subtle"
             :disabled="gameState"
             @click="addNewGame"
             :label="t('addGame.button')"
