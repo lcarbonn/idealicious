@@ -1,8 +1,10 @@
 <!-- Player page -->
 <template>
   <div class="mb-3" >
+    <!-- Card for timer -->
     <BaseTimer v-if="deckReceived" :max="maxTime" :restart="restart" @timer-completed="timerCompleted"></BaseTimer>
-    <!-- Card for the last idea -->
+
+    <!-- Card for the previous idea -->
     <UCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
         {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
     </UCard>
