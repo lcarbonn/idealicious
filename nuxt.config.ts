@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     // '@bootstrap-vue-next/nuxt',
-    // 'unplugin-icons/nuxt',
+    'unplugin-icons/nuxt',
     '@vite-pwa/nuxt',
     '@nuxtjs/i18n',    
   ],

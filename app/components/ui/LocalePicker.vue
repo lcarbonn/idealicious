@@ -1,14 +1,14 @@
 <template>
-    <UNavigationMenu 
-      :items="items"
-      content-orientation="vertical"/>
-
+    <USelect v-model="value" :items="items" value-key="value" />
 </template>
 <script setup lang="ts">
-  import type { NavigationMenuItem } from '@nuxt/ui';
+  
+  import type { SelectItem } from '@nuxt/ui'
   import type { Locale } from 'vue-i18n';
 
-  const { locales, setLocale } = useI18n()
+  const { locales, setLocale, locale } = useI18n()
+
+  const value = ref(locale.value)
 
   // change the locale language
   const changeLocale = (locale:Locale) => {
@@ -16,29 +16,23 @@
   }
 
   // set the list of navigation items
-  const items = computed<NavigationMenuItem[]>(() => {
-    const items:NavigationMenuItem[] = []
+  const items = computed<SelectItem[]>(() => {
+      const items:SelectItem[] = []
 
-    items.push(
-      {
-        label: 'Locale',
-        icon: 'streamline-color:web-flat',
-        children: []
-      }
-    )
-
-    locales.value.forEach(element => {
-      // add locales
-      items[0]?.children?.push(
-        {
-        label: element.name,
-        onSelect: () => {
-          changeLocale(element.code)
-        }}
-      )
-     
-    });
+      locales.value.forEach(locale => {
+        // add locales
+        items.push(
+          {
+            label:locale.name,
+            value:locale.code,
+            onSelect: () => {
+              changeLocale(locale.code)
+            },
+          }
+        )
+      
+      });
     return items
-    })
+  })
 
 </script>
