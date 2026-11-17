@@ -255,3 +255,11 @@ export const getPlayerName = (playerUId:string, players:IPlayer[]) :string => {
     return name
 }
 
+export const getPlayer = (playerUId:string, players:IPlayer[]) :Player|undefined => {
+    let pl = undefined
+    players.forEach(player => {
+        if(player.uid == playerUId) pl = player
+    });
+    // console.log("player name:"+playerUId+" : "+name)
+    return pl
+}

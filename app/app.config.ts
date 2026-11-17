@@ -10,7 +10,7 @@ export default defineAppConfig({
     },
     pageCard: {
       slots: {
-        wrapper: 'flex flex-col flex-1 items-start',
+        wrapper: 'flex flex-col flex-1 items-center',
         title: 'text-white',
       }
     },
@@ -20,7 +20,10 @@ export default defineAppConfig({
       }
     },
     pageGrid: {
-      base: 'relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4'
+      base: 'relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8'
+    },
+    pageColumns: {
+      base: 'relative columns-3 md:columns-6 lg:columns-6 gap-8 space-y-8 *:break-inside-avoid-column *:will-change-transform'
     },
     footer: {
       slots: {

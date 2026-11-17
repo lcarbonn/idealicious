@@ -1,45 +1,38 @@
 <!-- Idea page -->
 <template>
-    <BCard v-if="idea" class="mb-1 shadow-sm" :class="getColor(deckId)">
-      <BCardText>
+    <UCard v-if="idea" class="mb-1 shadow-sm" :class="getColor(deckId)">
+      <template #title>
             {{idea.message}}
-      </BCardText>
-      <BCardText>
-        <BRow>
-          <BCol>
-            <BAvatar
-                size="md"
-                :badge="playerName"
-                badge-placement="bottom"
-                :variant="variant(idea.playerId)"
-                badge-text-variant="white"><Person/></BAvatar>
-          </BCol>
-          <BCol>
-            <template v-if="disabled">
-              <BAvatar :id="idea.id" :variant="getLovedClass()">
-                <template #badge v-if="idea.loved>0">
-                  {{idea.loved}}
+      </template>
+      <UPageColumns
+        :ui= "{
+            base: 'relative columns-2 md:columns-2 lg:columns-2 gap-8'
+        }"
+      >
+        <GamePlayer :player="player" :uid="uid"/>
+        <template v-if="disabled">
+          <UTooltip :text="getLovedMessage()">
+            <UBadge :color="getLovedClass()"
+                :avatar="{
+                icon: 'streamline-color:hearts-symbol-flat',
+                loading: 'lazy',
+                }">
+                <template #default>
+                  {{idea.loved}}  
                 </template>
-                <Heart/>
-              </BAvatar>
-              <b-tooltip :target="idea.id" triggers="hover" v-if="getLovedMessage()">{{ getLovedMessage() }}</b-tooltip>
-            </template>
-            <template v-else>
-              <BAvatar :id="idea.id" button :variant="getLovedClass()" @click="loveIdea()"><Heart/></BAvatar>
-              <b-tooltip :target="idea.id" triggers="hover">{{ t('idea.cardVote')}}</b-tooltip>
-            </template>
-          </BCol>
-        </BRow>
-      </BCardText>
-    </BCard>
+            </UBadge>
+          </UTooltip>
+        </template>
+        <template v-else>
+          <UTooltip :text="t('idea.cardVote')">
+            <UButton :color="getLovedClass()" variant="solid" @click="loveIdea()" icon="streamline-color:hearts-symbol-flat"/>
+          </UTooltip>
+        </template>
+      </UPageColumns>
+    </UCard>
   </template>
 
 <script setup lang="ts">
-
-    // icons
-    import Heart from '~icons/bi/heart'
-    import Person from '~icons/twemoji/person'
-
 
     // const
     const { t } = useI18n()
@@ -65,8 +58,8 @@
         type:Number,
         default:0
       },
-      playerName: {
-        type:String,
+      player: {
+        type:Player,
         default:null
       }
     })
@@ -96,17 +89,19 @@
     // methods
     // ordre is important
     const getLovedClass = () => {
-      if (!props.disabled && isLoved.value) return "secondary"
-      if (props.disabled && isMyVote(props.idea)) return "danger"
-      if (props.disabled && isMyIdea(props.idea)) return "warning"
-      if (props.disabled && props.idea && props.idea.loved > 0) return "secondary"
-      return "light"
+      if (isMyVote(props.idea)) return "error"
+      if (isMyIdea(props.idea)) return "success"
+      if (props.disabled && props.idea && props.idea.loved > 0) return "warning"
+      // if (!props.disabled && isLoved.value) return "secondary"
+      // if (props.disabled && isMyVote(props.idea)) return "error"
+      // if (props.disabled && isMyIdea(props.idea)) return "warning"
+      // if (props.disabled && props.idea && props.idea.loved > 0) return "secondary"
+      return "primary"
     }
     const getLovedMessage = () => {
       if (props.disabled && isMyVote(props.idea)) return t('idea.myVote')
       if (props.disabled && isMyIdea(props.idea)) return t('idea.myIdea')
-      // if (props.disabled && props.idea && props.idea.loved > 0) return "secondary"
-      return null
+      return ''
     }
 
     // emits declaration
@@ -126,9 +121,4 @@
             messageToSnack(t('idea.cardLikeDisabled'))
         }
     }
-
-    const variant = (uid:string) => {
-        if(props.uid == uid) return "danger"
-    }
-
 </script>

@@ -4,13 +4,7 @@
             {{ nbPlayers }}
         </template>
     <UPageColumns>
-        <UUser v-for="player in players"
-            :name="player.name"
-            :avatar="{
-                icon:'streamline-color:user-circle-single-flat',
-                class:variant(player)
-            }"
-            />
+        <GamePlayer v-for="player in players" :player="player" :uid="authUser.uid"/>
     </UPageColumns>
     </UPageCard>
 </template>
@@ -31,9 +25,4 @@
     const nbPlayers = computed(() => {
         return props.players?.length + t('players.number')
     })
-
-    const variant = (player:IPlayer) => {
-        if(authUser.value?.uid == player.uid) return "bg-success"
-    }
-
 </script>

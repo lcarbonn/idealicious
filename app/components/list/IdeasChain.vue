@@ -1,44 +1,34 @@
 <!-- Ideas chain page -->
 <template>
-    <BContainer id="decks">
-        <BRow align-h="start" 
-            :cols-lg="cols(maxLgDecks, decksWithIdeas.length)" 
-            :cols-md="cols(maxMdDecks, decksWithIdeas.length)">
-            <BCol v-if="decksWithIdeas.length==0">{{t('idea.chainEmpty')}}</BCol>
-            <BCol v-else 
-                :lg="modulo(maxLgDecks, decksWithIdeas.length)" 
-                :md="modulo(maxMdDecks, decksWithIdeas.length)" 
-                v-for="(deck, index) in decksWithIdeas" :id="'deck'+index">
-                <BContainer class="text-center">
-                    <BRow class="mb-3">
-                        <BCol>
-                            <BAvatar variant="info"><CardList/></BAvatar>
-                            <span>&nbsp;{{t('idea.chainDeck')}} {{index+1}}</span>
-                        </BCol>
-                    </BRow>
-                    <BRow>
-                        <BCol v-if="deck.length==0">{{t('idea.deckEmpty')}}</BCol>
-                        <BCol v-else>
-                            <GameIdeaCard @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" 
-                                :deckId= "index" 
-                                :idea="(idea as Idea)" 
-                                :uid="uid" 
-                                :disabled="disabled" 
-                                :playerName="getName(idea.playerId)"
-                                class="mb-3"/>
-                        </BCol>
-                    </BRow>
-                </BContainer>
-            </BCol>
-        </BRow>
-    </BContainer>
+    <div>
+        <UCard v-if="decksWithIdeas.length==0">{{t('idea.chainEmpty')}}</UCard>
+        <UPageGrid
+            :ui= "{
+                base: 'relative grid grid-cols-1 md:grid-cols-'+getmdcolumns+' lg:grid-cols-'+getlgcolumns+' gap-8'
+            }"
+            >
+            <UPageList else v-for="(deck, index) in decksWithIdeas">
+                <UBadge color="primary" class="mb-3"
+                    :avatar="{
+                    icon: 'streamline-color:bullet-list-flat',
+                    loading: 'lazy'
+                    }">
+                    {{t('idea.chainDeck')}} {{index+1}}
+                </UBadge>
+                <UCard v-if="deck.length==0">{{t('idea.deckEmpty')}}</UCard>
+                <GameIdeaCard else @loveIdea="loveIdea" v-for="idea in deck" :key="idea.id" 
+                    :deckId= "index" 
+                    :idea="(idea as Idea)" 
+                    :uid="uid" 
+                    disabled
+                    :player="getIPlayer(idea.playerId)"
+                    class="mb-3"/>
+            </UPageList>
+        </UPageGrid>
+    </div>
 </template>
 
 <script setup lang="ts">
-
-    // icons
-    import type { ColsNumbers } from 'bootstrap-vue-next'
-    import CardList from '~icons/bi/card-list'
 
     // const
     const { t } = useI18n()
@@ -77,18 +67,18 @@
   const cols = (max:number, index:number) => {
     let r = max
     if(index<max) r = index
-    return r as ColsNumbers
-  }
-  const modulo = (max:number, index:number) => {
-    let i = index
-    if(index < max) i = index
-    if(index > max ) i = max-(i%index)
-    const r = 12/i
-    return r as ColsNumbers
+    return r
   }
 
-  const getName = (playerId:string) => {
+  const getmdcolumns = computed(() => {
+    return cols(maxMdDecks, props.decksWithIdeas.length)
+  })
+  const getlgcolumns = computed(() => {
+    return cols(maxLgDecks, props.decksWithIdeas.length)
+  })
+  const getIPlayer = (playerId:string) => {
     // console.log("playerId : "+playerId)
-    return getPlayerName(playerId, props.players)
+    return getPlayer(playerId, props.players)
   }
+
 </script>

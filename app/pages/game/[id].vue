@@ -5,50 +5,19 @@
         <GameMenuGame :game="game"  class="mb-3 mt-3"/>
         <GamePlayers :players="players"/>
         <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
-        <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid"/>        
+        <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid"/>
+        <div v-if="ended">
+            <UCard v-if="!showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
+                <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players"/>
+                <template #footer class="text-center" align-h="around">
+                    <UButton @click="valideVotes">{{t('playerGame.validateVotes')}}</UButton>
+                </template>
+            </UCard>
+            <UCard v-else :title="t('adminGame.allIdeas')">
+                <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players" disabled/>
+            </UCard>
+        </div>
     </div>
-    <!-- <BContainer v-if='game' fluid>
-        <BRow  class="mt-3">
-            <BCol>
-                <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
-            </BCol>
-        </BRow>
-        <BRow>
-            <BCol>
-                <BAccordion v-if="notStarted" class="mt-3">
-                    <BAccordionItem :title="getTitle" :model-value="showGameInfo" visible>
-                        <GameAdminGame v-if="!ended" :game="game"/>
-                    </BAccordionItem>
-                </BAccordion>
-            </BCol>
-        </BRow>
-        <BRow>
-            <BCol>
-                <GameMenuGame :game="game" class="mt-3"/>
-            </BCol>
-        </BRow>
-        <BRow>
-            <BCol>
-                <GamePlayers :players="players" class="mt-3 mb-3" />
-            </BCol>
-        </BRow>
-        <BRow>
-            <BCol>
-                <BCard v-if="!isKnowPlayer">{{t('playerGame.notInGame')}}</BCard>
-                <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
-                <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid"/>
-                <BCard v-if="ended && !showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
-                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players"/>
-                    <BCardText class="text-center" align-h="around">
-                        <BButton pill @click="valideVotes">{{t('playerGame.validateVotes')}}</BButton>
-                    </BCardText>
-                </BCard>
-                <BCard v-if="ended && (showGameIdeas || !isKnowPlayer)" :title="t('adminGame.allIdeas')">
-                    <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
-                </BCard>                
-            </BCol>
-        </BRow>
-    </BContainer> -->
 </template>
 
 <script setup lang="ts">
@@ -102,20 +71,9 @@
         return player.value?.loved
     })
 
-    // recup titre
-    const getTitle = computed(() => {
-        if(game.value?.isEnded()) return t('adminGame.gameEnded')
-        if(game.value?.isStarted()) return t('adminGame.gameStarted')
-        if(game.value?.isNotYetStarted()) return t('adminGame.gameNotYetStarted')
-    })
-
     // game ended ?
     const ended = computed(() => {
         return game.value?.isEnded()
-    })
-
-    const notStarted = computed(() => {
-        return game.value?.isNotYetStarted()
     })
 
     // mise à jour du titre du jeu
