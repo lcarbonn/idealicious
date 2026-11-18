@@ -27,7 +27,7 @@ export default defineAppConfig({
     },
     footer: {
       slots: {
-        root: 'fixed pt-1 bottom-0 left-0 right-0 z-40 backdrop-blur bg-default/75 border-t border-default',
+        root: 'pt-1 bottom-0 left-0 right-0 z-40 backdrop-blur bg-default/75 border-t border-default',
         top: 'py-0 lg:py-0',
         container: 'text-xs py-0 lg:py-2 lg:flex lg:items-center lg:justify-between lg:gap-x-3',
       }

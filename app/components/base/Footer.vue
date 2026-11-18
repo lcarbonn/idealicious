@@ -1,30 +1,38 @@
 <template>
-  <UFooter>
+  <div>
+    <!-- pre footer to add weight on 100 vh-->
+    <UFooter>
       <template #top>
-        <USeparator type="dashed" color="primary"
-          :avatar="{
-            src: '/icon-64x64.png'
-        }"/>
+        <p>
+          &nbsp;
+        </p>
       </template>
-      <template #default>
-        <span>Copyright © {{year}} - Agilisé à Toulouse, France - V{{appVersion}}</span>
-      </template>
+    </UFooter>
+    <!-- real footer fixed on bottom-->
+    <UTheme
+      :ui="{
+        footer: {
+            root: 'fixed',
+        },
 
-    <!-- <BRow>
-      <BCol align-h="center" class="text-center">
-        {{$t('copyright')}} - V{{appVersion}}
-      </BCol>
-    </BRow> -->
-    <!-- <BRow>
-      <BCol align-h="center" class="text-center">
-        <BLink class="text-white" to="/mentions-legales">{{$t('legalNotices')}}</BLink>
-      </BCol>
-    </BRow> -->
-  </UFooter>
+      }"
+        >
+      <UFooter>
+        <template #top>
+          <USeparator type="dashed" color="primary"
+            :avatar="{
+              src: '/icon-64x64.png'
+          }"/>
+        </template>
+        <template #default>
+          <span>Copyright © {{year}} - Agilisé à Toulouse, France - V{{appVersion}}</span>
+        </template>
+      </UFooter>
+    </UTheme>
+   </div>
 </template>
 
-<script setup lang="ts">
-
+<script setup>
   const props = defineProps({
     appVersion: {
         type: String,
@@ -33,9 +41,3 @@
   });
   const year = new Date().getFullYear()
 </script>
-
-<style scoped>
-a {
-  text-decoration: none !important;
-}
-</style>
