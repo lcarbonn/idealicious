@@ -2,7 +2,7 @@
     <div class="mt-3">
       <GameTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
       <BCard>
-        <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser.uid" :players="players" disabled/>
+        <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser?.uid" :players="players" disabled/>
       </BCard>
     </div>
 </template>
