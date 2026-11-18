@@ -89,7 +89,7 @@
     // methods
     // ordre is important
     const getLovedClass = () => {
-      if (isMyVote(props.idea)) return "error"
+      if (isMyVote(props.idea)) return "warning"
       if (isMyIdea(props.idea)) return "success"
       if (props.disabled && props.idea && props.idea.loved > 0) return "warning"
       // if (!props.disabled && isLoved.value) return "secondary"

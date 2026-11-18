@@ -20,7 +20,7 @@
                     :deckId= "index" 
                     :idea="(idea as Idea)" 
                     :uid="uid" 
-                    disabled
+                    :disabled="disabled"
                     :player="getIPlayer(idea.playerId)"
                     class="mb-3"/>
             </UPageList>
