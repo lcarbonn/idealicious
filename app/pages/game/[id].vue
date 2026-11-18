@@ -14,7 +14,7 @@
                 </template>
             </UCard>
             <UCard v-else :title="t('adminGame.allIdeas')">
-                <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players" disabled/>
+                <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
             </UCard>
         </div>
     </div>
@@ -34,9 +34,6 @@
 
     const authUser = useAuthUser();
 
-    // local ref
-    const showGameInfo = ref(true)
-
     // stated properties
     const game = useGame()
     const player = usePlayer()
@@ -49,15 +46,19 @@
     onMounted(() => {
         // start listing the game
         listenGame(gameId)
-        // listening to players of the game
-        listenGamePlayer(gameId, authUser.value.uid)
+        // start listing to players in the game
         listenGamePlayers(gameId)
         // start listing the decks and ideas sorted by loves
         listenDecksIdeas(gameId)
         listenDecksIdeasSorted(gameId)
     })
 
-      // computed properties
+    // listening to the player of the game
+    watch(authUser, (newAuthUser)=>{
+        if(newAuthUser) listenGamePlayer(gameId, newAuthUser.uid)
+    })
+
+    // computed properties
     const gameTitle = computed(() => {
         return game.value?.title
     })

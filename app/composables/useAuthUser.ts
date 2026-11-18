@@ -53,15 +53,16 @@ export const signOutUser = () :Promise<void> => {
  * Initialize the authUser listener on auth state change
  */
 export const initUser = () => {
-    const callback = async (auhUser:IAuthUser) => {
+    const callback = (authUser:IAuthUser) => {
       const currentRoute = useRoute().fullPath
-      useAuthUser().value = auhUser
-      getUser(auhUser.uid)
+      // console.log("authUser callback:", authUser)
+      useAuthUser().value = authUser
+      getUser(authUser.uid)
         .then((dbuser) => {
           if(dbuser) {
               useUser().value = dbuser
               if(!dbuser.isAdmin && currentRoute.indexOf('/admin') != -1) {
-                // console.log("auth state change, navigate")
+                // console.log("auth state change, navigate to root if admin request")
                 navigateTo('/')
             }
           }
@@ -70,7 +71,7 @@ export const initUser = () => {
             usePlayer().value = undefined
           }
       })
-      if(auhUser.isAnonymous && currentRoute.indexOf('/admin') != -1) {
+      if(authUser.isAnonymous && currentRoute.indexOf('/admin') != -1) {
         // console.log("auth state change, navigate")
         navigateTo('/')
       }

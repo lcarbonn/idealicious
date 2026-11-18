@@ -16,8 +16,9 @@
   // global states
   const authUser = useAuthUser()
 
-  onMounted(() => {
-    if(authUser.value) getUserGames(authUser.value.uid)
+  // get user's games
+  watch(authUser, (newAuthUser)=>{
+      if(newAuthUser) getUserGames(newAuthUser.uid)
   })
 
   //methods

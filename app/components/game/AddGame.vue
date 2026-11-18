@@ -43,9 +43,6 @@
 
 <script setup lang="ts">
 
-    // icons
-    // import PlusCircleFill from '~icons/bi/plus-circle-fill'
-
     // const
     const { t } = useI18n()
 

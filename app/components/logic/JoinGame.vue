@@ -3,7 +3,6 @@
 
     <div class="text-center">
       <GameJoinGame v-if="showForm" @joinGame="joinGame"/>
-      <!-- <BSpinner v-else variant="primary" label="Spinning"/> -->
     </div>
   
 </template>
@@ -30,9 +29,10 @@
     const authUser = useAuthUser()
     const user = useUser()
 
-    // //get the game
-    onMounted(() => {
-        checkUser(authUser.value.uid)
+
+    // check if user already exists in the game
+    watch(authUser, (newAuthUser)=>{
+        if(newAuthUser) checkUser(newAuthUser.uid)
     })
 
     // emit methods
@@ -52,9 +52,11 @@
         checkGamePlayerJoined(gameId, uid, name)
             .then((player) => {
                 if(player) {
+                    console.log("player already in the game, emit playerJoined ")
                     emit("playerJoined", props.gameId, uid)
                     messageToSnack(t('joinGame.welcomePlayer', {player: player.name}))
                 } else {
+                    console.log("player not known, show form")
                     showForm.value = true
                 }
             })
@@ -70,4 +72,5 @@
             }
         })
     }
+
 </script>
