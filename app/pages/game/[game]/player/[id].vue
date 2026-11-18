@@ -3,16 +3,17 @@
       <GameTitle :title="gameTitle"></GameTitle>
       <GamePlayers :players="players" class="mt-3 mb-2"/>
       <LogicPlayerGame v-if="!ended" :gameId="gameId" :uid="uid"/>
-      <BCard v-if="ended && !showGameIdeas" :title="t('playerGame.ended')">
-          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeas" :players="players"/>
-          <BCardText class="text-center" align-h="around">
-            <BButton pill @click="validateVotes">{{t('playerGame.validateVotes')}}</BButton>
-          </BCardText>
-      </BCard>
-      <BCard v-if="ended && showGameIdeas" :title="t('adminGame.allIdeas')">
-          <ListIdeasChain :gameId="gameId" :uid="uid" :decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
-          <!-- possible add change votes button -->
-      </BCard>                
+      <div v-if="ended">
+          <UCard v-if="!showGameIdeas" :title="t('playerGame.ended')">
+              <ListIdeasChain :gameId="gameId" :uid="uid":decksWithIdeas="decksWithIdeas" :players="players"/>
+              <template #footer class="text-center" align-h="around">
+                  <UButton @click="validateVotes">{{t('playerGame.validateVotes')}}</UButton>
+              </template>
+          </UCard>
+          <UCard v-else :title="t('adminGame.allIdeas')">
+              <ListIdeasChain :gameId="gameId" :uid="uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
+          </UCard>
+      </div>
     </div>
   </template>
 
