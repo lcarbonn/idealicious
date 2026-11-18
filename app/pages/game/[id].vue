@@ -5,7 +5,7 @@
         <GameMenuGame :game="game"  class="mb-3 mt-3"/>
         <GamePlayers :players="players"/>
         <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
-        <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid"/>
+        <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid" class="mt-3"/>
         <div v-if="ended">
             <UCard v-if="!showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
                 <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players"/>
