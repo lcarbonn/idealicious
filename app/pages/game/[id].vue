@@ -48,6 +48,7 @@
         listenGame(gameId)
         // start listing to players in the game
         listenGamePlayers(gameId)
+        if(authUser.value) listenGamePlayer(gameId, authUser.value.uid)
         // start listing the decks and ideas sorted by loves
         listenDecksIdeas(gameId)
         listenDecksIdeasSorted(gameId)

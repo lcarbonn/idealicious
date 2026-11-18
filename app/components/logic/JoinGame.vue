@@ -29,7 +29,9 @@
     const authUser = useAuthUser()
     const user = useUser()
 
-
+    onMounted(() => {
+        if(authUser.value) checkUser(authUser.value.uid)
+    })
     // check if user already exists in the game
     watch(authUser, (newAuthUser)=>{
         if(newAuthUser) checkUser(newAuthUser.uid)
