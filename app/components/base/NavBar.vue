@@ -1,28 +1,41 @@
 <template>
-  <UHeader>
-    <template #title>
-      <UAvatar
-        class="rounded-none"
-        src="/icon-64x64.png"/>Idealicious
-    </template>
+  <div>
+    <UHeader>
+      <template #title>
+        <UAvatar
+          class="rounded-none"
+          src="/icon-64x64.png"/>Idealicious
+      </template>
 
-    <UNavigationMenu
-      :items="items"
-      content-orientation="vertical"/>
-
-    <template #right>
-      <UiLocalePicker size="sm"/>
-      <UiColorModePicker size="sm"/>
-    </template>
-      
-    <template #body>
       <UNavigationMenu
         :items="items"
-        orientation="vertical">
-      </UNavigationMenu>
-    </template>    
+        content-orientation="vertical"/>
 
-  </UHeader>
+      <template #right>
+        <UiLocalePicker size="sm"/>
+        <UiColorModePicker size="sm"/>
+      </template>
+        
+      <template #body>
+        <UNavigationMenu
+          :items="items"
+          orientation="vertical">
+        </UNavigationMenu>
+      </template>    
+
+    </UHeader>
+    <!-- modal for asking reset loves and delete -->
+    <UiSimpleModal
+      :open="modalResetLoves"
+      :title="t('adminGame.resetLovesQuestion')"
+      :description="t('adminGame.resetLovesQuestion')"
+      @on-ok="resetLoves"/>
+    <UiSimpleModal
+      :open="modalDelete"
+      :title="t('gamesList.deleteGameTitle')"
+      :description="t('gamesList.deleteGameMessage')"
+      @on-ok="confirmDelete"/>
+    </div>
 </template>
 <script setup lang="ts">
 
@@ -31,6 +44,8 @@
   // i18N
   const { t } = useI18n()
 
+  const modalResetLoves = ref(new ModalShow())
+  const modalDelete = ref(new ModalShow())
 
   // global states
   const authUser = useAuthUser()
@@ -87,7 +102,7 @@
 
     // ask before reset loves
     const askResetLoves = () => {
-      // modalResteLoves.value = true
+      modalResetLoves.value.show = !modalResetLoves.value.show
     }
 
     // reset loves
@@ -113,7 +128,7 @@
 
     // methodes
     const askDeleteGame = () => {
-      // modalDelete.value = true
+      modalDelete.value.show = !modalDelete.value.show
     }
     const confirmDelete = () => {
       if(game?.value) {
