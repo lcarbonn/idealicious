@@ -8,7 +8,7 @@
         :fields="fields"
         @submit="onSubmit">
         <template #password-hint>
-          <ULink class="text-primary font-medium" tabindex="-1" to="/login/reset-password" target="_blank">{{t('login.lostPassword')}}</ULink>
+          <ULink class="text-primary font-medium" tabindex="-1" to="/login/reset-password">{{t('login.lostPassword')}}</ULink>
         </template>
       </UAuthForm>
     </UPageCard>
@@ -18,14 +18,8 @@
 
   import * as z from 'zod'
   import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
-    // i18N
-    const { t } = useI18n()
-
-
-  const config = useRuntimeConfig()
-  const baseUrl = computed(() => {
-    return config.public.baseUrl
-  })
+  // i18N
+  const { t } = useI18n()
 
   const fields: AuthFormField[] = [{
     name: 'email',

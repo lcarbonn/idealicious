@@ -1,43 +1,46 @@
 <template>
-    <BContainer>
-        <BCard class="text-center">
-            <BCardText>
-                <BForm class="my-1" @submit="onSubmit">
-                    <span class="my-1">{{t('login.signupTitle')}}</span>
-                    <BFormInput class="my-1"
-                        v-model="form.email"
-                        type="text"
-                        :placeholder="t('login.emailPlaceHolder')"
-                        :state="emailState"/>
+    <UCard class="text-center">
+        <template #title>
+            <span>{{t('login.signupTitle')}}</span>
+        </template>
+        <UForm @submit="onSubmit" class="space-y-4">
+            <UFormField :label="t('login.emailPlaceHolder')" :error="!emailState">
+                <UInput
+                    v-model="form.email"
+                    type="text"
+                    :placeholder="t('login.emailPlaceHolder')"/>
+            </UFormField>
 
-                        <BFormInput class="my-1"
-                        v-model="form.name"
-                        type="text"
-                        maxlength="10" trim
-                        :placeholder="t('login.namePlaceHolder')"
-                        :state="nameState"/>
+            <UFormField :label="t('login.namePlaceHolder')" :error="!nameState">
+                <UInput
+                    v-model="form.name"
+                    type="text"
+                    maxlength="10" trim
+                    :placeholder="t('login.namePlaceHolder')"/>
+            </UFormField>
 
-                    <BFormInput class="my-1" 
-                        v-model="form.password"
-                        type="password"
-                        :placeholder="t('login.passwordPlaceHolder')"
-                        :state="passwordState" />
+            <UFormField :label="t('login.passwordPlaceHolder')" :error="!passwordState">
+                <UInput
+                    v-model="form.password"
+                    type="password"
+                    :placeholder="t('login.passwordPlaceHolder')"/>
+            </UFormField>
 
-                    <BFormInput class="my-1" 
-                        v-model="form.passwordCheck"
-                        type="password"
-                        :placeholder="t('login.signupPasswordConfirmPlaceHolder')"
-                        :state="passwordCheckState" />
+            <UFormField :label="t('login.signupPasswordConfirmPlaceHolder')" :error="!passwordCheckState">
+                <UInput
+                    v-model="form.passwordCheck"
+                    type="password"
+                    :placeholder="t('login.signupPasswordConfirmPlaceHolder')"/>
+            </UFormField>
 
-                    <BButton pill class="my-1"
-                        block
-                        :disabled="disabledButton" 
-                        type="submit">{{t('login.signupSignup')}}</BButton>
-                </BForm>
-            </BCardText>
-            <p>{{t('login.signupBacktoLoginStart')}}<nuxt-link to="/login">{{t('login.signupBacktoLoginEnd')}}</nuxt-link>.</p>
-        </BCard>
-    </BContainer>
+            <UButton 
+                :disabled="disabledButton" 
+                type="submit">{{t('login.signupSignup')}}</UButton>
+        </UForm>
+        <template #footer>
+            <span>{{t('login.signupBacktoLoginStart')}}<nuxt-link to="/login">{{t('login.signupBacktoLoginEnd')}}</nuxt-link></span>
+        </template>
+    </UCard>
 </template>
 
 <script setup>
@@ -95,8 +98,3 @@
     }
 
 </script>
-<style scoped>
-    a {
-    text-decoration: none !important;
-    }
-</style>
