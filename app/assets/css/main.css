@@ -36,14 +36,64 @@
   --color-brand-info-800: #363b3f;
   --color-brand-info-900: #232629;
   --color-brand-info-950: #181a1b;
-  --color-postit0: #cdfc93;
-  --color-postit1: #fff68b;
-  --color-postit2: #71d7ff;
-  --color-postit3: #ff7ecd;
-  --color-postit4: #ce81ff;
+  --color-postit0-50: #f8faf5;
+  --color-postit0-100: #f0f7e8;
+  --color-postit0-200: #def3c4;
+  --color-postit0-300: #c9f495;
+  --color-postit0-400: #b0f65a;
+  --color-postit0-500: #98f920;
+  --color-postit0-600: #7edf06;
+  --color-postit0-700: #67b30a;
+  --color-postit0-800: #4b7f0a;
+  --color-postit0-900: #375c0a;
+  --color-postit0-950: #213607;
+  --color-postit1-50: #faf9f5;
+  --color-postit1-100: #f7f6e8;
+  --color-postit1-200: #f4f0c2;
+  --color-postit1-300: #f6ee92;
+  --color-postit1-400: #fbee56;
+  --color-postit1-500: #ffed1a;
+  --color-postit1-600: #e6d400;
+  --color-postit1-700: #b8aa05;
+  --color-postit1-800: #837907;
+  --color-postit1-900: #5e5808;
+  --color-postit1-950: #373306;
+  --color-postit2-50: #f5f8fa;
+  --color-postit2-100: #e8f3f7;
+  --color-postit2-200: #c2e6f4;
+  --color-postit2-300: #92daf6;
+  --color-postit2-400: #56ccfb;
+  --color-postit2-500: #1abeff;
+  --color-postit2-600: #00a5e6;
+  --color-postit2-700: #0585b8;
+  --color-postit2-800: #076083;
+  --color-postit2-900: #08465e;
+  --color-postit2-950: #062937;
+  --color-postit3-50: #faf5f8;
+  --color-postit3-100: #f7e8f1;
+  --color-postit3-200: #f4c2e1;
+  --color-postit3-300: #f692d0;
+  --color-postit3-400: #fb56bb;
+  --color-postit3-500: #ff1aa6;
+  --color-postit3-600: #e6008d;
+  --color-postit3-700: #b80572;
+  --color-postit3-800: #830753;
+  --color-postit3-900: #5e083d;
+  --color-postit3-950: #370624;
+  --color-postit4-50: #f8f5fa;
+  --color-postit4-100: #f1e8f7;
+  --color-postit4-200: #e1c2f4;
+  --color-postit4-300: #cf92f6;
+  --color-postit4-400: #bb56fb;
+  --color-postit4-500: #a61aff;
+  --color-postit4-600: #8c00e6;
+  --color-postit4-700: #7205b8;
+  --color-postit4-800: #530783;
+  --color-postit4-900: #3d085e;
+  --color-postit4-950: #240637;
 }
 
-:root, .light {
+/* :root, .light {
   --ui-bg: var(--ui-color-neutral-50);
   --ui-bg-muted: var(--ui-color-neutral-100);
   --ui-text-inverted: var(--ui-color-neutral-50);
@@ -56,4 +106,4 @@
   --ui-bg: var(--ui-color-neutral-900);
   --ui-bg-muted: var(--ui-color-neutral-800);
   --ui-text-inverted: var(--ui-color-neutral-900);
-}
+} */

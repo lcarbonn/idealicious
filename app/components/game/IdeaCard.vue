@@ -1,10 +1,6 @@
 <!-- Idea page -->
 <template>
-    <UCard v-if="idea" class="shadow-xl" :class="bgColor" :title="idea.message"
-        :ui= "{
-            title: 'text-neutral-900'
-        }"
-        >
+    <UCard v-if="idea" :class="[getColor(props.deckId),'shadow-xl']" :title="idea.message">
       <UPageColumns
         :ui= "{
             base: 'relative columns-2 md:columns-2 lg:columns-2 gap-8'
@@ -80,9 +76,9 @@
     })
 
     // computed props
-    const bgColor = computed(() =>{
-      return getColor(props.deckId)
-    })
+    // const bgColor = computed(() =>
+    //   getColor(props.deckId)
+    // )
 
     // methods
     const isMyVote = (idea:IIdea|undefined) => {

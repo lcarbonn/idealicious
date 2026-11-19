@@ -18,14 +18,14 @@ export const convertToCSV = (separator:string, ideas:IIdea[][], players:IPlayer[
     let str = ''
     for (var i = 0; i < ideas.length; i++) {
         const deck = ideas[i]
-        for (var j = 0; j < deck.length; j++) {
+        if (deck)for (var j = 0; j < deck.length; j++) {
             let line = ''
             const idea = deck[j]
             // line += idea.deckId + comma
             line += i + comma
-            line += "\"" + idea.message.trim().replace(/\"/g, "\"\"") + "\"" + comma
-            line += idea.loved + comma
-            line += convertPlayers(separator, idea.lovingPlayers, players)
+            line += "\"" + idea?.message.trim().replace(/\"/g, "\"\"") + "\"" + comma
+            line += idea?.loved + comma
+            if(idea) line += convertPlayers(separator, idea.lovingPlayers, players)
             str += line + '\r\n'
         }
     }
@@ -58,9 +58,33 @@ export const dateFormatter = (date:unknown) => {
     return d.toLocaleDateString() +" "+ d.toLocaleTimeString()
 }
 
+const getBgColor = (id:number) => {
+    let color = 'bg-postit0-400'
+    switch (id) {
+        case 0:
+            color = 'bg-postit0-400'
+            break;
+        case 1:
+            color = 'bg-postit1-400'
+            break;
+        case 2:
+            color = 'bg-postit2-400'
+            break;
+        case 3:
+            color = 'bg-postit3-400'
+            break;
+        case 4:
+            color = 'bg-postit4-400'
+            break;
+        default:
+            color = 'bg-postit0-400'
+            break;
+    }
+    return color
+}
+
 export const  getColor = (id:number) => {
     const color = id % 5
-    const bgColor = "bg-postit"+color
-    console.log("bg color:", id, bgColor)
+    const bgColor = getBgColor(color)
     return bgColor
 }
