@@ -3,7 +3,8 @@
     <UTable
       sticky
       :data="games"
-      :columns="columns">
+      :columns="columns"
+      :empty="t('gamesList.empty')">
       <template #action-cell="{ row }">
         <ListGameButton
           :row="row"
@@ -12,18 +13,18 @@
           @ask-for-delete-game="askForDeleteGame"
           />
       </template>
-    <template #expanded="{ row }">
-        <UPageGrid v-if="row.original.user">
-          <span class="text-sm-right"><b>Owner:</b></span>
-          <span>{{ (row.original.user as IUser).email }}</span>
-        </UPageGrid>
-        <UFormField label="Started:">
-          <USwitch v-model="(row.original as IGame).started" switch disabled/>
-        </UFormField>
-        <UFormField label="Ended:">
-          <USwitch v-model="(row.original as IGame).ended" switch disabled/>
-        </UFormField>
-    </template>      
+      <template #expanded="{ row }">
+          <UPageGrid v-if="row.original.user">
+            <span class="text-sm-right"><b>Owner:</b></span>
+            <span>{{ (row.original.user as IUser).email }}</span>
+          </UPageGrid>
+          <UFormField label="Started:">
+            <USwitch v-model="(row.original as IGame).started" switch disabled/>
+          </UFormField>
+          <UFormField label="Ended:">
+            <USwitch v-model="(row.original as IGame).ended" switch disabled/>
+          </UFormField>
+      </template>      
     </UTable>
     <UiSimpleModal
       :open="modalDeleteLigne"

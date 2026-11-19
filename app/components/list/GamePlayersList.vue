@@ -1,71 +1,56 @@
 <template>
-  <div>
-    <BTable
-      striped
-      hover
-      stacked="md"
-      :fields="fields"
-      :items="players"
-      show-empty
-      :empty-text="t('playersList.empty')"
-    >
-      <template v-if="isAdmin" #cell(user.email)="data">
-        <span v-if="data.value">{{data.value}}</span>
-        <span v-else>Anonyme</span>
-      </template>
-    </BTable>
-  </div>
+  <UTable
+    sticky
+    :data="players"
+    :columns="columns"
+    :empty="t('playersList.empty')">
+  </UTable>
 </template>
 
 <script setup lang="ts">
-import type { TableFieldRaw } from 'bootstrap-vue-next'
+  import type { TableColumn } from '@nuxt/ui';
 
+  // for lang
+  const { t } = useI18n()
 
-    // for lang
-    const { t } = useI18n()
+  // props
+  const props = defineProps({
+      isAdmin: {
+          type: Boolean,
+          default: false
+      },
+      players: {
+          type: Array<IPlayer>,
+          default: undefined
+      },
+  })
 
-    // props
-    const props = defineProps({
-        isAdmin: {
-            type: Boolean,
-            default: false
-        },
-        players: {
-            type: Array<IPlayer>,
-            default: undefined
-        },
-    })
-
-    // const fields for table
-    let fields:TableFieldRaw<IPlayer>[] = []
-    fields.push (
-      {
-          key: 'name',
-          label: t('playersList.table.name'),
-          sortable: true,
-        },
-    )
-    if (props.isAdmin) {
-      fields.push (
-        {
-            key: 'user.email',
-            label: t('playersList.table.email'),
-            sortable: true
-          },
-      )
+  // properties of the players table
+  const columns: TableColumn<IPlayer>[] = [
+    {
+      accessorKey: 'name',
+      header: t('playersList.table.name')
+    },
+    {
+      accessorKey: 'playerId',
+      header: t('playersList.table.playerId'),
+    },
+    {
+      accessorKey: 'round',
+      header: t('playersList.table.round'),
     }
-    fields.push (
+  ]
+  // ajouter email du joueur si user est admin
+  if(props.isAdmin) {
+    columns.splice(1,0,
       {
-          key: 'playerId',
-          label: t('playersList.table.playerId'),
-          sortable: true
-        },
+        accessorKey: 'user.email',
+        header: t('playersList.table.email'),
+        cell: ({ row }) => {
+          if(row.original.user?.email) return row.original.user.email
+          else return "Anonyme"
+        }
+      }
     )
-    fields.push (
-      {
-          key: 'round',
-          label: t('playersList.table.round'),
-          sortable: false,
-        },
-    )
+  }
 </script>

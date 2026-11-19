@@ -1,9 +1,9 @@
 <template>
     <div class="mt-3">
       <GameTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
-      <BCard>
+      <UCard>
         <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser?.uid" :players="players" disabled/>
-      </BCard>
+      </UCard>
     </div>
 </template>
 <script setup lang="ts">
