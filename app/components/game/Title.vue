@@ -1,13 +1,13 @@
 <template>
   <div>
-      <UCard class="mt-3 mb-3">
+      <UPageCard class="mt-3 mb-3 text-inverted bg-primary">
         <template #title>
           <ULink
                 v-if="link"
-                  :to="link" variant="light" class="nodecoLink">{{title}}</ULink>
+                  :to="link" variant="light" class="text-inverted">{{title}}</ULink>
           <span v-else>{{title}}</span>
         </template>
-      </UCard>
+      </UPageCard>
   </div>
 </template>
 
@@ -24,8 +24,3 @@
   });
 
 </script>
-<style scoped>
-.nodecoLink {
-  text-decoration: none !important;
-}
-</style>

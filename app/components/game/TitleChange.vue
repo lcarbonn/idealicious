@@ -1,9 +1,9 @@
 <template>
   <div>
       <UTooltip :text="t('adminGame.titleTooltip')">
-        <UCard class="mt-3 mb-3">
-          <template #header>
-            <ULink v-if="!changeAsked" @click="changeName()"><b>{{title}}</b></ULink>
+        <UCard class="bg-primary mb-3 mt-3">
+          <template #title>
+            <ULink v-if="!changeAsked" @click="changeName()"><b class="text-white">{{title}}</b></ULink>
             <UFormField v-else required :error="gameState">
               <UInput
                 id="gameTitle" 

@@ -1,9 +1,10 @@
 <!-- Idea page -->
 <template>
-    <UCard v-if="idea" class="shadow-xl" :class="bgColor">
-      <template #title>
-            {{idea.message}}
-      </template>
+    <UCard v-if="idea" class="shadow-xl" :class="bgColor" :title="idea.message"
+        :ui= "{
+            title: 'text-neutral-900'
+        }"
+        >
       <UPageColumns
         :ui= "{
             base: 'relative columns-2 md:columns-2 lg:columns-2 gap-8'

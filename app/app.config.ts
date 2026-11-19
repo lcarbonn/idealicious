@@ -7,6 +7,7 @@ export default defineAppConfig({
       primary: 'brand',
       secondary: 'brand-sec',
       info: 'brand-info',
+      neutral: 'slate',
       postit0: 'postit0',
       postit1: 'postit1',
       postit2: 'postit2',
@@ -42,25 +43,5 @@ export default defineAppConfig({
         tr: 'even:bg-primary-50 dark:even:bg-primary-800/50 hover:bg-primary-100 dark:hover:bg-primary-700/50'
       }
     },
-    // formField: {
-    //   defaultVariants: {
-    //     size: 'sm'
-    //   }
-    // },
-    // input: {
-    //   defaultVariants: {
-    //     size: 'sm'
-    //   }
-    // },
-    // inputDate: {
-    //   defaultVariants: {
-    //     size: 'sm'
-    //   }
-    // },
-    // select: {
-    //   defaultVariants: {
-    //     size: 'sm'
-    //   }
-    // }
   }
 })

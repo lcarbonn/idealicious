@@ -6,8 +6,11 @@
       >
       <template #avatar>
         <UAvatar 
-          icon="streamline-color:user-circle-single-flat"
-          :color="color"/>
+          icon="noto:person-medium-light-skin-tone-blond-hair"
+          :color="color"
+          :ui="{
+            icon: 'h-full w-full rounded-[inherit] object-cover'            
+          }"/>
       </template>
       </UUser>
 </template>

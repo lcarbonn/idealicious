@@ -1,6 +1,6 @@
 <!-- Game page -->
 <template>
-  <UCard style="border-radius: 1.25rem;">
+  <UCard>
         <UFormField :label="t('addGame.label')" required :error="gameState">
           <UInput id="gameTitle"
             v-model="gameTitle" 

@@ -1,12 +1,9 @@
 <template>
-    <UPageCard>
-        <template #header>
-            {{ nbPlayers }}
-        </template>
-    <UPageColumns>
-        <GamePlayer v-for="player in players" :player="player" :uid="authUser.uid"/>
-    </UPageColumns>
-    </UPageCard>
+    <UCard :title="nbPlayers">
+        <UPageColumns>
+            <GamePlayer v-for="player in players" :player="player" :uid="authUser.uid"/>
+        </UPageColumns>
+    </UCard>
 </template>
 <script setup lang="ts">
 

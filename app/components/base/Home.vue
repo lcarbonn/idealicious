@@ -1,5 +1,5 @@
 <template>
-  <UPageCard :title="t('home.welcome')" style="border-radius: 1.25rem;"  class="text-white bg-primary mb-3">
+  <UPageCard :title="t('home.welcome')" class="text-white bg-primary mb-3">
     <template #footer>
       <UAvatar color="primary" size="lg" rounded src="/icon.png"></UAvatar>
       {{t('home.welcome2')}}
