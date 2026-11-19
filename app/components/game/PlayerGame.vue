@@ -5,10 +5,10 @@
     <BaseTimer v-if="deckReceived" :max="maxTime" :restart="restart" @timer-completed="timerCompleted"></BaseTimer>
 
     <!-- Card for the previous idea -->
-    <UCard v-if="round>0 && !deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+    <UCard v-if="round>0 && !deckReceived" :class="bgColor" class="mt-3" text-variant="dark">
         {{t('playerGame.waitingIdea', {player: previousPlayerName})}}
     </UCard>
-    <UCard v-if="round>0 && deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+    <UCard v-if="round>0 && deckReceived" :class="bgColor" class="mt-3" text-variant="dark">
       <template #default  v-if="lastIdea?.message">
         <UFormField :label="t('playerGame.previousIdea', {player: previousPlayerName})">
           <UInput id="lastIdea" disabled v-model="lastIdea.message"></UInput>
@@ -20,7 +20,7 @@
     </UCard>
 
     <!-- Card for player idea -->
-    <UCard v-if="deckReceived" :class="getColor(deckId)" class="mt-3" text-variant="dark">
+    <UCard v-if="deckReceived" :class="bgColor" class="mt-3" text-variant="dark">
       <template #default>
         <UFormField :label="getLabel">
           <UInput autofocus v-model="newIdea" @keydown.enter="addNewIdea"
@@ -77,6 +77,11 @@
         type:String,
         default: ""
       }
+    })
+
+    // computed props
+    const bgColor = computed(() =>{
+      return getColor(props.deckId)
     })
 
     const deckReceived = computed(() => {

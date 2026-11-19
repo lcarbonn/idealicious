@@ -59,7 +59,7 @@
       })
     })
 
-    // computed
+    // computed    
     const started = computed(() => {
         return game?.value?.isStarted()
     })
