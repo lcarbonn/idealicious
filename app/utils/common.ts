@@ -60,5 +60,7 @@ export const dateFormatter = (date:unknown) => {
 
 export const  getColor = (id:number) => {
     const color = id % 5
-    return "bg-postit"+color
+    const bgColor = "bg-postit"+color
+    console.log("bg color:", id, bgColor)
+    return bgColor
 }

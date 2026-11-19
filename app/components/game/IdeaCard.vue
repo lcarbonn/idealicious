@@ -1,6 +1,6 @@
 <!-- Idea page -->
 <template>
-    <UCard v-if="idea" class="mb-1 shadow-sm" :class="getColor(deckId)">
+    <UCard v-if="idea" class="shadow-xl" :class="bgColor">
       <template #title>
             {{idea.message}}
       </template>
@@ -76,6 +76,11 @@
         if (newIdea?.loved == 0) {
             isLoved.value = false
         }
+    })
+
+    // computed props
+    const bgColor = computed(() =>{
+      return getColor(props.deckId)
     })
 
     // methods

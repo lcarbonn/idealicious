@@ -6,7 +6,12 @@ export default defineAppConfig({
     colors: {
       primary: 'brand',
       secondary: 'brand-sec',
-      info: 'brand-info'
+      info: 'brand-info',
+      postit0: 'postit0',
+      postit1: 'postit1',
+      postit2: 'postit2',
+      postit3: 'postit3',
+      postit4: 'postit4',
     },
     pageCard: {
       slots: {
