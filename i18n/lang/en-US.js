@@ -99,7 +99,7 @@ export default {
         userDeleted: "User deleted",
         deleteUserTitle: "Delete the user",
         deleteUserMessage: "R U sure ?",
-        deleteUserConfirmed: "Bye bye user",
+        deleteUserConfirmed: "Bye bye user, take care, user is not really deleted in auth database. Must be done manually",
 
         table: {
             name: "Name",

@@ -99,7 +99,7 @@ export default {
         userDeleted: "Utilisateur supprimé",
         deleteUserTitle: "Supprimer l'utilisateur",
         deleteUserMessage: "Vraiment ?",
-        deleteUserConfirmed: "Bye bye",
+        deleteUserConfirmed: "Bye bye, attention l'utilisateur n'est pas réellement supprimé dans la base auth. Doit être fait à la main",
         table: {
             name: "Nom",
             email: "Email",
