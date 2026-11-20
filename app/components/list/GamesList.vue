@@ -6,7 +6,7 @@
       :columns="columns"
       :empty="t('gamesList.empty')">
       <template #action-cell="{ row }">
-        <ListGameButton
+        <ListGameButtons
           :row="row"
           :isAdmin="isAdmin"
           @expand-game="expandGame"
@@ -14,16 +14,18 @@
           />
       </template>
       <template #expanded="{ row }">
-          <UPageGrid v-if="row.original.user">
-            <span class="text-sm-right"><b>Owner:</b></span>
+          <UPageGrid v-if="row.original.user" class="mb-1">
+            <span><b>Owner:</b></span>
             <span>{{ (row.original.user as IUser).email }}</span>
           </UPageGrid>
-          <UFormField label="Started:">
-            <USwitch v-model="(row.original as IGame).started" switch disabled/>
-          </UFormField>
-          <UFormField label="Ended:">
-            <USwitch v-model="(row.original as IGame).ended" switch disabled/>
-          </UFormField>
+          <UPageGrid class="mb-1">
+            <span><b>Started:</b></span>
+            <USwitch v-model="(row.original as IGame).started" disabled/>
+          </UPageGrid>
+          <UPageGrid>
+            <span><b>Ended:</b></span>
+            <USwitch v-model="(row.original as IGame).ended" disabled/>
+          </UPageGrid>
       </template>      
     </UTable>
     <UiSimpleModal

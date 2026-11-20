@@ -5,7 +5,7 @@
       :data="users"
       :columns="columns">
       <template #isAdmin-cell="{ row }">
-        <USwitch v-model="(row.original as IUser).isAdmin" switch @click="changeIsAdmin(row.original)"/>
+        <USwitch v-model="(row.original as IUser).isAdmin" @click="changeIsAdmin(row.original)"/>
       </template>
       <template #action-cell="{ row }">
         <UTooltip :text="t('usersList.delete')">
