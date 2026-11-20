@@ -230,6 +230,7 @@
     if(!isConnected.value  || isAnonymous.value) {
       items.push(
         {
+          label: t('navbar.login')+' / '+t('navbar.signup'),
           icon:"streamline-color:user-circle-single-flat",
           children: [
             {
