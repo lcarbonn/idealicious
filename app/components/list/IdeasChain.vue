@@ -1,7 +1,6 @@
 <!-- Ideas chain page -->
 <template>
     <div>
-        <span>{{getlgcolumns}}</span>
         <UCard v-if="decksWithIdeas.length==0">{{t('idea.chainEmpty')}}</UCard>
         <UPageGrid v-else
             :ui= "{
