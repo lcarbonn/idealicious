@@ -1,5 +1,5 @@
 export default {
-    copyright: "Copyright © 2026 - Agilized in Toulouse, France",
+    copyright: "Copyright © {year} - Agilized in Toulouse, France - V{appVersion}",
     game: 'Game',
     player: 'Player',
     exportSeparator: ',',

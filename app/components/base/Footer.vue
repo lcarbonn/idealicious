@@ -25,7 +25,7 @@
           }"/>
         </template>
         <template #default>
-          <span>Copyright © {{year}} - Agilisé à Toulouse, France - V{{appVersion}}</span>
+          <span>{{t('copyright', { year, appVersion})}}</span>
         </template>
       </UFooter>
     </UTheme>
@@ -33,6 +33,9 @@
 </template>
 
 <script setup>
+  // for lang
+  const { t } = useI18n()
+
   const props = defineProps({
     appVersion: {
         type: String,
