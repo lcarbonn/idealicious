@@ -40,8 +40,8 @@ import type { TableColumn } from '@nuxt/ui';
         },
     })
 
-  // properties of the games table
-  const columns: TableColumn<IUser>[] = [
+  // properties of the users table
+  const columns = computed<TableColumn<IUser>[]>(() => [
     {
       accessorKey: 'name',
       header: t('usersList.table.name')
@@ -69,9 +69,10 @@ import type { TableColumn } from '@nuxt/ui';
       }
     },
     {
-      id: 'action'
+      id: 'action',
+      header: 'Actions',      
     }
-  ]
+  ])
 
   // emits declaration
   const emit = defineEmits(['deleteUser', 'changeIsAdmin'])

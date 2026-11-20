@@ -116,7 +116,7 @@ export default {
             name: "Name",
             email: "Email",
             playerId: "Player Id",
-            round: "Nb Round",
+            round: "Rounds",
         }
     },
     navbar: {

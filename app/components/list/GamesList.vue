@@ -57,7 +57,7 @@
     })
 
   // properties of the games table
-  const columns: TableColumn<IGame>[] = [
+  const columns = computed<TableColumn<IGame>[]>(() => [
     {
       accessorKey: 'title',
       header: t('gamesList.table.title')
@@ -77,12 +77,13 @@
       }
     },
     {
-      id: 'action'
+      id: 'action',
+      header: 'Actions',      
     }
-  ]
+  ])
   // ajouter nom de l'animateur si user est admin
   if(props.isAdmin) {
-    columns.splice(1,0,
+    columns.value.splice(1,0,
       {
         accessorKey: 'name',
         header: t('gamesList.table.user'),
@@ -92,12 +93,6 @@
       }
     )
   }
-
-  // computed props
-  const path = computed(() => {
-      if (props.isAdmin) return "/admin"
-      else return "/games"
-  })
 
   // emits declaration
   const emit = defineEmits(['deleteGame'])

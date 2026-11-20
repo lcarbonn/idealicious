@@ -26,7 +26,7 @@
   })
 
   // properties of the players table
-  const columns: TableColumn<IPlayer>[] = [
+  const columns = computed<TableColumn<IPlayer>[]>(() => [
     {
       accessorKey: 'name',
       header: t('playersList.table.name')
@@ -39,10 +39,11 @@
       accessorKey: 'round',
       header: t('playersList.table.round'),
     }
-  ]
+  ])
+
   // ajouter email du joueur si user est admin
   if(props.isAdmin) {
-    columns.splice(1,0,
+    columns.value.splice(1,0,
       {
         accessorKey: 'user.email',
         header: t('playersList.table.email'),
