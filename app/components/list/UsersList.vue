@@ -5,9 +5,7 @@
       :data="users"
       :columns="columns">
       <template #isAdmin-cell="{ row }">
-        <UFormField label="Started:">
-          <USwitch v-model="(row.original as IUser).isAdmin" switch @click="changeIsAdmin(row.original)"/>
-        </UFormField>
+        <USwitch v-model="(row.original as IUser).isAdmin" switch @click="changeIsAdmin(row.original)"/>
       </template>
       <template #action-cell="{ row }">
         <UTooltip :text="t('usersList.delete')">
@@ -55,10 +53,6 @@ import type { TableColumn } from '@nuxt/ui';
     {
       accessorKey: 'isAdmin',
       header: t('usersList.table.isAdmin'),
-    },
-    {
-      accessorKey: 'email',
-      header: t('usersList.table.email'),
     },
     {
       accessorKey: 'createdAt',
