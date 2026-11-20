@@ -115,7 +115,7 @@ export default {
             name: "Nom",
             email: "Email",
             playerId: "N° du joueur",
-            round: "Nb Tour",
+            round: "Nb Tours",
         }
     },
     navbar: {
