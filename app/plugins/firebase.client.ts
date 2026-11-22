@@ -15,13 +15,12 @@ export default defineNuxtPlugin(nuxtApp => {
         measurementId: config.public.FIREBASE_MEASUREMENT_ID
     }
     const app = initializeApp(firebaseConfig)
-    const db = getFirestore()
-    const auth = getAuth()
+    const db = getFirestore(app)
+    const auth = getAuth(app)
 
     initUser()
-    
 
-    nuxtApp.vueApp.provide('auth', auth)
+    // nuxtApp.vueApp.provide('auth', auth)
     nuxtApp.provide('auth', auth)
     nuxtApp.provide('db', db)
 

@@ -9,13 +9,18 @@
 <script setup lang="ts">
 
     const gameId:string = useRoute().params.id as string
+    const authUser = useAuthUser();
 
     // stated properties
     const game = useGame()
 
     //get the game
     onMounted(() => {
-        getGame(gameId)
+        if(authUser.value) getGame(gameId)
+    })
+    // listening to the player of the game
+    watch(authUser, (newAuthUser)=>{
+        if(newAuthUser) getGame(gameId)
     })
 
     const playerJoined = (gameId:string, playerUid:string) => {

@@ -74,21 +74,23 @@ export const signOutUserFirebase = () :Promise<void> => {
  */
 export const initUserFirebase = (callback:any) => {
   const auth = getAuth()
-  onAuthStateChanged(auth, (user) => {
-    console.log("onAuthStateChanged user:"+user)
-    if (user) {
-      // console.log("onAuthStateChanged signing user:", user)
-      useFirebaseUser().value = user
-      const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
-      callback(authUser)
-    } else {
-      //if signed out sign in anonymous
-      // console.log("onAuthStateChanged signing anonymous")
-      signInAnonymousFirebase().then((authUser)=>{
-        if(authUser) callback(authUser)
-      })
-    }
-  })
+  if (import.meta.client) {
+    onAuthStateChanged(auth, (user) => {
+      console.log("onAuthStateChanged user:"+user)
+      if (user) {
+        // console.log("onAuthStateChanged signing user:", user)
+        useFirebaseUser().value = user
+        const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
+        callback(authUser)
+      } else {
+        //if signed out sign in anonymous
+        // console.log("onAuthStateChanged signing anonymous")
+        signInAnonymousFirebase().then((authUser)=>{
+          if(authUser) callback(authUser)
+        })
+      }
+    })
+  }
 }
 
 /**
