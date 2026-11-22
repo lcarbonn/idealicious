@@ -13,7 +13,7 @@
                     <UButton @click="valideVotes">{{t('playerGame.validateVotes')}}</UButton>
                 </template>
             </UCard>
-            <UCard v-else :title="t('adminGame.allIdeas')">
+            <UCard v-else :title="t('adminGame.allIdeas')" fluid class="text-center">
                 <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeasSorted" :players="players" disabled/>
             </UCard>
         </div>
