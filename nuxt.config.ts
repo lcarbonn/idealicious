@@ -91,7 +91,6 @@ export default defineNuxtConfig({
 
   i18n: {
     /* module options */
-    lazy: true,
     langDir: './lang/',
     strategy: 'no_prefix',
     defaultLocale: 'fr',
@@ -106,10 +105,7 @@ export default defineNuxtConfig({
         file: 'fr-FR.js',
         name:'Français'
       }
-    ],
-    bundle: {
-      optimizeTranslationDirective: false,
-    },    
+    ]
   },
 
   runtimeConfig: {
