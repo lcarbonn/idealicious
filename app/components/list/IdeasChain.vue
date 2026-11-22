@@ -4,7 +4,7 @@
         <UCard v-if="decksWithIdeas.length==0">{{t('idea.chainEmpty')}}</UCard>
         <UPageGrid v-else
             :ui= "{
-                base: 'relative grid grid-cols-1 md:grid-cols-'+getmdcolumns+' lg:grid-cols-'+getlgcolumns+' gap-8'
+                base: 'relative grid grid-cols-2 md:grid-cols-'+getmdcolumns+' lg:grid-cols-'+getlgcolumns+' gap-8'
             }"
             >
             <UPageList v-for="(deck, index) in decksWithIdeas">
