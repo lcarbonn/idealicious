@@ -2,7 +2,7 @@
     <UCard text-variant="danger">
         <template #default class="text-center" align-h="around">
             <span>Il vous reste {{timerDisplay}} secondes</span>
-            <UButton @click="restartTimer">Restart</UButton>
+            <!-- <UButton @click="restartTimer">Restart</UButton> -->
         </template>
     </UCard>
 </template>
