@@ -7,9 +7,9 @@
         <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
         <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid" class="mt-3"/>
         <div v-if="ended">
-            <UCard v-if="!showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')">
+            <UCard v-if="!showGameIdeas && isKnowPlayer" :title="t('playerGame.ended')" fluid class="text-center">
                 <ListIdeasChain :gameId="gameId" :uid="authUser.uid":decksWithIdeas="decksWithIdeas" :players="players"/>
-                <template #footer class="text-center" align-h="around">
+                <template #footer>
                     <UButton @click="valideVotes">{{t('playerGame.validateVotes')}}</UButton>
                 </template>
             </UCard>
