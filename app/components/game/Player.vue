@@ -5,9 +5,12 @@
       class="items-center"
       >
       <template #avatar>
-        <UAvatar 
+        <UAvatar
           icon="noto:person-medium-light-skin-tone-blond-hair"
-          :color="color"
+          :chip="color?{
+            color: color,
+            position: 'top-right'
+          }:false"
           :ui="{
             icon: 'h-full w-full rounded-[inherit] object-cover'            
           }"/>
@@ -23,7 +26,7 @@
   const props = defineProps<Props>()    
 
   const color = computed(() => {
-      return (props.uid == props.player.uid)?"success":"neutral"
+      return (props.uid == props.player.uid)?"success":false
   })
 
 </script>
