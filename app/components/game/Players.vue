@@ -1,6 +1,10 @@
 <template>
     <UCard :title="nbPlayers">
-        <UPageColumns>
+        <UPageColumns
+            :ui= "{
+                base: 'relative columns-2 md:columns-'+players?.length+' lg:columns-'+players?.length+' gap-8'
+            }"
+        >
             <GamePlayer v-for="player in players" :player="player" :uid="authUser.uid"/>
         </UPageColumns>
     </UCard>
