@@ -1,12 +1,12 @@
 <template>
     <UCard :title="nbPlayers">
-        <UPageColumns
+        <UPageGrid
             :ui= "{
-                base: 'relative columns-2 md:columns-'+players?.length+' lg:columns-'+players?.length+' gap-8'
+              base: 'relative grid grid-cols-'+getCols(players?.length)+' md:grid-cols-'+players?.length+' lg:grid-cols-'+players?.length
             }"
-        >
+            >
             <GamePlayer v-for="player in players" :player="player" :uid="authUser.uid"/>
-        </UPageColumns>
+        </UPageGrid>
     </UCard>
 </template>
 <script setup lang="ts">
@@ -23,6 +23,11 @@
             },
     })
 
+    const max = 3
+    const getCols = (cols:number|undefined) => {
+        if (!cols) return max
+        return cols < 3 ? cols : max
+    }
     const nbPlayers = computed(() => {
         return props.players?.length + t('players.number')
     })

@@ -7,10 +7,10 @@
       <template #avatar>
         <UAvatar
           icon="noto:person-medium-light-skin-tone-blond-hair"
-          :chip="color?{
-            color: color,
+          :chip="isItMe?{
+            color: 'success',
             position: 'top-right'
-          }:false"
+          }:false"        
           :ui="{
             icon: 'h-full w-full rounded-[inherit] object-cover'            
           }"/>
@@ -25,8 +25,8 @@
   }
   const props = defineProps<Props>()    
 
-  const color = computed(() => {
-      return (props.uid == props.player.uid)?"success":false
+  const isItMe = computed(() => {
+      return (props.uid == props.player.uid)
   })
 
 </script>
