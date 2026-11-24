@@ -78,6 +78,12 @@
     return game.value?.userUid == authUser.value.uid
   })
 
+    // computed props
+    const path = computed(() => {
+        if (isAdmin.value) return "/admin/"
+        else return "/game/"
+    })
+
   // methods
   // sign out
   const signOut = () => {
@@ -153,6 +159,16 @@
         label: t('navbar.actualGame'),
         icon: 'streamline-color:button-play-flat',
         children: [
+            {
+              label: t('gamesList.ideas'),
+              icon: 'streamline-color:lightbulb-flat',
+              to: '/game/'+game.value?.id+'/ideas'
+            },
+            {
+              label: t('gamesList.people'),
+              icon: 'streamline-color:user-multiple-group-flat',
+              to: path.value+game.value?.id+'/players'
+            },
             {
             label: t('actionBar.resetLoves'),
             icon: 'streamline-color:disable-heart-flat',
