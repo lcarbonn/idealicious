@@ -7,10 +7,10 @@
       <UButton icon="streamline-color:button-play-flat" :to="'/game/'+row.original.id" class="mr-1" size="sm"></UButton>
     </UTooltip>
     <UTooltip :text="t('gamesList.ideas')">
-      <UButton icon="streamline-color:lightbulb-flat" :to="'/games/'+row.original.id+'/ideas/'" class="mr-1" size="sm"></UButton>
+      <UButton icon="streamline-color:lightbulb-flat" :to="'/game/'+row.original.id+'/ideas/'" class="mr-1" size="sm"></UButton>
     </UTooltip>
     <UTooltip :text="t('gamesList.people')">
-      <UButton icon="streamline-color:user-multiple-group-flat" :to="path+'/'+row.original.id+'/players/'" class="mr-1" size="sm"></UButton>
+      <UButton icon="streamline-color:user-multiple-group-flat" :to="path+row.original.id+'/players/'" class="mr-1" size="sm"></UButton>
     </UTooltip>
     <UTooltip :text="t('gamesList.delete')">
       <UButton icon="streamline-color:recycle-bin-2-flat" @click="askForDeleteGame()" class="mr-1" size="sm"></UButton>
@@ -31,8 +31,8 @@ import type { TableRow } from '@nuxt/ui';
 
     // computed props
     const path = computed(() => {
-        if (props.isAdmin) return "/admin"
-        else return "/games"
+        if (props.isAdmin) return "/admin/"
+        else return "/game/"
     })
 
       // emits declaration
