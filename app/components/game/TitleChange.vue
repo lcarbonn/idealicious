@@ -1,9 +1,10 @@
 <template>
   <div>
-      <UTooltip :text="t('adminGame.titleTooltip')">
-        <UCard class="bg-primary mb-3 mt-3">
+        <UPageCard class="mb-3 mt-3 text-inverted bg-primary">
           <template #title>
-            <ULink v-if="!changeAsked" @click="changeName()"><b class="text-white">{{title}}</b></ULink>
+            <UTooltip :text="t('adminGame.titleTooltip')" v-if="!changeAsked" >
+              <ULink @click="changeName()" variant="light" class="text-inverted">{{title}}</ULink>
+            </UTooltip>
             <UFormField v-else required :error="gameState">
               <UInput
                 id="gameTitle" 
@@ -21,8 +22,7 @@
               </UInput>
             </UFormField>
           </template>
-        </UCard>
-      </UTooltip>
+        </UPageCard>
   </div>
 </template>
 
