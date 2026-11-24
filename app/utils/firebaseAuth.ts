@@ -76,7 +76,7 @@ export const initUserFirebase = (callback:any) => {
   const auth = getAuth()
   if (import.meta.client) {
     onAuthStateChanged(auth, (user) => {
-      console.log("onAuthStateChanged user:"+user)
+      // console.log("onAuthStateChanged user:"+user)
       if (user) {
         // console.log("onAuthStateChanged signing user:", user)
         useFirebaseUser().value = user

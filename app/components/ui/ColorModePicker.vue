@@ -1,5 +1,5 @@
 <template>
-  <UPopover v-model:open="open" :ui="{ content: 'px-6 py-4 flex flex-col gap-4 overflow-y-auto' }" class="w-min">
+  <UPopover v-model:open="open" :ui="{ content: 'px-6 py-4 flex flex-col gap-4 overflow-y-auto z-100' }" class="w-min">
     <template #default>
         <UButton
           :icon="selectedMode?.icon"
@@ -51,7 +51,7 @@
   }
 
   // default
-  const selectedMode = ref()
+  const selectedMode = ref(getModeByLabel(useColorMode().preference))
 
   watch(selectedMode, value => {
     if(value) {

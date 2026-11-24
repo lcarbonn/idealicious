@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UHeader>
+    <UHeader v-model:open="open">
       <template #title>
         <UAvatar
           class="rounded-none"
@@ -8,19 +8,18 @@
       </template>
 
       <UNavigationMenu
-        :items="items"
-        content-orientation="vertical"/>
+        :items="items">
+      </UNavigationMenu>
+      <UiLocalePicker size="sm"/>
+      <UiColorModePicker size="sm"/>
 
-      <template #right>
-        <UiLocalePicker size="sm"/>
-        <UiColorModePicker size="sm"/>
-      </template>
-        
       <template #body>
         <UNavigationMenu
           :items="items"
           orientation="vertical">
         </UNavigationMenu>
+        <UiLocalePicker size="sm" class="relative flex flex-col"/>
+        <UiColorModePicker size="sm" class="relative flex flex-col px-2.5"/>
       </template>    
 
     </UHeader>
@@ -46,6 +45,7 @@
 
   const modalResetLoves = ref(new ModalShow())
   const modalDelete = ref(new ModalShow())
+  const open = ref(false)
 
   // global states
   const authUser = useAuthUser()
@@ -102,6 +102,7 @@
 
     // ask before reset loves
     const askResetLoves = () => {
+      open.value = !open.value
       modalResetLoves.value.show = !modalResetLoves.value.show
     }
 
@@ -128,6 +129,7 @@
 
     // methodes
     const askDeleteGame = () => {
+      open.value = !open.value
       modalDelete.value.show = !modalDelete.value.show
     }
     const confirmDelete = () => {
@@ -149,6 +151,7 @@
     items.push(
       {
         label: t('navbar.actualGame'),
+        icon: 'streamline-color:button-play-flat',
         children: [
             {
             label: t('actionBar.resetLoves'),
