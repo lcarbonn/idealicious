@@ -18,7 +18,7 @@
           :items="items"
           orientation="vertical">
         </UNavigationMenu>
-        <UiLocalePicker size="sm" class="relative flex flex-col"/>
+        <UiLocalePicker size="sm" class="relative flex flex-col" px-2.5/>
         <UiColorModePicker size="sm" class="relative flex flex-col px-2.5"/>
       </template>    
 
