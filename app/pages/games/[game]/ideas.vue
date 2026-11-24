@@ -1,7 +1,7 @@
 <template>
     <div class="mt-3">
       <GameTitle :title="t('pageTitle.ideasList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
-      <UCard>
+      <UCard :title="t('adminGame.allIdeas')" fluid class="text-center">
         <ListIdeasChain :gameId="gameId" :decksWithIdeas="decksWithIdeasSorted" :uid="authUser?.uid" :players="players" disabled/>
       </UCard>
     </div>
