@@ -78,12 +78,6 @@
     return game.value?.userUid == authUser.value.uid
   })
 
-    // computed props
-    // const path = computed(() => {
-    //     if (isAdmin.value) return "/admin/"
-    //     else return "/game/"
-    // })
-
   // methods
   // sign out
   const signOut = () => {

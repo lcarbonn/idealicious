@@ -8,8 +8,8 @@
       <template #default>
         <NuxtLink :to="'/game/'+game.id">
           <div class="grid grid-cols-2 gap-2">
-            <div>{{t('gamesList.table.user')}}</div>
-              <div class="font-semibold">{{game.user?.name}}</div>
+            <div v-if="isAdmin">{{t('gamesList.table.user')}}</div>
+              <div v-if="isAdmin" class="font-semibold">{{game.user?.name}}</div>
             <div>{{t('gamesList.table.created')}}</div>
               <div class="font-semibold">{{dateFormatter(game.createdAt)}}</div>
             <div>{{t('gamesList.table.updated')}}</div>

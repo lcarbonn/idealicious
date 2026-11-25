@@ -1,7 +1,7 @@
 <template>
     <div class="mt-3">
       <GameTitle :title="gameTitle  + ' : ' + t('pageTitle.playersList')"  :link="'/game/'+gameId"></GameTitle>
-      <ListGamePlayersList :players="players"></ListGamePlayersList>
+      <ListGamePlayersList :is-admin="isAdmin" :players="players"></ListGamePlayersList>
     </div>
 </template>
 <script setup lang="ts">
@@ -19,6 +19,7 @@
 
   // global refs
   const game = useGame()
+  const user = useUser()
   const players = useGamePlayers()
 
   onMounted(() => {
@@ -31,6 +32,10 @@
   // computed properties
   const gameTitle = computed(() => {
     return game.value?.title
+  })
+
+  const isAdmin = computed(() => {
+    return user.value?.isAdmin
   })
 
 </script>
