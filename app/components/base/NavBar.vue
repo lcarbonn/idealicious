@@ -79,10 +79,10 @@
   })
 
     // computed props
-    const path = computed(() => {
-        if (isAdmin.value) return "/admin/"
-        else return "/game/"
-    })
+    // const path = computed(() => {
+    //     if (isAdmin.value) return "/admin/"
+    //     else return "/game/"
+    // })
 
   // methods
   // sign out
@@ -167,7 +167,7 @@
             {
               label: t('gamesList.people'),
               icon: 'streamline-color:user-multiple-group-flat',
-              to: path.value+game.value?.id+'/players'
+              to: '/game/'+game.value?.id+'/players'
             },
             {
             label: t('actionBar.resetLoves'),

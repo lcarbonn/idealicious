@@ -1,17 +1,22 @@
 <template>
-  <UTable
-    sticky
-    :data="players"
-    :columns="columns"
-    :empty="t('playersList.empty')">
-  </UTable>
+    <UPageGrid class="grid-cols-2 mb-4">
+      <UiListTypeSwitch v-model="listType" size="sm" class="justify-self-end md:col-start-3 lg:col-start-5"/>
+    </UPageGrid>
+    <LazyListGamePlayersListCard v-if="listType=='card'"
+      :players="players"
+      :is-admin="isAdmin"
+      />
+    <LazyListGamePlayersListTable v-if="listType=='table'"
+      :players="players"
+      :is-admin="isAdmin"
+      />
 </template>
 
 <script setup lang="ts">
-  import type { TableColumn } from '@nuxt/ui';
-
   // for lang
   const { t } = useI18n()
+
+  const listType = ref()
 
   // props
   const props = defineProps({
@@ -24,34 +29,4 @@
           default: undefined
       },
   })
-
-  // properties of the players table
-  const columns = computed<TableColumn<IPlayer>[]>(() => [
-    {
-      accessorKey: 'name',
-      header: t('playersList.table.name')
-    },
-    {
-      accessorKey: 'playerId',
-      header: t('playersList.table.playerId'),
-    },
-    {
-      accessorKey: 'round',
-      header: t('playersList.table.round'),
-    }
-  ])
-
-  // ajouter email du joueur si user est admin
-  if(props.isAdmin) {
-    columns.value.splice(1,0,
-      {
-        accessorKey: 'user.email',
-        header: t('playersList.table.email'),
-        cell: ({ row }) => {
-          if(row.original.user?.email) return row.original.user.email
-          else return "Anonyme"
-        }
-      }
-    )
-  }
 </script>

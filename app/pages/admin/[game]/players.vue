@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3">
-      <GameTitle :title="t('pageTitle.playersList') + ' : ' + gameTitle"  :link="'/game/'+gameId"></GameTitle>
+      <GameTitle :title="gameTitle  + ' : ' + t('pageTitle.playersList')"  :link="'/game/'+gameId"></GameTitle>
       <ListGamePlayersList :isAdmin="true" :players="players"></ListGamePlayersList>
     </div>
 </template>
@@ -10,7 +10,6 @@
   definePageMeta({
       layout: 'game'
   })
-
 
   // for lang
   const { t } = useI18n()

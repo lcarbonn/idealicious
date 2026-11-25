@@ -1,7 +1,7 @@
 <template>
     <div class="mt-3">
         <GameTitle :title="t('pageTitle.gamesList')"></GameTitle>
-        <ListGamesList :isAdmin="true" :games="games" @deleteGame="askDeleteGame"></ListGamesList>
+        <ListGamesList :isAdmin="true" :games="games" @deleteGame="deleteGameConfirmed"></ListGamesList>
     </div>
 </template>
 
@@ -19,7 +19,7 @@
     })
 
     //methods
-    const askDeleteGame = (game:IGame) => {
+    const deleteGameConfirmed = (game:IGame) => {
         deleteGame(game.id)
         .then(()=>{
             messageToSnack(t('gamesList.deleteGameConfirmed'))
