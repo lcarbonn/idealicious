@@ -3,10 +3,8 @@
     <UCard
       v-for="game in games"
       variant="subtle"
-      class="text-xs">
-      <template #title>
-        <h1><b>Facture : {{game.title}}</b></h1>
-      </template>
+      class="text-xs"
+      :title="game.title">
       <template #default>
         <NuxtLink :to="'/game/'+game.id">
           <div class="grid grid-cols-2 gap-2">
