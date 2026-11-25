@@ -12,7 +12,7 @@
             position: 'top-right'
           }:false"        
           :ui="{
-            icon: 'h-full w-full rounded-[inherit] object-cover'            
+            icon: 'h-full w-full rounded-[inherit] object-cover '+getColor(player.playerId)
           }"/>
       </template>
       </UUser>
