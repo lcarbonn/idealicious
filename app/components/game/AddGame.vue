@@ -1,6 +1,6 @@
 <!-- Game page -->
 <template>
-  <UCard>
+  <UCard fluid class="text-center">
         <UFormField :label="t('addGame.label')" required :error="gameState">
           <UInput id="gameTitle"
             v-model="gameTitle" 
@@ -10,6 +10,7 @@
             @keydown.enter="addNewGame"
             class="mb-0 w-full"/>
         </UFormField>
+        <div class="items-center">
         <UTooltip :text="t('addGame.button')">
         <UButton
             icon="streamline-color:add-1-flat"
@@ -19,25 +20,7 @@
             class="mt-2"
           />
           </UTooltip>
-    <!-- <BContainer fluid>
-      <BRow>
-        <BCol>
-          <BFormGroup :label="t('addGame.label')" label-for="gameTitle" description="" class="mb-0">
-            <BFormInput id="gameTitle" v-model="gameTitle" :state="gameState" @keydown.enter="addNewGame"
-              :placeholder="t('addGame.placeholder')"
-              maxlength="140" trim class="mb-0"></BFormInput>
-          </BFormGroup>
-        </BCol>
-      </BRow>
-      <BRow align-h="center"  class="mt-2">
-        <BCol cols="auto">
-          <BButton pill id="addButton" variant="secondary" @click="addNewGame" :disabled="!gameState">
-            <PlusCircleFill/> {{t('addGame.button')}}
-          </BButton>
-          <BTooltip target="addButton" triggers="hover">{{t('addGame.button')}}</BTooltip>
-        </BCol>
-      </BRow>
-    </BContainer> -->
+        </div>
     </UCard>
 </template>
 
