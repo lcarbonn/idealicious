@@ -1,5 +1,5 @@
 <template>
-  <UPageGrid>
+  <UPageGrid class="lg:grid-cols-3">
     <UCard
       v-for="game in games"
       variant="subtle"
