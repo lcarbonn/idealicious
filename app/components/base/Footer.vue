@@ -9,15 +9,11 @@
       </template>
     </UFooter>
     <!-- real footer fixed on bottom-->
-    <UTheme
-      :ui="{
-        footer: {
-            root: 'fixed',
-        },
-
-      }"
+      <UFooter
+        :ui="{
+          root: 'fixed',
+        }"
         >
-      <UFooter>
         <template #top>
           <USeparator type="dashed" color="primary"
             :avatar="{
@@ -28,7 +24,6 @@
           <span>{{t('copyright', { year, appVersion})}}</span>
         </template>
       </UFooter>
-    </UTheme>
    </div>
 </template>
 
