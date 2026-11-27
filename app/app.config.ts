@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
     main: {
-      base: 'min-h-[calc(100vh-var(--ui-header-height)-var(--ui-footer-height))]'
+      base: 'min-h-[calc(100vh-var(--ui-header-height))]'
     },
     colors: {
       primary: 'brand',
@@ -26,7 +26,7 @@ export default defineAppConfig({
       }
     },
     pageGrid: {
-      base: 'relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8'
+      base: 'relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8'
     },
     pageColumns: {
       base: 'relative columns-3 md:columns-6 lg:columns-6 gap-8 space-y-8 *:break-inside-avoid-column *:will-change-transform'
