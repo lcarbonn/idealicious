@@ -1,29 +1,27 @@
 <template>
-  <div>
-        <UPageCard class="mb-3 mt-3 text-inverted bg-primary">
-          <template #title>
-            <UTooltip :text="t('adminGame.titleTooltip')" v-if="!changeAsked" >
-              <ULink @click="changeName()" variant="light" class="text-inverted">{{title}}</ULink>
-            </UTooltip>
-            <UFormField v-else required :error="gameState">
-              <UInput
-                id="gameTitle" 
-                autofocus 
-                v-model="newTitle" 
-                @keydown.enter="changeTitle()"
-                @keydown.escape="resetTitle()"
-                maxlength="140" trim class="mb-0 w-full">
-                <template #trailing>
-                  <UButton @click="resetTitle()" 
-                  icon="i-lucide-circle-x" 
-                  color="neutral"
-                  variant="link"></UButton>
-                </template>                
-              </UInput>
-            </UFormField>
-          </template>
-        </UPageCard>
-  </div>
+  <UPageCard class="text-inverted bg-primary">
+    <template #title>
+      <UTooltip :text="t('adminGame.titleTooltip')" v-if="!changeAsked" >
+        <ULink @click="changeName()" variant="light" class="text-inverted">{{title}}</ULink>
+      </UTooltip>
+      <UFormField v-else required :error="gameState">
+        <UInput
+          id="gameTitle" 
+          autofocus 
+          v-model="newTitle" 
+          @keydown.enter="changeTitle()"
+          @keydown.escape="resetTitle()"
+          maxlength="140" trim class="mb-0 w-full">
+          <template #trailing>
+            <UButton @click="resetTitle()" 
+            icon="i-lucide-circle-x" 
+            color="neutral"
+            variant="link"></UButton>
+          </template>                
+        </UInput>
+      </UFormField>
+    </template>
+  </UPageCard>
 </template>
 
 <script setup lang="ts">

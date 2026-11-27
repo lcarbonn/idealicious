@@ -1,9 +1,7 @@
 <!-- Main page -->
 <template>
 
-    <div class="text-center">
-      <GameJoinGame v-if="showForm" @joinGame="joinGame"/>
-    </div>
+    <GameJoinGame v-if="showForm" @joinGame="joinGame"/>
   
 </template>
 

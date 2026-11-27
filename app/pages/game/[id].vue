@@ -1,8 +1,8 @@
 <template>
     <div v-if="game">
-        <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT"/>
+        <GameTitleChange :title="gameTitle" @updateGameTitle="updateGameT" class="my-3"/>
         <GameCollapseGame :game="game"/>
-        <GameMenuGame :game="game"  class="mb-3 mt-3"/>
+        <GameMenuGame :game="game"  class="my-3"/>
         <GamePlayers :players="players"/>
         <LogicJoinGame v-if="!isKnowPlayer && game.isNotYetStarted()" :gameId="gameId"/>
         <LogicPlayerGame v-if="isKnowPlayer" :gameId="gameId" :uid="authUser.uid" class="mt-3"/>
