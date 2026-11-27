@@ -1,5 +1,5 @@
 <template>
-  <UPopover v-model:open="open" mode="hover" :ui="{ content: 'px-6 py-4 flex flex-col gap-4 overflow-y-auto z-100' }" class="w-min">
+  <UPopover v-model:open="open" mode="hover" enable-touch :ui="{ content: 'px-6 py-4 flex flex-col gap-4 overflow-y-auto z-100' }" class="w-min">
     <template #default>
         <UButton
           :icon="selectedMode?.icon"
